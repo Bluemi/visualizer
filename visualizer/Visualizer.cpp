@@ -169,7 +169,7 @@ void Visualizer::run()
 		for (unsigned int i = 0; i < 10; i++)
 		{
 			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, cubePositions[i] + glm::vec3(glfwGetTime(), 0.f, 0.f));
+			model = glm::translate(model, cubePositions[i]);
 			model = glm::translate(model, glm::vec3(sin(glfwGetTime()), 0.f, cos(glfwGetTime())));
 			//float angle = 90.f * (i/20.f+1.f) * glfwGetTime();
 			//model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));

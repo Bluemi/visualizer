@@ -25,7 +25,7 @@ namespace visualizer
 					_shape_store[ShapeType::CUBE] = initializer::initialize_cube();
 					break;
 				case ShapeType::SPHERE:
-					_shape_store[ShapeType::SPHERE] = initializer::initialize_sphere(5);
+					_shape_store[ShapeType::SPHERE] = initializer::initialize_sphere(3);
 					break;
 			}
 		}
