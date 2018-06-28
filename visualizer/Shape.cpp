@@ -6,8 +6,14 @@ namespace visualizer
 	const Attribute Shape::ColorAttribute(3, GL_FLOAT);
 	const Attribute Shape::TextureCoordinateAttribute(2, GL_FLOAT);
 
-	Shape::Shape(ShapeType shape_type, unsigned int vertex_array_object, unsigned int vertex_buffer_object, unsigned int number_vertices, bool use_indices)
-		: _shape_type(shape_type), _vertex_array_object(vertex_array_object), _vertex_buffer_object(vertex_buffer_object), _number_vertices(number_vertices), _use_indices(use_indices)
+	Shape::Shape(unsigned int vertex_array_object,
+				 unsigned int vertex_buffer_object,
+				 n_vertices number_vertices,
+				 bool use_indices)
+		: _vertex_array_object(vertex_array_object),
+		  _vertex_buffer_object(vertex_buffer_object),
+		  _number_vertices(number_vertices),
+		  _use_indices(use_indices)
 	{}
 
 	void Shape::free_buffers()
@@ -15,16 +21,17 @@ namespace visualizer
 		glDeleteVertexArrays(1, &_vertex_array_object);
 	}
 
-	Shape Shape::create(ShapeType shape_type, const float* vertices, unsigned int number_vertices, const std::vector<Attribute>& attributes)
+	Shape Shape::create(const float* vertices,
+						n_vertices number_vertices,
+						const std::vector<Attribute>& attributes)
 	{
 		unsigned int vao = create_vao();
 		unsigned int attributes_size = get_attributes_size(attributes);
-		unsigned int vbo = buffer_vertices(vertices, number_vertices * attributes_size * sizeof(float));
+		unsigned int vbo;
+		vbo = buffer_vertices(vertices, number_vertices * attributes_size * sizeof(float));
 		create_attribute_pointer(attributes);
 
-		unbind();
-
-		return Shape(shape_type, vao, vbo, number_vertices, false);
+		return Shape(vao, vbo, number_vertices, false);
 	}
 
 	void Shape::bind() const
@@ -32,17 +39,12 @@ namespace visualizer
 		glBindVertexArray(_vertex_array_object);
 	}
 
-	ShapeType Shape::get_shape_type() const
-	{
-		return _shape_type;
-	}
-
-	bool Shape::is_use_indices() const
+	bool Shape::use_indices() const
 	{
 		return _use_indices;
 	}
 
-	unsigned int Shape::get_number_vertices() const
+	n_vertices Shape::get_number_vertices() const
 	{
 		return _number_vertices;
 	}
@@ -60,7 +62,7 @@ namespace visualizer
 		return vao;
 	}
 
-	unsigned int Shape::buffer_vertices(const float* vertices, unsigned int vertices_size)
+	unsigned int Shape::buffer_vertices(const float* vertices, size_t vertices_size)
 	{
 		unsigned int vbo;
 		glGenBuffers(1, &vbo);
@@ -69,7 +71,7 @@ namespace visualizer
 		return vbo;
 	}
 
-	unsigned int Shape::get_attributes_size(const std::vector<Attribute>& attributes)
+	n_floats Shape::get_attributes_size(const std::vector<Attribute>& attributes)
 	{
 		unsigned int attributes_size = 0;
 		for (Attribute a : attributes)
@@ -81,12 +83,17 @@ namespace visualizer
 
 	void Shape::create_attribute_pointer(const std::vector<Attribute>& attributes)
 	{
-		unsigned int attributes_stride = get_attributes_size(attributes) * sizeof(float);
+		size_t attributes_stride = get_attributes_size(attributes) * sizeof(float);
 
-		unsigned long offset = 0;
+		size_t offset = 0;
 		for (unsigned int i = 0; i < attributes.size(); i++)
 		{
-			glVertexAttribPointer(i, attributes[i].size, attributes[i].type, GL_FALSE, attributes_stride, (void*)offset);
+			glVertexAttribPointer(i,
+								  attributes[i].size,
+								  attributes[i].type,
+								  GL_FALSE,
+								  attributes_stride,
+								  (void*)offset);
 			offset += attributes[i].size * sizeof(float);
 			glEnableVertexAttribArray(i);
 		}

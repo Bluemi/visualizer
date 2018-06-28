@@ -11,7 +11,7 @@
 
 #include "Visualizer.hpp"
 #include "ShaderProgram.hpp"
-#include "ShapeContainer.hpp"
+#include "ShapeInitializer.hpp"
 
 Visualizer::Visualizer()
 {}
@@ -53,13 +53,11 @@ void Visualizer::run()
 		return;
 	}    
 
-	glViewport(0, 0, 600, 600);
+	glViewport(0, 0, 800, 600);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-	visualizer::ShapeType shape_type = visualizer::ShapeType::SPHERE;
-	visualizer::ShapeContainer container;
-	container.initialize(shape_type);
-	container.bind(shape_type);
+	visualizer::Shape shape = visualizer::initialize::sphere(4);
+	shape.bind();
 
 	/*
 	// texture
@@ -112,7 +110,10 @@ void Visualizer::run()
 
 	*/
 
-	ShaderProgram shader_program = ShaderProgram::from_files("visualizer/shaders/vertex_shader.vs", "visualizer/shaders/fragment_shader.fs");
+	ShaderProgram shader_program = ShaderProgram::from_files(
+			"visualizer/shaders/vertex_shader.vs",
+			"visualizer/shaders/fragment_shader.fs");
+
 	shader_program.use();
 
 	/*
@@ -171,21 +172,15 @@ void Visualizer::run()
 			glm::mat4 model = glm::mat4(1.0f);
 			model = glm::translate(model, cubePositions[i]);
 			model = glm::translate(model, glm::vec3(sin(glfwGetTime()), 0.f, cos(glfwGetTime())));
-			//float angle = 90.f * (i/20.f+1.f) * glfwGetTime();
-			//model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 			shader_program.set_4fv("model", model);
 
-			std::optional<visualizer::Shape> opt_shape = container.get_shape(shape_type);
-			if (opt_shape)
-			{
-				unsigned int number_vertices = (*opt_shape).get_number_vertices();
-				glDrawArrays(GL_TRIANGLES, 0, number_vertices);
-			}
+			glDrawArrays(GL_TRIANGLES, 0, shape.get_number_vertices());
 		}
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 
+	shape.free_buffers();
 	glfwTerminate();
 }

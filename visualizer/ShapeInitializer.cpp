@@ -8,9 +8,9 @@
 
 namespace visualizer
 {
-	namespace initializer
+	namespace initialize
 	{
-		Shape initialize_cube()
+		Shape cube()
 		{
 			float vertices[] = {
 				-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -58,7 +58,7 @@ namespace visualizer
 
 			std::vector<Attribute> attributes = {Shape::PositionAttribute, Shape::TextureCoordinateAttribute};
 
-			return Shape::create(ShapeType::CUBE, vertices, 36, attributes);
+			return Shape::create(vertices, 36, attributes);
 		}
 
 		class Triangle
@@ -124,7 +124,7 @@ namespace visualizer
 			}
 		}
 
-		Shape initialize_sphere(unsigned int fineness)
+		Shape sphere(unsigned int fineness)
 		{
 			glm::vec3 top(0.0f,  1.0f,  0.0f);
 			glm::vec3 bot(0.0f, -1.0f,  0.0f);
@@ -159,7 +159,7 @@ namespace visualizer
 
 			std::vector<Attribute> attributes = {Shape::PositionAttribute};
 
-			return Shape::create(ShapeType::SPHERE, vertices, triangles.size() * 3, attributes);
+			return Shape::create(vertices, triangles.size() * 3, attributes);
 		}
 	}
 }
