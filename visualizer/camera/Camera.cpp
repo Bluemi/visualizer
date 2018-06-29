@@ -4,6 +4,11 @@
 #include <iostream>
 #include <math.h>
 
+
+const float Camera::CAMERA_SPEED = 0.02f;
+const float Camera::CAMERA_ROTATE_SPEED = 0.1f;
+const float Camera::CAMERA_DRAG = 0.78f;
+
 Camera::Camera()
 {}
 
@@ -65,5 +70,10 @@ void Camera::change_direction(glm::vec2 value)
 
 void Camera::set_acceleration(const glm::vec3& acceleration)
 {
-	_acceleration = acceleration;
+	//_acceleration = acceleration;
+	glm::vec3 a;
+	a = get_direction() * acceleration.x;
+	a += get_top() * acceleration.y;
+	a += get_right() * acceleration.z;
+	_acceleration = a;
 }

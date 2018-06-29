@@ -23,9 +23,9 @@ class Camera
 		void change_direction(glm::vec2 value);
 		void set_acceleration(const glm::vec3& acceleration);
 	private:
-		const float CAMERA_SPEED = 0.03f;
-		const float CAMERA_ROTATE_SPEED = 0.1f;
-		const float CAMERA_DRAG = 0.78f;
+		static const float CAMERA_SPEED;
+		static const float CAMERA_ROTATE_SPEED;
+		static const float CAMERA_DRAG;
 
 		glm::vec3 _position;
 		glm::vec3 _speed;

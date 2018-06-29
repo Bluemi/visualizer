@@ -1,14 +1,18 @@
 #include "Controller.hpp"
 
+#include <iostream>
+
 #include "../camera/Camera.hpp"
 
 namespace visualizer
 {
-	const KeyType Controller::CAMERA_FORWARD_KEY = GLFW_KEY_W;
-	const KeyType Controller::CAMERA_BACKWARD_KEY = GLFW_KEY_S;
-	const KeyType Controller::CAMERA_LEFT_KEY = GLFW_KEY_A;
-	const KeyType Controller::CAMERA_RIGHT_KEY = GLFW_KEY_D;
-	const KeyType Controller::CLOSE_KEY = GLFW_KEY_ESCAPE;
+	const Key Controller::CAMERA_FORWARD_KEY = GLFW_KEY_W;
+	const Key Controller::CAMERA_BACKWARD_KEY = GLFW_KEY_S;
+	const Key Controller::CAMERA_LEFT_KEY = GLFW_KEY_A;
+	const Key Controller::CAMERA_RIGHT_KEY = GLFW_KEY_D;
+	const Key Controller::CAMERA_TOP_KEY = GLFW_KEY_SPACE;
+	const Key Controller::CAMERA_BOTTOM_KEY = GLFW_KEY_LEFT_CONTROL;
+	const Key Controller::CLOSE_KEY = GLFW_KEY_ESCAPE;
 
 	Controller::Controller() : Controller(nullptr)
 	{}
@@ -16,16 +20,21 @@ namespace visualizer
 	Controller::Controller(Camera* camera)
 		: _camera(camera)
 	{
-		std::vector<KeyType> keys_to_track = {CAMERA_LEFT_KEY,
+		std::vector<Key> keys_to_track = {CAMERA_LEFT_KEY,
 											  CAMERA_RIGHT_KEY,
 											  CAMERA_FORWARD_KEY,
 											  CAMERA_BACKWARD_KEY,
 											  CLOSE_KEY};
 
-		for (KeyType key : keys_to_track)
+		for (Key key : keys_to_track)
 		{
 			_is_pressed[key] = false;
 		}
+	}
+
+	void Controller::mouse_callback(double x, double y)
+	{
+		_camera->change_direction(glm::vec2(x, y));
 	}
 
 	void Controller::instruct_camera(Camera* camera)
@@ -49,27 +58,36 @@ namespace visualizer
 			}
 		}
 
+		process_camera();
+	}
+
+	void Controller::process_camera()
+	{
 		glm::vec3 acceleration;
 		if (_is_pressed[CAMERA_FORWARD_KEY])
-			acceleration.z -= 1.f;
-		if (_is_pressed[CAMERA_BACKWARD_KEY])
-			acceleration.z += 1.f;
-		if (_is_pressed[CAMERA_RIGHT_KEY])
 			acceleration.x += 1.f;
-		if (_is_pressed[CAMERA_LEFT_KEY])
+		if (_is_pressed[CAMERA_BACKWARD_KEY])
 			acceleration.x -= 1.f;
+		if (_is_pressed[CAMERA_RIGHT_KEY])
+			acceleration.z += 1.f;
+		if (_is_pressed[CAMERA_LEFT_KEY])
+			acceleration.z -= 1.f;
+		if (_is_pressed[CAMERA_TOP_KEY])
+			acceleration.y += 1.f;
+		if (_is_pressed[CAMERA_BOTTOM_KEY])
+			acceleration.y -= 1.f;
 
 		if (_camera != nullptr)
 			_camera->set_acceleration(acceleration);
 	}
 
-	void Controller::key_pressed(GLFWwindow* window, KeyType key)
+	void Controller::key_pressed(GLFWwindow* window, Key key)
 	{
 		if (key == CLOSE_KEY)
 			glfwSetWindowShouldClose(window, true);
 	}
 
-	void Controller::key_released(GLFWwindow*, KeyType)
+	void Controller::key_released(GLFWwindow*, Key)
 	{
 	}
 }
