@@ -56,59 +56,8 @@ void Visualizer::run()
 	glViewport(0, 0, 800, 600);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-	visualizer::Shape shape = visualizer::initialize::sphere(4);
+	visualizer::Shape shape = visualizer::initialize::sphere(4, true);
 	shape.bind();
-
-	/*
-	// texture
-	int width, height, nrChannels;
-	std::string texture_path = "res/container.jpg";
-	unsigned char* data = stbi_load(texture_path.c_str(), &width, &height, &nrChannels, 0);
-
-	if (!data)
-	{
-		std::cout << "failed to load texture: \"" << texture_path << std::endl;
-		return;
-	}
-
-	unsigned int texture1;
-	glGenTextures(1, &texture1);
-	glBindTexture(GL_TEXTURE_2D, texture1);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	stbi_image_free(data);
-
-	// second image
-	stbi_set_flip_vertically_on_load(true);
-	texture_path = "res/awesomeface.png";
-	data = stbi_load(texture_path.c_str(), &width, &height, &nrChannels, 0);
-	if (!data)
-	{
-		std::cout << "failed to load texture: \"" << texture_path << std::endl;
-		return;
-	}
-
-	unsigned int texture2;
-	glGenTextures(1, &texture2);
-	glBindTexture(GL_TEXTURE_2D, texture2);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-	stbi_image_free(data);
-
-	*/
 
 	ShaderProgram shader_program = ShaderProgram::from_files(
 			"visualizer/shaders/vertex_shader.vs",
@@ -116,41 +65,18 @@ void Visualizer::run()
 
 	shader_program.use();
 
-	/*
-	shader_program.set_int("ourTexture1", 0);
-	shader_program.set_int("ourTexture2", 1);
-	*/
-
 	glEnable(GL_DEPTH_TEST);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	glm::vec3 cubePositions[] = {
-		glm::vec3( 0.0f,  0.0f,  0.0f), 
-		glm::vec3( 2.0f,  5.0f, -15.0f), 
-		glm::vec3(-1.5f, -2.2f, -2.5f),  
-		glm::vec3(-3.8f, -2.0f, -12.3f),  
-		glm::vec3( 2.4f, -0.4f, -3.5f),  
-		glm::vec3(-1.7f,  3.0f, -7.5f),  
-		glm::vec3( 1.3f, -2.0f, -2.5f),  
-		glm::vec3( 1.5f,  2.0f, -2.5f), 
-		glm::vec3( 1.5f,  0.2f, -1.5f), 
-		glm::vec3(-1.3f,  1.0f, -1.5f)  
-	};
+	glm::vec3 cubePosition = glm::vec3( 0.0f,  0.0f,  0.0f);
 
 	// render loop
 	while (!glfwWindowShouldClose(window))
 	{
 		processUserInput(window);
 
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		// draw something
-		/*
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture1);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, texture2);
-		*/
 
 		glm::mat4 view = glm::mat4(1.0f);
 		float radius = 10.f;
@@ -165,17 +91,12 @@ void Visualizer::run()
 		shader_program.set_4fv("view", view);
 		shader_program.set_4fv("projection", projection);
 
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-		for (unsigned int i = 0; i < 10; i++)
-		{
-			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, cubePositions[i]);
-			model = glm::translate(model, glm::vec3(sin(glfwGetTime()), 0.f, cos(glfwGetTime())));
-			shader_program.set_4fv("model", model);
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, cubePosition);
+		shader_program.set_4fv("model", model);
 
-			glDrawArrays(GL_TRIANGLES, 0, shape.get_number_vertices());
-		}
+		glDrawArrays(GL_TRIANGLES, 0, shape.get_number_vertices());
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

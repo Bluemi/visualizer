@@ -23,7 +23,7 @@ namespace visualizer
 		 * 				   The number of triangles used to draw the sphere is defined by:
 		 * 				   n_triangles = 8 * 4 ^ fineness
 		 */
-		Shape sphere(unsigned int fineness);
+		Shape sphere(unsigned int fineness, bool use_normales);
 	}
 }
 

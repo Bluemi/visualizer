@@ -78,6 +78,7 @@ namespace visualizer
 			static const Attribute PositionAttribute;
 			static const Attribute ColorAttribute;
 			static const Attribute TextureCoordinateAttribute;
+			static const Attribute NormaleAttribute;
 		private:
 			/**
 			 * Creates a new Shape

@@ -5,6 +5,7 @@ namespace visualizer
 	const Attribute Shape::PositionAttribute(3, GL_FLOAT);
 	const Attribute Shape::ColorAttribute(3, GL_FLOAT);
 	const Attribute Shape::TextureCoordinateAttribute(2, GL_FLOAT);
+	const Attribute Shape::NormaleAttribute(3, GL_FLOAT);
 
 	Shape::Shape(unsigned int vertex_array_object,
 				 unsigned int vertex_buffer_object,
