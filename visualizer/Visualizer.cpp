@@ -22,14 +22,6 @@ void framebuffer_size_callback(GLFWwindow*, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-void processUserInput(GLFWwindow* window)
-{
-	if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	{
-		glfwSetWindowShouldClose(window, true);
-	}
-}
-
 void Visualizer::run()
 {
 	glfwInit();
@@ -74,10 +66,12 @@ void Visualizer::run()
 	Camera camera(glm::vec3(-5.f, 0.f, 0.f), 0.f, 0.f);
 	camera.set_acceleration(glm::vec3(-1.f, 0.f, 0.f));
 
+	_controller.instruct_camera(&camera);
+
 	// render loop
 	while (!glfwWindowShouldClose(window))
 	{
-		processUserInput(window);
+		_controller.process_user_input(window);
 		camera.tick();
 
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
