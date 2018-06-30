@@ -61,7 +61,7 @@ void Visualizer::run()
 	visualizer::Shape shape = visualizer::initialize::sphere(4, true);
 	shape.bind();
 
-	ShaderProgram shader_program = ShaderProgram::from_files(
+	visualizer::ShaderProgram shader_program = visualizer::ShaderProgram::from_files(
 			"visualizer/shaders/vertex_shader.vs",
 			"visualizer/shaders/fragment_shader.fs");
 

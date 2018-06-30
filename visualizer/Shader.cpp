@@ -6,62 +6,65 @@
 #include <fstream>
 #include <sstream>
 
-const unsigned int LOG_BUFFER_SIZE = 512;
-
-Shader Shader::from_file(const std::string& path, unsigned int shader_type)
+namespace visualizer
 {
-	std::string code;
-	std::ifstream shader_file;
+	const unsigned int LOG_BUFFER_SIZE = 512;
 
-	shader_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-
-	try
+	Shader Shader::from_file(const std::string& path, unsigned int shader_type)
 	{
-		shader_file.open(path);
-		std::stringstream stream;
-		stream << shader_file.rdbuf();
-		shader_file.close();
-		code = stream.str();
-	} catch (std::ifstream::failure e) {
-		std::cout << "Error while reading shader: \"" << path << "\"" << std::endl;
+		std::string code;
+		std::ifstream shader_file;
+
+		shader_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+		try
+		{
+			shader_file.open(path);
+			std::stringstream stream;
+			stream << shader_file.rdbuf();
+			shader_file.close();
+			code = stream.str();
+		} catch (std::ifstream::failure e) {
+			std::cout << "Error while reading shader: \"" << path << "\"" << std::endl;
+		}
+
+		unsigned int shader_id;
+		int success;
+		char infoLog[LOG_BUFFER_SIZE];
+
+		const char* c = code.c_str();
+
+		shader_id = glCreateShader(shader_type);
+		glShaderSource(shader_id, 1, &c, NULL);
+		glCompileShader(shader_id);
+
+		// print compile errors
+		glGetShaderiv(shader_id, GL_COMPILE_STATUS, &success);
+		if (!success)
+		{
+			glGetShaderInfoLog(shader_id, LOG_BUFFER_SIZE, NULL, infoLog);
+			std::cout << "ERROR: Compiling of shader: \"" << path << "\"" << std::endl;
+		}
+
+		return Shader(shader_id, shader_type);
 	}
 
-	unsigned int shader_id;
-	int success;
-	char infoLog[LOG_BUFFER_SIZE];
+	Shader::Shader(unsigned int id, unsigned int shader_type)
+		: _id(id), _shader_type(shader_type)
+	{}
 
-	const char* c = code.c_str();
-
-	shader_id = glCreateShader(shader_type);
-	glShaderSource(shader_id, 1, &c, NULL);
-	glCompileShader(shader_id);
-
-	// print compile errors
-	glGetShaderiv(shader_id, GL_COMPILE_STATUS, &success);
-	if (!success)
+	unsigned int Shader::get_shader_type() const
 	{
-		glGetShaderInfoLog(shader_id, LOG_BUFFER_SIZE, NULL, infoLog);
-		std::cout << "ERROR: Compiling of shader: \"" << path << "\"" << std::endl;
+		return _shader_type;
 	}
 
-	return Shader(shader_id, shader_type);
-}
+	unsigned int Shader::get_id() const
+	{
+		return _id;
+	}
 
-Shader::Shader(unsigned int id, unsigned int shader_type)
-	: _id(id), _shader_type(shader_type)
-{}
-
-unsigned int Shader::get_shader_type() const
-{
-	return _shader_type;
-}
-
-unsigned int Shader::get_id() const
-{
-	return _id;
-}
-
-void Shader::del() const
-{
-	glDeleteShader(_id);
+	void Shader::del() const
+	{
+		glDeleteShader(_id);
+	}
 }
