@@ -19,6 +19,7 @@ namespace visualizer
 
 			void mouse_callback(double x, double y);
 			void instruct_camera(Camera* camera);
+			void clear_camera();
 
 			void process_user_input(GLFWwindow* window);
 			void process_camera();

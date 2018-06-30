@@ -1,7 +1,8 @@
 #include "visualizer/Visualizer.hpp"
 
 int main() {
-	Visualizer vis;
+	visualizer::Visualizer vis;
+	vis.init();
 	vis.run();
 	return 0;
 }

@@ -30,7 +30,7 @@ namespace visualizer
 		return "(" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + ", " + std::to_string(vec.z) + ")";
 	}
 
-	void Visualizer::run()
+	void Visualizer::init()
 	{
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -38,15 +38,15 @@ namespace visualizer
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-		GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
-		if (window == NULL)
+		_window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+		if (_window == NULL)
 		{
 			std::cout << "failed to create window" << std::endl;
 			glfwTerminate();
 			return;
 		}
 
-		glfwMakeContextCurrent(window);
+		glfwMakeContextCurrent(_window);
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
@@ -55,11 +55,17 @@ namespace visualizer
 		}
 
 		glViewport(0, 0, 800, 600);
-		glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
+		glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
+		glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-		visualizer::MouseManager::init(window);
+		visualizer::MouseManager::init(_window);
 
+		glEnable(GL_DEPTH_TEST);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+
+	void Visualizer::run()
+	{
 		visualizer::Shape shape = visualizer::initialize::sphere(4, true);
 		shape.bind();
 
@@ -68,9 +74,6 @@ namespace visualizer
 				"visualizer/shaders/fragment_shader.fs");
 
 		shader_program.use();
-
-		glEnable(GL_DEPTH_TEST);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		glm::vec3 cubePosition = glm::vec3(0.0f,  0.0f,  0.0f);
 
@@ -84,17 +87,10 @@ namespace visualizer
 		projection = glm::perspective(glm::radians(45.0f), 800.f/600.f, 0.1f, 100.f);
 
 		// render loop
-		while (!glfwWindowShouldClose(window))
+		while (!glfwWindowShouldClose(_window))
 		{
-			_controller.process_user_input(window);
+			_controller.process_user_input(_window);
 			camera.tick();
-
-			/*
-			std::cout << "camera_position: " << vec_to_str(camera.get_position()) << std::endl;
-			std::cout << "camera_direction: " << vec_to_str(camera.get_direction()) << std::endl;
-			std::cout << "camera_right: " << vec_to_str(camera.get_right()) << std::endl;
-			std::cout << "camera_top: " << vec_to_str(camera.get_top()) << std::endl;
-			*/
 
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -104,18 +100,18 @@ namespace visualizer
 			shader_program.set_4fv("view", view);
 			shader_program.set_4fv("projection", projection);
 
-
 			glm::mat4 model = glm::mat4(1.0f);
 			model = glm::translate(model, cubePosition);
 			shader_program.set_4fv("model", model);
 
 			glDrawArrays(GL_TRIANGLES, 0, shape.get_number_vertices());
 
-			glfwSwapBuffers(window);
+			glfwSwapBuffers(_window);
 			glfwPollEvents();
 		}
 
 		visualizer::MouseManager::clear();
+		_controller.clear_camera();
 
 		shape.free_buffers();
 		glfwTerminate();

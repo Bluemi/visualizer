@@ -43,6 +43,11 @@ namespace visualizer
 		_camera = camera;
 	}
 
+	void Controller::clear_camera()
+	{
+		_camera = nullptr;
+	}
+
 	void Controller::process_user_input(GLFWwindow* window)
 	{
 		for (auto it = _is_pressed.begin(); it != _is_pressed.end(); ++it)
