@@ -3,3 +3,4 @@ compile.sh
 run.sh
 res/
 core.*
+compile_commands.json
