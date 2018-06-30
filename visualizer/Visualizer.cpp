@@ -14,14 +14,18 @@
 #include "ShapeInitializer.hpp"
 #include "camera/Camera.hpp"
 #include "controller/MouseManager.hpp"
+#include "controller/ResizeManager.hpp"
 
 namespace visualizer
 {
 	Visualizer::Visualizer()
+		: _window_width(800), _window_height(600)
 	{}
 
-	void framebuffer_size_callback(GLFWwindow*, int width, int height)
+	void Visualizer::framebuffer_size_callback(GLFWwindow*, int width, int height)
 	{
+		_window_width = width;
+		_window_height = height;
 		glViewport(0, 0, width, height);
 	}
 
@@ -38,7 +42,7 @@ namespace visualizer
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-		_window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+		_window = glfwCreateWindow(_window_width, _window_height, "LearnOpenGL", NULL, NULL);
 		if (_window == NULL)
 		{
 			std::cout << "failed to create window" << std::endl;
@@ -54,9 +58,11 @@ namespace visualizer
 			return;
 		}
 
-		glViewport(0, 0, 800, 600);
-		glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
+		glViewport(0, 0, _window_width, _window_height);
 		glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+		ResizeManager::init(_window);
+		ResizeManager::add_visualizer(this);
 
 		visualizer::MouseManager::init(_window);
 
@@ -84,7 +90,6 @@ namespace visualizer
 		visualizer::MouseManager::add_controller(&_controller);
 
 		glm::mat4 projection = glm::mat4(1.0f);
-		projection = glm::perspective(glm::radians(45.0f), 800.f/600.f, 0.1f, 100.f);
 
 		// render loop
 		while (!glfwWindowShouldClose(_window))
@@ -96,8 +101,9 @@ namespace visualizer
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			glm::mat4 view = camera.get_look_at();
-
 			shader_program.set_4fv("view", view);
+
+			projection = glm::perspective(glm::radians(45.0f), _window_width/(float)_window_height, 0.1f, 100.f);
 			shader_program.set_4fv("projection", projection);
 
 			glm::mat4 model = glm::mat4(1.0f);
@@ -112,6 +118,7 @@ namespace visualizer
 
 		visualizer::MouseManager::clear();
 		_controller.clear_camera();
+		ResizeManager::clear_visualizers();
 
 		shape.free_buffers();
 		glfwTerminate();
