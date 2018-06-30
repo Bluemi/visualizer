@@ -3,7 +3,6 @@
 
 #include "controller/Controller.hpp"
 
-
 namespace visualizer
 {
 	class Visualizer
@@ -12,6 +11,7 @@ namespace visualizer
 			Visualizer();
 
 			void init();
+			void clear_window();
 			void run();
 
 			void framebuffer_size_callback(GLFWwindow*, int width, int height);

@@ -15,6 +15,7 @@
 #include "camera/Camera.hpp"
 #include "controller/MouseManager.hpp"
 #include "controller/ResizeManager.hpp"
+#include "entity/Entity.hpp"
 
 namespace visualizer
 {
@@ -27,11 +28,6 @@ namespace visualizer
 		_window_width = width;
 		_window_height = height;
 		glViewport(0, 0, width, height);
-	}
-
-	std::string vec_to_str(const glm::vec3& vec)
-	{
-		return "(" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + ", " + std::to_string(vec.z) + ")";
 	}
 
 	void Visualizer::init()
@@ -70,26 +66,29 @@ namespace visualizer
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 
+	void Visualizer::clear_window()
+	{
+			glClearColor(0.05f, 0.07f, 0.08f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+
 	void Visualizer::run()
 	{
 		visualizer::Shape shape = visualizer::initialize::sphere(4, true);
-		shape.bind();
 
 		visualizer::ShaderProgram shader_program = visualizer::ShaderProgram::from_files(
 				"visualizer/shaders/vertex_shader.vs",
 				"visualizer/shaders/fragment_shader.fs");
 
-		shader_program.use();
-
-		glm::vec3 cubePosition = glm::vec3(0.0f,  0.0f,  0.0f);
+		Entity entity(shape);
 
 		Camera camera(glm::vec3(-5.f, 0.f, 0.f), 0.f, 0.f);
 
 		_controller.instruct_camera(&camera);
 
 		visualizer::MouseManager::add_controller(&_controller);
-
-		glm::mat4 projection = glm::mat4(1.0f);
+		clear_window();
 
 		// render loop
 		while (!glfwWindowShouldClose(_window))
@@ -97,20 +96,16 @@ namespace visualizer
 			_controller.process_user_input(_window);
 			camera.tick();
 
-			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			clear_window();
 
-			glm::mat4 view = camera.get_look_at();
-			shader_program.set_4fv("view", view);
+			shader_program.set_4fv("view", camera.get_look_at());
 
-			projection = glm::perspective(glm::radians(45.0f), _window_width/(float)_window_height, 0.1f, 100.f);
+			glm::mat4 projection = glm::perspective(glm::radians(45.0f),
+													_window_width/(float)_window_height,
+													0.1f, 100.f);
 			shader_program.set_4fv("projection", projection);
 
-			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, cubePosition);
-			shader_program.set_4fv("model", model);
-
-			glDrawArrays(GL_TRIANGLES, 0, shape.get_number_vertices());
+			entity.render(shader_program);
 
 			glfwSwapBuffers(_window);
 			glfwPollEvents();
