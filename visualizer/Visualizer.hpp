@@ -3,14 +3,20 @@
 
 #include "controller/Controller.hpp"
 
-class Visualizer
-{
-	public:
-		Visualizer();
 
-		void run();
-	private:
-		visualizer::Controller _controller;
-};
+namespace visualizer
+{
+	class Visualizer
+	{
+		public:
+			Visualizer();
+
+			void init();
+			void run();
+		private:
+			visualizer::Controller _controller;
+			GLFWwindow* _window;
+	};
+}
 
 #endif
