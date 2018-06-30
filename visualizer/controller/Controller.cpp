@@ -34,7 +34,8 @@ namespace visualizer
 
 	void Controller::mouse_callback(double x, double y)
 	{
-		_camera->change_direction(glm::vec2(x, y));
+		x_change += x;
+		y_change += y;
 	}
 
 	void Controller::instruct_camera(Camera* camera)
@@ -79,6 +80,9 @@ namespace visualizer
 
 		if (_camera != nullptr)
 			_camera->set_acceleration(acceleration);
+			_camera->change_direction(glm::vec2(x_change, y_change));
+			x_change = 0.0;
+			y_change = 0.0;
 	}
 
 	void Controller::key_pressed(GLFWwindow* window, Key key)

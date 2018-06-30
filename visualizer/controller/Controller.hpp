@@ -36,6 +36,7 @@ namespace visualizer
 		private:
 			std::map<Key, bool> _is_pressed;
 			Camera* _camera;
+			double x_change, y_change;
 	};
 }
 
