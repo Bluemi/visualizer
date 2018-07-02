@@ -6,11 +6,11 @@
 
 #include <GLFW/glfw3.h>
 
-class Camera;
-
 namespace visualizer
 {
+	class Camera;
 	typedef unsigned int Key;
+
 	class Controller
 	{
 		public:

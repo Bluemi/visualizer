@@ -12,15 +12,16 @@
 #include "Visualizer.hpp"
 #include "ShaderProgram.hpp"
 #include "ShapeInitializer.hpp"
-#include "camera/Camera.hpp"
 #include "controller/MouseManager.hpp"
 #include "controller/ResizeManager.hpp"
-#include "entity/Entity.hpp"
+#include "entity/Movable.hpp"
+#include "movement/SetSpeed.hpp"
+#include "movement/GotoCamera.hpp"
 
 namespace visualizer
 {
 	Visualizer::Visualizer()
-		: _window_width(800), _window_height(600)
+		: _window_width(800), _window_height(600), _camera(glm::vec3(-5.f, 0.f, 0.f), 0.f, 0.f)
 	{}
 
 	void Visualizer::framebuffer_size_callback(GLFWwindow*, int width, int height)
@@ -60,7 +61,10 @@ namespace visualizer
 		ResizeManager::init(_window);
 		ResizeManager::add_visualizer(this);
 
+		_controller.instruct_camera(&_camera);
+
 		visualizer::MouseManager::init(_window);
+		visualizer::MouseManager::add_controller(&_controller);
 
 		glEnable(GL_DEPTH_TEST);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -81,24 +85,25 @@ namespace visualizer
 				"visualizer/shaders/vertex_shader.vs",
 				"visualizer/shaders/fragment_shader.fs");
 
-		Entity entity(shape);
+		Movable entity(shape);
 
-		Camera camera(glm::vec3(-5.f, 0.f, 0.f), 0.f, 0.f);
-
-		_controller.instruct_camera(&camera);
-
-		visualizer::MouseManager::add_controller(&_controller);
 		clear_window();
+
+		//entity.set_speed(glm::vec3(0.01f, 0.f, 0.f));
+		//entity.add_movement(new SetSpeed(0.01f, 0.f, 0.f));
+		entity.add_movement(new GotoCamera(&_camera));
 
 		// render loop
 		while (!glfwWindowShouldClose(_window))
 		{
+			entity.tick();
+
 			_controller.process_user_input(_window);
-			camera.tick();
+			_camera.tick();
 
 			clear_window();
 
-			shader_program.set_4fv("view", camera.get_look_at());
+			shader_program.set_4fv("view", _camera.get_look_at());
 
 			glm::mat4 projection = glm::perspective(glm::radians(45.0f),
 													_window_width/(float)_window_height,

@@ -13,9 +13,11 @@ namespace visualizer
 		public:
 			Entity(const Shape& shape);
 
-			void render(ShaderProgram& shader_program);
+			void render(ShaderProgram& shader_program) const;
 			Shape get_shape() const;
 			glm::vec3 get_position() const;
+
+			void update_position(const glm::vec3& velocity);
 		private:
 			Shape _shape;
 			glm::vec3 _position;

@@ -8,7 +8,7 @@ namespace visualizer
 		: _shape(shape)
 	{}
 
-	void Entity::render(ShaderProgram& shader_program)
+	void Entity::render(ShaderProgram& shader_program) const
 	{
 		shader_program.use();
 		_shape.bind();
@@ -28,5 +28,10 @@ namespace visualizer
 	glm::vec3 Entity::get_position() const
 	{
 		return _position;
+	}
+
+	void Entity::update_position(const glm::vec3& velocity)
+	{
+		_position += velocity;
 	}
 }

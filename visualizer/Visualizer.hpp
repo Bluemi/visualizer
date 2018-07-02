@@ -2,6 +2,7 @@
 #define __VISUALIZER_CLASS__
 
 #include "controller/Controller.hpp"
+#include "camera/Camera.hpp"
 
 namespace visualizer
 {
@@ -17,6 +18,8 @@ namespace visualizer
 			void framebuffer_size_callback(GLFWwindow*, int width, int height);
 		private:
 			visualizer::Controller _controller;
+			visualizer::Camera _camera;
+
 			GLFWwindow* _window;
 
 			unsigned int _window_width;
