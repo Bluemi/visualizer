@@ -81,17 +81,19 @@ namespace visualizer
 	{
 		visualizer::Shape shape = visualizer::initialize::sphere(4, true);
 
-		visualizer::ShaderProgram shader_program = visualizer::ShaderProgram::from_files(
+		visualizer::ShaderProgram shader_program(visualizer::ShaderProgram::from_files(
 				"visualizer/shaders/vertex_shader.vs",
-				"visualizer/shaders/fragment_shader.fs");
+				"visualizer/shaders/fragment_shader.fs"));
 
 		Movable entity(shape);
 
 		clear_window();
 
 		//entity.set_speed(glm::vec3(0.01f, 0.f, 0.f));
-		//entity.add_movement(new SetSpeed(0.01f, 0.f, 0.f));
-		entity.add_movement(new GotoCamera(&_camera));
+		//Movement movement(new GotoCamera(&_camera));
+		//entity.add_movement(movement);
+		//Movement movement2(new SetSpeed(0.01f, 0.f, 0.f));
+		//entity.add_movement(movement2);
 
 		// render loop
 		while (!glfwWindowShouldClose(_window))

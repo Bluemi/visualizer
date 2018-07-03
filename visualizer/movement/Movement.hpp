@@ -16,7 +16,6 @@ namespace visualizer
 			void apply_force(Movable* moveable);
 		private:
 			IMovement* _imovement;
-
 	};
 }
 
