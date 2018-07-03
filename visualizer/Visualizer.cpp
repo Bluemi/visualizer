@@ -15,12 +15,12 @@
 #include "controller/MouseManager.hpp"
 #include "controller/ResizeManager.hpp"
 #include "entity/Movable.hpp"
-#include "movement/SetSpeed.hpp"
-#include "movement/GotoCamera.hpp"
-#include "movement/SeekTargets.hpp"
-#include "movement/SimpleDrag.hpp"
-#include "movement/Circle.hpp"
-#include "movement/RandomAcceleration.hpp"
+#include "entity/movement/SetSpeed.hpp"
+#include "entity/movement/GotoCamera.hpp"
+#include "entity/movement/SeekTargets.hpp"
+#include "entity/movement/SimpleDrag.hpp"
+#include "entity/movement/Circle.hpp"
+#include "entity/movement/RandomAcceleration.hpp"
 
 namespace visualizer
 {

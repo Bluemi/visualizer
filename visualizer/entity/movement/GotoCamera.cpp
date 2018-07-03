@@ -2,8 +2,8 @@
 
 #include <glm/glm.hpp>
 
-#include "../entity/Movable.hpp"
-#include "../camera/Camera.hpp"
+#include "../Movable.hpp"
+#include "../../camera/Camera.hpp"
 
 namespace visualizer
 {

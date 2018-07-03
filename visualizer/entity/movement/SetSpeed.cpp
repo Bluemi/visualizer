@@ -1,6 +1,6 @@
 #include "SetSpeed.hpp"
 
-#include "../entity/Movable.hpp"
+#include "../Movable.hpp"
 
 namespace visualizer
 {

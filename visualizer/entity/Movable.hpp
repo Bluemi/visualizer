@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "Entity.hpp"
-#include "../movement/Movement.hpp"
+#include "movement/Movement.hpp"
 
 namespace visualizer
 {

@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "../entity/Movable.hpp"
+#include "../Movable.hpp"
 
 namespace visualizer
 {
