@@ -25,7 +25,7 @@
 namespace visualizer
 {
 	Visualizer::Visualizer()
-		: _window_width(800), _window_height(600), _camera(glm::vec3(-5.f, 0.f, 0.f), 0.f, 0.f)
+		: _camera(glm::vec3(-5.f, 0.f, 0.f), 0.f, 0.f), _window_width(800), _window_height(600)
 	{}
 
 	void Visualizer::framebuffer_size_callback(GLFWwindow*, int width, int height)
@@ -82,44 +82,11 @@ namespace visualizer
 
 	void Visualizer::run()
 	{
-		visualizer::Shape sphere_shape = visualizer::initialize::sphere(4, true);
-		visualizer::Shape cube_shape = visualizer::initialize::cube();
-
 		visualizer::ShaderProgram shader_program(visualizer::ShaderProgram::from_files(
 				"visualizer/shaders/vertex_shader.vs",
 				"visualizer/shaders/fragment_shader.fs"));
 
-		std::vector<Movable> movables;
-
-		Movable m1(sphere_shape);
-		m1.set_position(glm::vec3(0.f, 0.f, 0.f));
-		m1.set_size(glm::vec3(0.1f, 0.1f, 0.1f));
-		movables.push_back(m1);
-
-		Movable m2(cube_shape);
-		m2.set_position(glm::vec3(3.f, 0.f, 0.f));
-		m2.set_size(glm::vec3(0.1f, 0.1f, 0.1f));
-		movables.push_back(m2);
-
-		Movable m3(sphere_shape);
-		m3.set_position(glm::vec3(3.f, 0.f, 3.f));
-		m3.set_size(glm::vec3(0.1f, 0.1f, 0.1f));
-		movables.push_back(m3);
-
-		Movable m4(cube_shape);
-		m4.set_position(glm::vec3(0.f, 0.f, 3.f));
-		m4.set_size(glm::vec3(0.1f, 0.1f, 0.1f));
-		movables.push_back(m4);
-
-		std::vector<Movable> targets = movables;
-
-		// Movement movement(new SeekTargets(movables));
-		// movable.add_movement(movement);
-
-		// Movement goto_camera(new GotoCamera(&_camera));
-		// movable.add_movement(goto_camera);
-
-		for (Movable& m : movables)
+		for (Movable& m : _entities.get_movables())
 		{
 			Movement circle(new Circle(glm::vec3(1.5f, 0.f, 1.5f), 5.f));
 			m.add_movement(circle);
@@ -136,7 +103,7 @@ namespace visualizer
 		// render loop
 		while (!glfwWindowShouldClose(_window))
 		{
-			for (Movable& m : movables)
+			for (Movable& m : _entities.get_movables())
 			{
 				m.tick();
 			}
@@ -153,7 +120,7 @@ namespace visualizer
 													0.1f, 100.f);
 			shader_program.set_4fv("projection", projection);
 
-			for (Movable& m : movables)
+			for (Movable& m : _entities.get_movables())
 			{
 				m.render(shader_program);
 			}
@@ -166,8 +133,11 @@ namespace visualizer
 		_controller.clear_camera();
 		ResizeManager::clear_visualizers();
 
-		cube_shape.free_buffers();
-		sphere_shape.free_buffers();
 		glfwTerminate();
+	}
+
+	void Visualizer::create_entities(const Creation& creation)
+	{
+		_entities = creation.create();
 	}
 }

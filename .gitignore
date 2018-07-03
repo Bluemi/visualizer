@@ -1,6 +1,7 @@
 bin/
 compile.sh
 run.sh
+linecounter.sh
 res/
 core.*
 compile_commands.json

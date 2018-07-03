@@ -1,5 +1,7 @@
 #include "Shape.hpp"
 
+#include <glad/glad.h>
+
 namespace visualizer
 {
 	const Attribute Shape::PositionAttribute(3, GL_FLOAT);

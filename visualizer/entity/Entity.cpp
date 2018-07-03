@@ -1,5 +1,6 @@
 #include "Entity.hpp"
 
+#include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace visualizer

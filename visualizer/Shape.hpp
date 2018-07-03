@@ -1,9 +1,7 @@
 #ifndef __SHAPE_CLASS__
 #define __SHAPE_CLASS__
 
-
 #include <vector>
-#include <glad/glad.h>
 
 #include "misc/Types.hpp"
 

@@ -3,6 +3,8 @@
 
 #include "controller/Controller.hpp"
 #include "camera/Camera.hpp"
+#include "entity/EntityGroup.hpp"
+#include "entity/creation/Creation.hpp"
 
 namespace visualizer
 {
@@ -15,10 +17,14 @@ namespace visualizer
 			void clear_window();
 			void run();
 
+			void create_entities(const Creation& creation);
+
 			void framebuffer_size_callback(GLFWwindow*, int width, int height);
 		private:
-			visualizer::Controller _controller;
-			visualizer::Camera _camera;
+			Controller _controller;
+			Camera _camera;
+
+			EntityGroup _entities;
 
 			GLFWwindow* _window;
 
