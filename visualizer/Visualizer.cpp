@@ -17,6 +17,8 @@
 #include "entity/Movable.hpp"
 #include "movement/SetSpeed.hpp"
 #include "movement/GotoCamera.hpp"
+#include "movement/SeekTargets.hpp"
+#include "movement/SimpleDrag.hpp"
 
 namespace visualizer
 {
@@ -76,7 +78,6 @@ namespace visualizer
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-
 	void Visualizer::run()
 	{
 		visualizer::Shape shape = visualizer::initialize::sphere(4, true);
@@ -85,7 +86,38 @@ namespace visualizer
 				"visualizer/shaders/vertex_shader.vs",
 				"visualizer/shaders/fragment_shader.fs"));
 
-		Movable entity(shape);
+		std::vector<Movable> movables;
+
+		Movable m1(shape);
+		m1.set_position(glm::vec3(0.f, 0.f, 0.f));
+		movables.push_back(m1);
+
+		Movable m2(shape);
+		m2.set_position(glm::vec3(3.f, 0.f, 0.f));
+		movables.push_back(m2);
+
+		Movable m3(shape);
+		m3.set_position(glm::vec3(3.f, 3.f, 0.f));
+		movables.push_back(m3);
+
+		Movable m4(shape);
+		m4.set_position(glm::vec3(0.f, 3.f, 0.f));
+		movables.push_back(m4);
+
+		std::vector<Movable> targets = movables;
+
+		Movable movable(shape);
+
+		// Movement movement(new SeekTargets(movables));
+		// movable.add_movement(movement);
+
+		Movement goto_camera(new GotoCamera(&_camera));
+		movable.add_movement(goto_camera);
+
+		Movement drag(new SimpleDrag(0.1f));
+		movable.add_movement(drag);
+
+		movables.push_back(movable);
 
 		clear_window();
 
@@ -98,7 +130,10 @@ namespace visualizer
 		// render loop
 		while (!glfwWindowShouldClose(_window))
 		{
-			entity.tick();
+			for (Movable& m : movables)
+			{
+				m.tick();
+			}
 
 			_controller.process_user_input(_window);
 			_camera.tick();
@@ -112,7 +147,10 @@ namespace visualizer
 													0.1f, 100.f);
 			shader_program.set_4fv("projection", projection);
 
-			entity.render(shader_program);
+			for (Movable& m : movables)
+			{
+				m.render(shader_program);
+			}
 
 			glfwSwapBuffers(_window);
 			glfwPollEvents();

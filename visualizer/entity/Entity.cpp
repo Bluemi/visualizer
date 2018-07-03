@@ -30,6 +30,11 @@ namespace visualizer
 		return _position;
 	}
 
+	void Entity::set_position(const glm::vec3& position)
+	{
+		_position = position;
+	}
+
 	void Entity::update_position(const glm::vec3& velocity)
 	{
 		_position += velocity;

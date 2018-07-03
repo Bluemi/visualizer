@@ -15,6 +15,6 @@ namespace visualizer
 	{
 		glm::vec3 direction = _camera->get_position() - movable->get_position();
 		direction *= 0.02f;
-		movable->set_velocity(direction);
+		movable->update_acceleration(direction);
 	}
 }

@@ -1,7 +1,6 @@
 #ifndef __IMOVEMENT_CLASS__
 #define __IMOVEMENT_CLASS__
 
-
 namespace visualizer
 {
 	class Movable;

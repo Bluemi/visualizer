@@ -18,14 +18,21 @@ namespace visualizer
 
 			void add_movement(const Movement& movement);
 
+			void set_position(const glm::vec3& position);
+			glm::vec3 get_position() const;
+
+			void update_velocity(const glm::vec3& acceleration);
 			void set_velocity(const glm::vec3& velocity);
 			glm::vec3 get_velocity() const;
 
-			glm::vec3 get_position() const;
+			void update_acceleration(const glm::vec3& acceleration);
+			void set_acceleration(const glm::vec3& acceleration);
+			glm::vec3 get_acceleration() const;
 		private:
 			Entity _entity;
 			std::vector<Movement> _movements;
 			glm::vec3 _velocity;
+			glm::vec3 _acceleration;
 	};
 }
 

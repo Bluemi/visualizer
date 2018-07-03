@@ -17,6 +17,7 @@ namespace visualizer
 			Shape get_shape() const;
 			glm::vec3 get_position() const;
 
+			void set_position(const glm::vec3& position);
 			void update_position(const glm::vec3& velocity);
 		private:
 			Shape _shape;
