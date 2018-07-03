@@ -28,6 +28,10 @@ namespace visualizer
 			void update_acceleration(const glm::vec3& acceleration);
 			void set_acceleration(const glm::vec3& acceleration);
 			glm::vec3 get_acceleration() const;
+
+			void set_size(const glm::vec3& size);
+			void update_size(const glm::vec3& size);
+			glm::vec3 get_size() const;
 		private:
 			Entity _entity;
 			std::vector<Movement> _movements;

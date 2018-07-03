@@ -19,6 +19,8 @@
 #include "movement/GotoCamera.hpp"
 #include "movement/SeekTargets.hpp"
 #include "movement/SimpleDrag.hpp"
+#include "movement/Circle.hpp"
+#include "movement/RandomAcceleration.hpp"
 
 namespace visualizer
 {
@@ -69,7 +71,7 @@ namespace visualizer
 		visualizer::MouseManager::add_controller(&_controller);
 
 		glEnable(GL_DEPTH_TEST);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 
 	void Visualizer::clear_window()
@@ -80,7 +82,8 @@ namespace visualizer
 
 	void Visualizer::run()
 	{
-		visualizer::Shape shape = visualizer::initialize::sphere(4, true);
+		visualizer::Shape sphere_shape = visualizer::initialize::sphere(4, true);
+		visualizer::Shape cube_shape = visualizer::initialize::cube();
 
 		visualizer::ShaderProgram shader_program(visualizer::ShaderProgram::from_files(
 				"visualizer/shaders/vertex_shader.vs",
@@ -88,44 +91,47 @@ namespace visualizer
 
 		std::vector<Movable> movables;
 
-		Movable m1(shape);
+		Movable m1(sphere_shape);
 		m1.set_position(glm::vec3(0.f, 0.f, 0.f));
+		m1.set_size(glm::vec3(0.1f, 0.1f, 0.1f));
 		movables.push_back(m1);
 
-		Movable m2(shape);
+		Movable m2(cube_shape);
 		m2.set_position(glm::vec3(3.f, 0.f, 0.f));
+		m2.set_size(glm::vec3(0.1f, 0.1f, 0.1f));
 		movables.push_back(m2);
 
-		Movable m3(shape);
-		m3.set_position(glm::vec3(3.f, 3.f, 0.f));
+		Movable m3(sphere_shape);
+		m3.set_position(glm::vec3(3.f, 0.f, 3.f));
+		m3.set_size(glm::vec3(0.1f, 0.1f, 0.1f));
 		movables.push_back(m3);
 
-		Movable m4(shape);
-		m4.set_position(glm::vec3(0.f, 3.f, 0.f));
+		Movable m4(cube_shape);
+		m4.set_position(glm::vec3(0.f, 0.f, 3.f));
+		m4.set_size(glm::vec3(0.1f, 0.1f, 0.1f));
 		movables.push_back(m4);
 
 		std::vector<Movable> targets = movables;
 
-		Movable movable(shape);
-
 		// Movement movement(new SeekTargets(movables));
 		// movable.add_movement(movement);
 
-		Movement goto_camera(new GotoCamera(&_camera));
-		movable.add_movement(goto_camera);
+		// Movement goto_camera(new GotoCamera(&_camera));
+		// movable.add_movement(goto_camera);
 
-		Movement drag(new SimpleDrag(0.1f));
-		movable.add_movement(drag);
+		for (Movable& m : movables)
+		{
+			Movement circle(new Circle(glm::vec3(1.5f, 0.f, 1.5f), 5.f));
+			m.add_movement(circle);
 
-		movables.push_back(movable);
+			Movement drag(new SimpleDrag(0.3f));
+			m.add_movement(drag);
+
+			Movement random(new RandomAcceleration(0.2f, 30));
+			m.add_movement(random);
+		}
 
 		clear_window();
-
-		//entity.set_speed(glm::vec3(0.01f, 0.f, 0.f));
-		//Movement movement(new GotoCamera(&_camera));
-		//entity.add_movement(movement);
-		//Movement movement2(new SetSpeed(0.01f, 0.f, 0.f));
-		//entity.add_movement(movement2);
 
 		// render loop
 		while (!glfwWindowShouldClose(_window))
@@ -160,7 +166,8 @@ namespace visualizer
 		_controller.clear_camera();
 		ResizeManager::clear_visualizers();
 
-		shape.free_buffers();
+		cube_shape.free_buffers();
+		sphere_shape.free_buffers();
 		glfwTerminate();
 	}
 }

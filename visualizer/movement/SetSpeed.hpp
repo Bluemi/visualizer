@@ -5,7 +5,7 @@
 
 namespace visualizer
 {
-	class SetSpeed : public IMovementDerivationHelper<SetSpeed>
+	class SetSpeed : public IMovementCloneable<SetSpeed>
 	{
 		public:
 			SetSpeed(float x, float y, float z);

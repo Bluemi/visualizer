@@ -7,7 +7,7 @@ namespace visualizer
 {
 	class Camera;
 
-	class GotoCamera : public IMovementDerivationHelper<GotoCamera>
+	class GotoCamera : public IMovementCloneable<GotoCamera>
 	{
 		public:
 			GotoCamera(Camera* camera);

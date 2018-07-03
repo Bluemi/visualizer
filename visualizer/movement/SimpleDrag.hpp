@@ -5,7 +5,7 @@
 
 namespace visualizer
 {
-	class SimpleDrag : public IMovementDerivationHelper<SimpleDrag>
+	class SimpleDrag : public IMovementCloneable<SimpleDrag>
 	{
 		public:
 			SimpleDrag(float drag);

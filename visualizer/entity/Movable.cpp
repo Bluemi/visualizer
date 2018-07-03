@@ -68,4 +68,19 @@ namespace visualizer
 	{
 		return _acceleration;
 	}
+
+	void Movable::set_size(const glm::vec3& size)
+	{
+		_entity.set_size(size);
+	}
+
+	void Movable::update_size(const glm::vec3& size)
+	{
+		_entity.update_size(size);
+	}
+
+	glm::vec3 Movable::get_size() const
+	{
+		return _entity.get_size();
+	}
 }

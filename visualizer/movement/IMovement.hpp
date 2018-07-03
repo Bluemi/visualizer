@@ -20,7 +20,7 @@ namespace visualizer
 	 */
 
 	template<typename SubMovement>
-	class IMovementDerivationHelper : public IMovement
+	class IMovementCloneable : public IMovement
 	{
 		public:
 			virtual IMovement* clone() const override
