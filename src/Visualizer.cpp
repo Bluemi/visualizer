@@ -83,8 +83,8 @@ namespace visualizer
 	void Visualizer::run()
 	{
 		visualizer::ShaderProgram shader_program(visualizer::ShaderProgram::from_files(
-				"visualizer/shaders/vertex_shader.vs",
-				"visualizer/shaders/fragment_shader.fs"));
+				"src/shaders/vertex_shader.vs",
+				"src/shaders/fragment_shader.fs"));
 
 		for (Movable& m : _entities.get_movables())
 		{

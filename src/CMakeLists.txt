@@ -1,4 +1,5 @@
 file(GLOB_RECURSE visualizer_sources "./*.cpp")
+
 add_library(visualizer ${visualizer_sources})
 
 include_directories("/usr/include")

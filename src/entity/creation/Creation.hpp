@@ -4,13 +4,19 @@
 #include "../EntityGroup.hpp"
 #include "NumberGenerator.hpp"
 #include "VectorGenerator.hpp"
+#include "ShapeGenerator.hpp"
 
 namespace visualizer
 {
 	class Creation
 	{
 		public:
-			Creation();
+			Creation(const ShapeGenerator& shape);
+
+			template<typename Specification>
+			Creation(const Specification& spec)
+				: _quantity(0), _position(), _size(glm::vec3(1.f, 1.f, 1.f)), _shape(spec)
+			{}
 
 			Creation& with_quantity(const NumberGenerator<unsigned int>& quantity);
 			Creation& with_position(const VectorGenerator& position);
@@ -23,6 +29,7 @@ namespace visualizer
 			VectorGenerator _position;
 			VectorGenerator _size;
 			VectorGenerator _velocity;
+			ShapeGenerator _shape;
 	};
 }
 

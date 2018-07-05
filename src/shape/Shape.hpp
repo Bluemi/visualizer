@@ -2,6 +2,7 @@
 #define __SHAPE_CLASS__
 
 #include <vector>
+#include <variant>
 
 #include "../misc/Types.hpp"
 

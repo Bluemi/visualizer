@@ -5,9 +5,9 @@ project(Visualizer)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+set(VISUALIZER_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_subdirectory(visualizer)
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src")
 
-add_executable(MainTest tests/main.cpp)
-target_link_libraries(MainTest visualizer)
+add_subdirectory(src)
+add_subdirectory(tests)
