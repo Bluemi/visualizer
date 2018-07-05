@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "misc/Types.hpp"
+#include "../misc/Types.hpp"
 
 namespace visualizer
 {

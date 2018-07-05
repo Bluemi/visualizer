@@ -14,11 +14,15 @@ namespace visualizer
 
 			Creation& with_quantity(const NumberGenerator<unsigned int>& quantity);
 			Creation& with_position(const VectorGenerator& position);
+			Creation& with_size(const VectorGenerator& size);
+			Creation& with_velocity(const VectorGenerator& velocity);
 
 			EntityGroup create() const;
 		private:
 			NumberGenerator<unsigned int> _quantity;
 			VectorGenerator _position;
+			VectorGenerator _size;
+			VectorGenerator _velocity;
 	};
 }
 

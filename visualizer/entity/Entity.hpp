@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 
-#include "../Shape.hpp"
+#include "../shape/Shape.hpp"
 #include "../ShaderProgram.hpp"
 
 namespace visualizer

@@ -50,7 +50,7 @@ namespace visualizer
 				return *this;
 			}
 
-			NumberGenerator<unsigned int>& with_stddev(unsigned int max)
+			NumberGenerator<unsigned int>& with_max(unsigned int max)
 			{
 				_max = max;
 				return *this;

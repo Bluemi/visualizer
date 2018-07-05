@@ -9,7 +9,10 @@ int main() {
 	visualizer.init();
 
 	visualizer::VectorGenerator pos_gen = visualizer::VectorGenerator().with_stddev(glm::vec3(5.f, 5.f, 5.f));
-	visualizer::Creation creation = visualizer::Creation().with_quantity(30).with_position(pos_gen);
+	visualizer::VectorGenerator size_gen = visualizer::VectorGenerator(glm::vec3(0.05f, 0.05f, 0.05f));
+	visualizer::VectorGenerator speed_gen = visualizer::VectorGenerator().with_stddev(glm::vec3(1.f, 1.f, 1.f));
+	//visualizer::NumberGenerator<unsigned int> quantity_gen = visualizer::NumberGenerator<unsigned int>().with_min(10).with_max(20);
+	visualizer::Creation creation = visualizer::Creation().with_quantity(1000).with_position(pos_gen).with_size(size_gen).with_velocity(speed_gen);
 
 	visualizer.create_entities(creation);
 

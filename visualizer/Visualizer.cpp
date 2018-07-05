@@ -11,7 +11,7 @@
 
 #include "Visualizer.hpp"
 #include "ShaderProgram.hpp"
-#include "ShapeInitializer.hpp"
+#include "shape/ShapeInitializer.hpp"
 #include "controller/MouseManager.hpp"
 #include "controller/ResizeManager.hpp"
 #include "entity/Movable.hpp"
@@ -88,13 +88,13 @@ namespace visualizer
 
 		for (Movable& m : _entities.get_movables())
 		{
-			Movement circle(new Circle(glm::vec3(1.5f, 0.f, 1.5f), 5.f));
+			Movement circle(new Circle(glm::vec3(), 5.f));
 			m.add_movement(circle);
 
 			Movement drag(new SimpleDrag(0.3f));
 			m.add_movement(drag);
 
-			Movement random(new RandomAcceleration(0.2f, 30));
+			Movement random(new RandomAcceleration(0.08f, 60));
 			m.add_movement(random);
 		}
 
