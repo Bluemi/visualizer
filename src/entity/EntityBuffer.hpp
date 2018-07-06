@@ -3,6 +3,7 @@
 
 #include "Movable.hpp"
 #include "EntityIterator.hpp"
+#include "EntityGroup.hpp"
 
 namespace visualizer
 {
@@ -17,7 +18,8 @@ namespace visualizer
 			iterator begin();
 			iterator end();
 
-			iterator query_entities(const Query& query);
+			iterator query_iterator(const Query& query);
+			EntityGroup query_group(const Query& query);
 
 			std::vector<Movable>& get_movables();
 			const std::vector<Movable>& get_movables() const;

@@ -19,9 +19,21 @@ namespace visualizer
 		return EntityBuffer::iterator(_movables.end(), _movables.end());
 	}
 
-	EntityBuffer::iterator EntityBuffer::query_entities(const Query& query)
+	EntityBuffer::iterator EntityBuffer::query_iterator(const Query& query)
 	{
 		return EntityBuffer::iterator(_movables.begin(), _movables.end(), query);
+	}
+
+	EntityGroup EntityBuffer::query_group(const Query& query)
+	{
+		EntityGroup g;
+		for (Movable& m : _movables)
+		{
+			if (query.entity_included(m))
+				g.push_back(&m);
+		}
+
+		return g;
 	}
 
 	std::vector<Movable>& EntityBuffer::get_movables()

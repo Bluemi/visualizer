@@ -28,26 +28,14 @@ int main() {
 		.with_velocity(speed_gen);
 
 	visualizer.create_entities(creation);
+
 	visualizer::Query cube_query = visualizer::Query().with_shape(visualizer::ShapeType::CUBE).with_position(visualizer::QuerySpace(glm::vec3(1.f, 0.f, 0.f), glm::vec3(2.f, 2.f, 2.f)));
-
-	visualizer::EntityBuffer::iterator cubes = visualizer.get_entities().query_entities(cube_query);
-
-	unsigned int cube = 0;
-	for (; cubes != visualizer.get_entities().end(); ++cubes)
-	{
-		cube++;
-	}
-	std::cout << "number of cubes: " << cube << std::endl;
+	visualizer::EntityGroup cubes = visualizer.get_entities().query_group(cube_query);
+	std::cout << "number of cubes: " << cubes.size() << std::endl;
 
 	visualizer::Query sphere_query = visualizer::Query().with_shape(visualizer::ShapeType::SPHERE);
-	visualizer::EntityBuffer::iterator spheres = visualizer.get_entities().query_entities(sphere_query);
-
-	unsigned int sphere = 0;
-	for (; spheres != visualizer.get_entities().end(); ++spheres)
-	{
-		sphere++;
-	}
-	std::cout << "number of spheres: " << sphere << std::endl;
+	visualizer::EntityGroup spheres = visualizer.get_entities().query_group(sphere_query);
+	std::cout << "number of spheres: " << spheres.size() << std::endl;
 
 	visualizer.run();
 	return 0;
