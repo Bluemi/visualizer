@@ -8,7 +8,8 @@ namespace visualizer
 	class Shape;
 
 	/**
-	 * Helper class to provide relation operators (no polymorphism needed)
+	 * Helper class to provide relation operators.
+	 * No polymorphism intended.
 	 */
 	template<typename Specification>
 	class SpecificationOperators

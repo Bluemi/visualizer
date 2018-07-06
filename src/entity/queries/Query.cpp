@@ -2,14 +2,16 @@
 
 #include "../Movable.hpp"
 
+#include "../../shape/ShapeType.hpp"
+
 namespace visualizer
 {
 	Query::Query()
 	{}
 
-	Query& Query::with_shape(const ShapeSpecification& spec)
+	Query& Query::with_shape(const ShapeType& spec)
 	{
-		_shapes.push_back(spec);
+		_shape_types.push_back(spec);
 		return *this;
 	}
 
@@ -17,10 +19,10 @@ namespace visualizer
 	{
 		bool included = true;
 
-		bool shape_included = _shapes.size() == 0;
-		for (const ShapeSpecification& shape_specification : _shapes)
+		bool shape_included = _shape_types.size() == 0;
+		for (const ShapeType& shape_type : _shape_types)
 		{
-			if (movable.get_shape_specification() == shape_specification)
+			if (shape_type == movable.get_shape_specification())
 			{
 				shape_included = true;
 			}

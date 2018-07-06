@@ -8,17 +8,18 @@
 namespace visualizer
 {
 	class Movable;
+	enum class ShapeType;
 
 	class Query
 	{
 		public:
 			Query();
 
-			Query& with_shape(const ShapeSpecification& spec);
+			Query& with_shape(const ShapeType& spec);
 
 			bool entity_included(const Movable& movable) const;
 		private:
-			std::vector<ShapeSpecification> _shapes;
+			std::vector<ShapeType> _shape_types;
 	};
 }
 

@@ -8,6 +8,7 @@
 #include "shape/ShapeSpecification.hpp"
 #include "shape/ShapeHeap.hpp"
 #include "entity/queries/Query.hpp"
+#include "shape/ShapeType.hpp"
 
 #include <glm/glm.hpp>
 
@@ -28,12 +29,12 @@ int main() {
 
 	visualizer.create_entities(creation);
 
-	visualizer::Query cube_query = visualizer::Query().with_shape(visualizer::ShapeSpecification(visualizer::CubeSpecification()));
+	visualizer::Query cube_query = visualizer::Query().with_shape(visualizer::ShapeType::CUBE);
 	visualizer::EntityGroup cubes = visualizer.query_entities(cube_query);
 
 	std::cout << "number of cubes: " << cubes.get_movables().size() << std::endl;
 
-	visualizer::Query sphere_query = visualizer::Query().with_shape(visualizer::ShapeSpecification(visualizer::SphereSpecification(2)));
+	visualizer::Query sphere_query = visualizer::Query().with_shape(visualizer::ShapeType::SPHERE);
 	visualizer::EntityGroup spheres = visualizer.query_entities(sphere_query);
 
 	std::cout << "number of spheres: " << spheres.get_movables().size() << std::endl;
