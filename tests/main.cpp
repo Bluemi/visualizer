@@ -4,7 +4,7 @@
 #include "entity/creation/Creation.hpp"
 #include "entity/creation/VectorGenerator.hpp"
 #include "entity/creation/ShapeGenerator.hpp"
-#include "entity/EntityGroup.hpp"
+#include "entity/EntityBuffer.hpp"
 #include "shape/ShapeSpecification.hpp"
 #include "shape/ShapeHeap.hpp"
 #include "entity/queries/Query.hpp"
@@ -28,16 +28,26 @@ int main() {
 		.with_velocity(speed_gen);
 
 	visualizer.create_entities(creation);
-
 	visualizer::Query cube_query = visualizer::Query().with_shape(visualizer::ShapeType::CUBE).with_position(visualizer::QuerySpace(glm::vec3(1.f, 0.f, 0.f), glm::vec3(2.f, 2.f, 2.f)));
-	visualizer::EntityGroup cubes = visualizer.query_entities(cube_query);
 
-	std::cout << "number of cubes: " << cubes.get_movables().size() << std::endl;
+	visualizer::EntityBuffer::iterator cubes = visualizer.get_entities().query_entities(cube_query);
+
+	unsigned int cube = 0;
+	for (; cubes != visualizer.get_entities().end(); ++cubes)
+	{
+		cube++;
+	}
+	std::cout << "number of cubes: " << cube << std::endl;
 
 	visualizer::Query sphere_query = visualizer::Query().with_shape(visualizer::ShapeType::SPHERE);
-	visualizer::EntityGroup spheres = visualizer.query_entities(sphere_query);
+	visualizer::EntityBuffer::iterator spheres = visualizer.get_entities().query_entities(sphere_query);
 
-	std::cout << "number of spheres: " << spheres.get_movables().size() << std::endl;
+	unsigned int sphere = 0;
+	for (; spheres != visualizer.get_entities().end(); ++spheres)
+	{
+		sphere++;
+	}
+	std::cout << "number of spheres: " << sphere << std::endl;
 
 	visualizer.run();
 	return 0;

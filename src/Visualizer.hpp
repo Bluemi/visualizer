@@ -3,7 +3,7 @@
 
 #include "controller/Controller.hpp"
 #include "camera/Camera.hpp"
-#include "entity/EntityGroup.hpp"
+#include "entity/EntityBuffer.hpp"
 
 namespace visualizer
 {
@@ -20,14 +20,14 @@ namespace visualizer
 			void run();
 
 			void create_entities(const Creation& creation);
-			EntityGroup query_entities(const Query& query) const;
+			EntityBuffer& get_entities();
 
 			void framebuffer_size_callback(GLFWwindow*, int width, int height);
 		private:
 			Controller _controller;
 			Camera _camera;
 
-			EntityGroup _entities;
+			EntityBuffer _entities;
 
 			GLFWwindow* _window;
 

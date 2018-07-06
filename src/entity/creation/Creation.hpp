@@ -1,7 +1,7 @@
 #ifndef __CREATION_CLASS__
 #define __CREATION_CLASS__
 
-#include "../EntityGroup.hpp"
+#include "../EntityBuffer.hpp"
 #include "NumberGenerator.hpp"
 #include "VectorGenerator.hpp"
 #include "ShapeGenerator.hpp"
@@ -23,7 +23,7 @@ namespace visualizer
 			Creation& with_size(const VectorGenerator& size);
 			Creation& with_velocity(const VectorGenerator& velocity);
 
-			EntityGroup create() const;
+			EntityBuffer create() const;
 		private:
 			NumberGenerator<unsigned int> _quantity;
 			VectorGenerator _position;

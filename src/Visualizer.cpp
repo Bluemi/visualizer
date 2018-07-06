@@ -143,17 +143,8 @@ namespace visualizer
 		_entities = creation.create();
 	}
 
-	EntityGroup Visualizer::query_entities(const Query& query) const
+	EntityBuffer& Visualizer::get_entities()
 	{
-		std::vector<Movable> movables;
-		for (const Movable& m : _entities.get_movables())
-		{
-			if (query.entity_included(m))
-			{
-				movables.push_back(m);
-			}
-		}
-
-		return EntityGroup(movables);
+		return _entities;
 	}
 }

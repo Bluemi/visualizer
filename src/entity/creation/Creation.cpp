@@ -35,7 +35,7 @@ namespace visualizer
 		return *this;
 	}
 
-	EntityGroup Creation::create() const
+	EntityBuffer Creation::create() const
 	{
 		unsigned int quantity = _quantity.get();
 
@@ -52,6 +52,6 @@ namespace visualizer
 			movables.push_back(m);
 		}
 
-		return EntityGroup(movables);
+		return EntityBuffer(movables);
 	}
 }
