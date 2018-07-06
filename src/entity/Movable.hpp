@@ -5,6 +5,7 @@
 
 #include "Entity.hpp"
 #include "movement/Movement.hpp"
+#include "../shape/ShapeSpecification.hpp"
 
 namespace visualizer
 {
@@ -32,6 +33,8 @@ namespace visualizer
 			void set_size(const glm::vec3& size);
 			void update_size(const glm::vec3& size);
 			glm::vec3 get_size() const;
+
+			ShapeSpecification get_shape_specification() const;
 		private:
 			Entity _entity;
 			std::vector<Movement> _movements;

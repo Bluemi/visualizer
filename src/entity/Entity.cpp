@@ -57,4 +57,9 @@ namespace visualizer
 	{
 		return _size;
 	}
+
+	ShapeSpecification Entity::get_shape_specification() const
+	{
+		return _shape.get_specification();
+	}
 }

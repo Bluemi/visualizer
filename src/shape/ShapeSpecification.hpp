@@ -1,10 +1,12 @@
 #ifndef __SHAPESPECIFICATION_CLASS__
 #define __SHAPESPECIFICATION_CLASS__
 
-#include "Shape.hpp"
+#include <variant>
 
 namespace visualizer
 {
+	class Shape;
+
 	/**
 	 * Helper class to provide relation operators (no polymorphism needed)
 	 */
@@ -12,10 +14,11 @@ namespace visualizer
 	class SpecificationOperators
 	{
 		public:
+			bool operator==(const Specification&) const { return true; }
 			bool operator<(const Specification&) const { return false; }
-			bool operator<=(const Specification&) const { return false; }
+			bool operator<=(const Specification&) const { return true; }
 			bool operator>(const Specification&) const { return false; }
-			bool operator>=(const Specification&) const { return false; }
+			bool operator>=(const Specification&) const { return true; }
 	};
 
 	class CubeSpecification : public SpecificationOperators<CubeSpecification> {};

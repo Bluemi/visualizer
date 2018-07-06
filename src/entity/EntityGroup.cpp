@@ -13,4 +13,9 @@ namespace visualizer
 	{
 		return _movables;
 	}
+
+	const std::vector<Movable>& EntityGroup::get_movables() const
+	{
+		return _movables;
+	}
 }

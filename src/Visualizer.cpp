@@ -21,6 +21,8 @@
 #include "entity/movement/SimpleDrag.hpp"
 #include "entity/movement/Circle.hpp"
 #include "entity/movement/RandomAcceleration.hpp"
+#include "entity/creation/Creation.hpp"
+#include "entity/queries/Query.hpp"
 
 namespace visualizer
 {
@@ -139,5 +141,19 @@ namespace visualizer
 	void Visualizer::create_entities(const Creation& creation)
 	{
 		_entities = creation.create();
+	}
+
+	EntityGroup Visualizer::query_entities(const Query& query) const
+	{
+		std::vector<Movable> movables;
+		for (const Movable& m : _entities.get_movables())
+		{
+			if (query.entity_included(m))
+			{
+				movables.push_back(m);
+			}
+		}
+
+		return EntityGroup(movables);
 	}
 }

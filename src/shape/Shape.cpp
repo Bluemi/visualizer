@@ -2,6 +2,8 @@
 
 #include <glad/glad.h>
 
+#include "ShapeSpecification.hpp"
+
 namespace visualizer
 {
 	const Attribute Shape::PositionAttribute(3, GL_FLOAT);
@@ -12,11 +14,13 @@ namespace visualizer
 	Shape::Shape(unsigned int vertex_array_object,
 				 unsigned int vertex_buffer_object,
 				 n_vertices number_vertices,
-				 bool use_indices)
+				 bool use_indices,
+				 const ShapeSpecification& specification)
 		: _vertex_array_object(vertex_array_object),
 		  _vertex_buffer_object(vertex_buffer_object),
 		  _number_vertices(number_vertices),
-		  _use_indices(use_indices)
+		  _use_indices(use_indices),
+		  _specification(specification)
 	{}
 
 	void Shape::free_buffers()
@@ -26,7 +30,8 @@ namespace visualizer
 
 	Shape Shape::create(const float* vertices,
 						n_vertices number_vertices,
-						const std::vector<Attribute>& attributes)
+						const std::vector<Attribute>& attributes,
+						const ShapeSpecification& specification)
 	{
 		unsigned int vao = create_vao();
 		unsigned int attributes_size = get_attributes_size(attributes);
@@ -34,7 +39,7 @@ namespace visualizer
 		vbo = buffer_vertices(vertices, number_vertices * attributes_size * sizeof(float));
 		create_attribute_pointer(attributes);
 
-		return Shape(vao, vbo, number_vertices, false);
+		return Shape(vao, vbo, number_vertices, false, specification);
 	}
 
 	void Shape::bind() const
@@ -100,5 +105,10 @@ namespace visualizer
 			offset += attributes[i].size * sizeof(float);
 			glEnableVertexAttribArray(i);
 		}
+	}
+
+	ShapeSpecification Shape::get_specification() const
+	{
+		return _specification;
 	}
 }

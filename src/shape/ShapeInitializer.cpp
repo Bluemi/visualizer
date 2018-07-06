@@ -59,7 +59,7 @@ namespace visualizer
 
 			std::vector<Attribute> attributes = {Shape::PositionAttribute, Shape::TextureCoordinateAttribute};
 
-			return Shape::create(vertices, 36, attributes);
+			return Shape::create(vertices, 36, attributes, CubeSpecification());
 		}
 
 		class Triangle
@@ -194,7 +194,7 @@ namespace visualizer
 			if (flags & Triangle::NORMALE_BIT)
 				attributes.push_back(Shape::NormaleAttribute);
 
-			return Shape::create(vertices, triangles.size() * 3, attributes);
+			return Shape::create(vertices, triangles.size() * 3, attributes, SphereSpecification(fineness));
 		}
 	}
 }

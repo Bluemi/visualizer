@@ -12,6 +12,7 @@ namespace visualizer
 			EntityGroup(const std::vector<Movable>& movables);
 
 			std::vector<Movable>& get_movables();
+			const std::vector<Movable>& get_movables() const;
 		private:
 			std::vector<Movable> _movables;
 	};

@@ -5,6 +5,7 @@
 #include <variant>
 
 #include "../misc/Types.hpp"
+#include "ShapeSpecification.hpp"
 
 namespace visualizer
 {
@@ -32,6 +33,7 @@ namespace visualizer
 	 *   - Vertices
 	 *   - Indices if any
 	 *   - Attributepointers
+	 *   - An ShapeSpecification
 	 */
 	class Shape
 	{
@@ -53,7 +55,8 @@ namespace visualizer
 			 */
 			static Shape create(const float* vertices,
 								n_vertices number_vertices,
-								const std::vector<Attribute>& attributes);
+								const std::vector<Attribute>& attributes,
+								const ShapeSpecification& specification);
 
 			/**
 			 * Binds this Shape to use for rendering.
@@ -65,6 +68,7 @@ namespace visualizer
 			// Getter
 			bool use_indices() const;
 			n_vertices get_number_vertices() const;
+			ShapeSpecification get_specification() const;
 
 			/**
 			 * Unbinds all Shapes.
@@ -90,7 +94,8 @@ namespace visualizer
 			Shape(unsigned int vertex_array_object,
 				  unsigned int vertex_buffer_object,
 				  n_vertices number_vertices,
-				  bool use_indices);
+				  bool use_indices,
+				  const ShapeSpecification& specification);
 
 			/**
 			 * Creates the vertex array object of this Shape and binds it.
@@ -118,6 +123,7 @@ namespace visualizer
 			unsigned int _vertex_buffer_object;
 			n_vertices _number_vertices;
 			bool _use_indices;
+			ShapeSpecification _specification;
 	};
 }
 

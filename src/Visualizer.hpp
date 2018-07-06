@@ -4,10 +4,12 @@
 #include "controller/Controller.hpp"
 #include "camera/Camera.hpp"
 #include "entity/EntityGroup.hpp"
-#include "entity/creation/Creation.hpp"
 
 namespace visualizer
 {
+	class Creation;
+	class Query;
+
 	class Visualizer
 	{
 		public:
@@ -18,6 +20,7 @@ namespace visualizer
 			void run();
 
 			void create_entities(const Creation& creation);
+			EntityGroup query_entities(const Query& query) const;
 
 			void framebuffer_size_callback(GLFWwindow*, int width, int height);
 		private:

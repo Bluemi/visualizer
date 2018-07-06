@@ -83,4 +83,9 @@ namespace visualizer
 	{
 		return _entity.get_size();
 	}
+
+	ShapeSpecification Movable::get_shape_specification() const
+	{
+		return _entity.get_shape_specification();
+	}
 }
