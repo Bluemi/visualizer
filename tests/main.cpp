@@ -29,7 +29,7 @@ int main() {
 
 	visualizer.create_entities(creation);
 
-	visualizer::Query cube_query = visualizer::Query().with_shape(visualizer::ShapeType::CUBE);
+	visualizer::Query cube_query = visualizer::Query().with_shape(visualizer::ShapeType::CUBE).with_position(visualizer::QuerySpace(glm::vec3(1.f, 0.f, 0.f), glm::vec3(2.f, 2.f, 2.f)));
 	visualizer::EntityGroup cubes = visualizer.query_entities(cube_query);
 
 	std::cout << "number of cubes: " << cubes.get_movables().size() << std::endl;

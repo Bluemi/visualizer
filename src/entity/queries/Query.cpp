@@ -15,6 +15,12 @@ namespace visualizer
 		return *this;
 	}
 
+	Query& Query::with_position(const QuerySpace& space)
+	{
+		_space = space;
+		return *this;
+	}
+
 	bool Query::entity_included(const Movable& movable) const
 	{
 		bool included = true;
@@ -28,6 +34,9 @@ namespace visualizer
 			}
 		}
 		included &= shape_included;
+
+		bool position_included = _space.is_position_included(movable.get_position());
+		included &= position_included;
 
 		return included;
 	}
