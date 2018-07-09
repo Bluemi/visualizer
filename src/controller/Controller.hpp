@@ -4,7 +4,7 @@
 #include <map>
 #include <vector>
 
-#include <GLFW/glfw3.h>
+struct GLFWwindow;
 
 namespace visualizer
 {
@@ -15,14 +15,10 @@ namespace visualizer
 	{
 		public:
 			Controller();
-			Controller(Camera* camera);
 
 			void mouse_callback(double x, double y);
-			void instruct_camera(Camera* camera);
-			void clear_camera();
 
-			void process_user_input(GLFWwindow* window);
-			void process_camera();
+			void process_user_input(GLFWwindow* window, Camera* camera);
 
 			void key_pressed(GLFWwindow* window, Key key);
 			void key_released(GLFWwindow* window, Key key);
@@ -35,8 +31,9 @@ namespace visualizer
 			static const Key CAMERA_BOTTOM_KEY;
 			static const Key CLOSE_KEY;
 		private:
+			void process_camera(Camera* camera);
+
 			std::map<Key, bool> _is_pressed;
-			Camera* _camera;
 			double x_change, y_change;
 	};
 }

@@ -1,7 +1,6 @@
 #include "Camera.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
-#include <iostream>
 #include <math.h>
 
 namespace visualizer
@@ -71,7 +70,6 @@ namespace visualizer
 
 	void Camera::set_acceleration(const glm::vec3& acceleration)
 	{
-		//_acceleration = acceleration;
 		glm::vec3 a;
 		a = get_direction() * acceleration.x;
 		a += get_top() * acceleration.y;

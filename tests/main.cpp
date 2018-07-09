@@ -13,7 +13,8 @@
 #include <glm/glm.hpp>
 
 int main() {
-	visualizer::Visualizer visualizer;
+	visualizer::Visualizer::init();
+	visualizer::Visualizer visualizer = *visualizer::Visualizer::create(800, 600);
 	visualizer.init();
 
 	visualizer::VectorGenerator pos_gen = visualizer::VectorGenerator().with_stddev(glm::vec3(5.f, 5.f, 5.f));
@@ -38,5 +39,7 @@ int main() {
 	std::cout << "number of spheres: " << spheres.size() << std::endl;
 
 	visualizer.run();
+
+	visualizer.close();
 	return 0;
 }

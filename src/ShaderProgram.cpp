@@ -80,13 +80,13 @@ namespace visualizer
 		glUniform1i(loc, value); 
 	}
 
-	void ShaderProgram::set_f2(const std::string& name, float x, float y) const
+	void ShaderProgram::set_2f(const std::string& name, float x, float y) const
 	{
 		int loc = get_uniform_location(name);
 		glUniform2f(loc, x, y); 
 	}
 
-	void ShaderProgram::set_f4(const std::string& name, float x, float y, float z, float w) const
+	void ShaderProgram::set_4f(const std::string& name, float x, float y, float z, float w) const
 	{
 		int loc = get_uniform_location(name);
 		glUniform4f(loc, x, y, z, w); 

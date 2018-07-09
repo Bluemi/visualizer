@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include <GLFW/glfw3.h>
+
 #include "../camera/Camera.hpp"
 
 namespace visualizer
@@ -14,11 +16,7 @@ namespace visualizer
 	const Key Controller::CAMERA_BOTTOM_KEY = GLFW_KEY_LEFT_CONTROL;
 	const Key Controller::CLOSE_KEY = GLFW_KEY_ESCAPE;
 
-	Controller::Controller() : Controller(nullptr)
-	{}
-
-	Controller::Controller(Camera* camera)
-		: _camera(camera)
+	Controller::Controller()
 	{
 		std::vector<Key> keys_to_track = {CAMERA_LEFT_KEY,
 											  CAMERA_RIGHT_KEY,
@@ -38,17 +36,7 @@ namespace visualizer
 		y_change += y;
 	}
 
-	void Controller::instruct_camera(Camera* camera)
-	{
-		_camera = camera;
-	}
-
-	void Controller::clear_camera()
-	{
-		_camera = nullptr;
-	}
-
-	void Controller::process_user_input(GLFWwindow* window)
+	void Controller::process_user_input(GLFWwindow* window, Camera* camera)
 	{
 		for (auto it = _is_pressed.begin(); it != _is_pressed.end(); ++it)
 		{
@@ -64,10 +52,10 @@ namespace visualizer
 			}
 		}
 
-		process_camera();
+		process_camera(camera);
 	}
 
-	void Controller::process_camera()
+	void Controller::process_camera(Camera* camera)
 	{
 		glm::vec3 acceleration;
 		if (_is_pressed[CAMERA_FORWARD_KEY])
@@ -83,9 +71,9 @@ namespace visualizer
 		if (_is_pressed[CAMERA_BOTTOM_KEY])
 			acceleration.y -= 1.f;
 
-		if (_camera != nullptr)
-			_camera->set_acceleration(acceleration);
-			_camera->change_direction(glm::vec2(x_change, y_change));
+		if (camera != nullptr)
+			camera->set_acceleration(acceleration);
+			camera->change_direction(glm::vec2(x_change, y_change));
 			x_change = 0.0;
 			y_change = 0.0;
 	}

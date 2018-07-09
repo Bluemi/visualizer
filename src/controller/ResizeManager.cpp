@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include <GLFW/glfw3.h>
+
 #include "../Visualizer.hpp"
 
 namespace visualizer
@@ -18,6 +20,17 @@ namespace visualizer
 		void add_visualizer(Visualizer* visualizer)
 		{
 			_visualizers.push_back(visualizer);
+		}
+
+		void remove_visualizer(Visualizer* visualizer)
+		{
+			for (auto it = _visualizers.cbegin(); it != _visualizers.cend(); ++it)
+			{
+				if (*it == visualizer)
+				{
+					_visualizers.erase(it);
+				}
+			}
 		}
 
 		void clear_visualizers()

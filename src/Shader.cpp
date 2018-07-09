@@ -33,8 +33,8 @@ namespace visualizer
 		char infoLog[LOG_BUFFER_SIZE];
 
 		const char* c = code.c_str();
-
 		shader_id = glCreateShader(shader_type);
+
 		glShaderSource(shader_id, 1, &c, NULL);
 		glCompileShader(shader_id);
 

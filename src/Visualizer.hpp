@@ -1,23 +1,31 @@
 #ifndef __VISUALIZER_CLASS__
 #define __VISUALIZER_CLASS__
 
+#include <optional>
+
 #include "controller/Controller.hpp"
 #include "camera/Camera.hpp"
 #include "entity/EntityBuffer.hpp"
+#include "ShaderProgram.hpp"
 
 namespace visualizer
 {
 	class Creation;
-	class Query;
 
 	class Visualizer
 	{
 		public:
-			Visualizer();
+			Visualizer(GLFWwindow* window, unsigned int window_width, unsigned int window_height);
+			Visualizer(const Visualizer& visu);
+			Visualizer& operator=(const Visualizer& visu);
+			~Visualizer();
 
-			void init();
+			static void init();
+			static std::optional<Visualizer> create(unsigned int window_width, unsigned int window_height);
+
 			void clear_window();
 			void run();
+			void close();
 
 			void create_entities(const Creation& creation);
 			EntityBuffer& get_entities();
@@ -26,6 +34,7 @@ namespace visualizer
 		private:
 			Controller _controller;
 			Camera _camera;
+			ShaderProgram _shader_program;
 
 			EntityBuffer _entities;
 

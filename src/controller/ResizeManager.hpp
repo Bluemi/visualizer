@@ -10,6 +10,7 @@ namespace visualizer
 	{
 		void init(GLFWwindow* window);
 		void add_visualizer(Visualizer* visualizer);
+		void remove_visualizer(Visualizer* visualizer);
 		void clear_visualizers();
 		void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	}
