@@ -31,8 +31,6 @@ namespace visualizer
 	const static std::string FRAGMENT_SHADER_PATH = "src/shaders/fragment_shader.fs";
 	const static double DEFAULT_SPEED = 59.54188473881952259316;
 
-	std::vector<float> deltas;
-
 	Visualizer::Visualizer(GLFWwindow* window, unsigned int window_width, unsigned int window_height)
 		: _camera(glm::vec3(-5.f, 0.f, 0.f), 0.f, 0.f),
 		  _shader_program(ShaderProgram::from_files(VERTEX_SHADER_PATH,
@@ -66,17 +64,6 @@ namespace visualizer
 	{
 		ResizeManager::remove_visualizer(this);
 		MouseManager::remove_controller(&_controller);
-
-		if (deltas.size())
-		{
-			double sum = 0.0;
-			for (float f : deltas)
-			{
-				sum += f;
-			}
-
-			std::cout << "avg speed: " << sum / static_cast<float>(deltas.size()) << std::endl;
-		}
 	}
 
 	void Visualizer::framebuffer_size_callback(GLFWwindow*, int width, int height)
@@ -136,8 +123,6 @@ namespace visualizer
 	void Visualizer::tick()
 	{
 		const double speed = get_delta_time() * DEFAULT_SPEED;
-
-		deltas.push_back(speed);
 
 		_controller.process_user_input(_window, &_camera);
 		_camera.tick(speed);
