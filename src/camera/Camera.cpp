@@ -20,7 +20,7 @@ namespace visualizer
 	{
 		_speed += _acceleration * CAMERA_SPEED;
 		_speed *= CAMERA_DRAG;
-		_position += _speed * (float)speed;
+		_position += _speed * static_cast<float>(speed);
 	}
 
 	void Camera::stop()
