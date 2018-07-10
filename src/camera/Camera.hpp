@@ -11,7 +11,7 @@ namespace visualizer
 			Camera();
 			Camera(const glm::vec3 &position, const float pitch, const float yaw);
 
-			void tick();
+			void tick(const double speed);
 			void stop();
 
 			static glm::vec3 get_up();

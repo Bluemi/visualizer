@@ -29,12 +29,16 @@ namespace visualizer
 {
 	const static std::string VERTEX_SHADER_PATH = "src/shaders/vertex_shader.vs";
 	const static std::string FRAGMENT_SHADER_PATH = "src/shaders/fragment_shader.fs";
+	const static double DEFAULT_SPEED = 59.54188473881952259316;
+
+	std::vector<float> deltas;
 
 	Visualizer::Visualizer(GLFWwindow* window, unsigned int window_width, unsigned int window_height)
 		: _camera(glm::vec3(-5.f, 0.f, 0.f), 0.f, 0.f),
 		  _shader_program(ShaderProgram::from_files(VERTEX_SHADER_PATH,
 													FRAGMENT_SHADER_PATH)),
 		  _window(window),
+		  _last_frame_time(0.0),
 		  _window_width(window_width),
 		  _window_height(window_height)
 	{
@@ -62,6 +66,17 @@ namespace visualizer
 	{
 		ResizeManager::remove_visualizer(this);
 		MouseManager::remove_controller(&_controller);
+
+		if (deltas.size())
+		{
+			double sum = 0.0;
+			for (float f : deltas)
+			{
+				sum += f;
+			}
+
+			std::cout << "avg speed: " << sum / static_cast<float>(deltas.size()) << std::endl;
+		}
 	}
 
 	void Visualizer::framebuffer_size_callback(GLFWwindow*, int width, int height)
@@ -107,56 +122,48 @@ namespace visualizer
 		return Visualizer(window, window_width, window_height);
 	}
 
-	void Visualizer::clear_window()
+	double Visualizer::get_delta_time()
 	{
-			glClearColor(0.05f, 0.07f, 0.08f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		double delta_time = 0.0;
+		if (_last_frame_time != 0.0)
+		{
+			delta_time = glfwGetTime() - _last_frame_time;
+		}
+		_last_frame_time = glfwGetTime();
+		return delta_time;
 	}
 
-	void Visualizer::run()
+	void Visualizer::tick()
 	{
+		const double speed = get_delta_time() * DEFAULT_SPEED;
+
+		deltas.push_back(speed);
+
+		_controller.process_user_input(_window, &_camera);
+		_camera.tick(speed);
+
 		for (Movable& m : _entities.get_movables())
 		{
-			Movement circle(new Circle(glm::vec3(), 5.f));
-			m.add_movement(circle);
-
-			Movement drag(new SimpleDrag(0.3f));
-			m.add_movement(drag);
-
-			Movement random(new RandomAcceleration(0.08f, 60));
-			m.add_movement(random);
+			m.tick(speed);
 		}
+	}
 
+	void Visualizer::render()
+	{
 		clear_window();
+		_shader_program.set_4fv("view", _camera.get_look_at());
+		glm::mat4 projection = glm::perspective(glm::radians(45.0f),
+												_window_width/(float)_window_height,
+												0.1f, 100.f);
+		_shader_program.set_4fv("projection", projection);
 
-		// render loop
-		while (!glfwWindowShouldClose(_window))
+		for (Movable& m : _entities.get_movables())
 		{
-			for (Movable& m : _entities.get_movables())
-			{
-				m.tick();
-			}
-
-			_controller.process_user_input(_window, &_camera);
-			_camera.tick();
-
-			clear_window();
-
-			_shader_program.set_4fv("view", _camera.get_look_at());
-
-			glm::mat4 projection = glm::perspective(glm::radians(45.0f),
-													_window_width/(float)_window_height,
-													0.1f, 100.f);
-			_shader_program.set_4fv("projection", projection);
-
-			for (Movable& m : _entities.get_movables())
-			{
-				m.render(_shader_program);
-			}
-
-			glfwSwapBuffers(_window);
-			glfwPollEvents();
+			m.render(_shader_program);
 		}
+
+		glfwSwapBuffers(_window);
+		glfwPollEvents();
 	}
 
 	void Visualizer::create_entities(const Creation& creation)
@@ -172,8 +179,19 @@ namespace visualizer
 		glfwTerminate();
 	}
 
+	bool Visualizer::should_close() const
+	{
+		return glfwWindowShouldClose(_window);
+	}
+
 	EntityBuffer& Visualizer::get_entities()
 	{
 		return _entities;
+	}
+
+	void Visualizer::clear_window()
+	{
+			glClearColor(0.05f, 0.07f, 0.08f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 }

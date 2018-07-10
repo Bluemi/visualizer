@@ -6,7 +6,7 @@ namespace visualizer
 		: _entity(shape)
 	{}
 
-	void Movable::tick()
+	void Movable::tick(const double speed)
 	{
 		for (Movement& movement : _movements)
 		{
@@ -16,7 +16,7 @@ namespace visualizer
 		_velocity += _acceleration;
 		_acceleration = glm::vec3();
 
-		_entity.update_position(_velocity);
+		_entity.update_position(_velocity * static_cast<float>(speed));
 	}
 
 	void Movable::render(ShaderProgram& shader_program) const

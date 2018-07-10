@@ -14,7 +14,7 @@ namespace visualizer
 		public:
 			Movable(const Shape& shape);
 
-			void tick();
+			void tick(const double speed);
 			void render(ShaderProgram& shader_program) const;
 
 			void add_movement(const Movement& movement);

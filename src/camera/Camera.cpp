@@ -16,11 +16,11 @@ namespace visualizer
 		: _position(position), _pitch(pitch), _yaw(yaw)
 	{}
 
-	void Camera::tick()
+	void Camera::tick(const double speed)
 	{
 		_speed += _acceleration * CAMERA_SPEED;
 		_speed *= CAMERA_DRAG;
-		_position += _speed;
+		_position += _speed * (float)speed;
 	}
 
 	void Camera::stop()

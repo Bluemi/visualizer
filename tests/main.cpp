@@ -8,7 +8,11 @@
 #include "shape/ShapeSpecification.hpp"
 #include "shape/ShapeHeap.hpp"
 #include "entity/queries/Query.hpp"
+#include "entity/Movable.hpp"
 #include "shape/ShapeType.hpp"
+#include "entity/movement/Circle.hpp"
+#include "entity/movement/RandomAcceleration.hpp"
+#include "entity/movement/SimpleDrag.hpp"
 
 #include <glm/glm.hpp>
 
@@ -20,7 +24,7 @@ int main() {
 	visualizer::VectorGenerator pos_gen = visualizer::VectorGenerator().with_stddev(glm::vec3(5.f, 5.f, 5.f));
 	visualizer::VectorGenerator size_gen = visualizer::VectorGenerator(glm::vec3(0.05f, 0.05f, 0.05f)).with_stddev(glm::vec3(0.01f));
 	visualizer::VectorGenerator speed_gen = visualizer::VectorGenerator().with_stddev(glm::vec3(1.f, 1.f, 1.f));
-	visualizer::ShapeGenerator shape_gen = visualizer::ShapeGenerator(visualizer::SphereSpecification(2), 3.f).with_shape(visualizer::CubeSpecification(), 1.f);
+	visualizer::ShapeGenerator shape_gen = visualizer::ShapeGenerator(visualizer::SphereSpecification(2), 1.f).with_shape(visualizer::CubeSpecification(), 1.f);
 
 	visualizer::Creation creation = visualizer::Creation(shape_gen)
 		.with_quantity(2000)
@@ -30,15 +34,39 @@ int main() {
 
 	visualizer.create_entities(creation);
 
-	visualizer::Query cube_query = visualizer::Query().with_shape(visualizer::ShapeType::CUBE).with_position(visualizer::QuerySpace(glm::vec3(1.f, 0.f, 0.f), glm::vec3(2.f, 2.f, 2.f)));
+	visualizer::Query cube_query = visualizer::Query().with_shape(visualizer::ShapeType::CUBE);
 	visualizer::EntityGroup cubes = visualizer.get_entities().query_group(cube_query);
-	std::cout << "number of cubes: " << cubes.size() << std::endl;
+
+	visualizer::Movement cube_circle(new visualizer::Circle(glm::vec3(), 5.f));
+	visualizer::Movement cube_drag(new visualizer::SimpleDrag(0.3f));
+	visualizer::Movement cube_random(new visualizer::RandomAcceleration(0.08f, 60));
+
+	for (visualizer::Movable* m : cubes)
+	{
+		m->add_movement(cube_circle);
+		m->add_movement(cube_drag);
+		m->add_movement(cube_random);
+	}
 
 	visualizer::Query sphere_query = visualizer::Query().with_shape(visualizer::ShapeType::SPHERE);
 	visualizer::EntityGroup spheres = visualizer.get_entities().query_group(sphere_query);
-	std::cout << "number of spheres: " << spheres.size() << std::endl;
 
-	visualizer.run();
+	visualizer::Movement sphere_circle(new visualizer::Circle(glm::vec3(0.f, 1.f, 0.f), 4.f));
+	visualizer::Movement sphere_drag(new visualizer::SimpleDrag(0.3f));
+	visualizer::Movement sphere_random(new visualizer::RandomAcceleration(0.08f, 60));
+
+	for (visualizer::Movable* m : spheres)
+	{
+		m->add_movement(sphere_circle);
+		m->add_movement(sphere_drag);
+		m->add_movement(sphere_random);
+	}
+
+	while (!visualizer.should_close())
+	{
+		visualizer.tick();
+		visualizer.render();
+	}
 
 	visualizer.close();
 	return 0;

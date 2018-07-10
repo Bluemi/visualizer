@@ -17,21 +17,24 @@ namespace visualizer
 		public:
 			Visualizer(GLFWwindow* window, unsigned int window_width, unsigned int window_height);
 			Visualizer(const Visualizer& visu);
-			Visualizer& operator=(const Visualizer& visu);
 			~Visualizer();
 
 			static void init();
 			static std::optional<Visualizer> create(unsigned int window_width, unsigned int window_height);
 
-			void clear_window();
-			void run();
+			void tick();
+			void render();
 			void close();
+			bool should_close() const;
 
 			void create_entities(const Creation& creation);
 			EntityBuffer& get_entities();
 
 			void framebuffer_size_callback(GLFWwindow*, int width, int height);
 		private:
+			double get_delta_time();
+			void clear_window();
+
 			Controller _controller;
 			Camera _camera;
 			ShaderProgram _shader_program;
@@ -39,6 +42,8 @@ namespace visualizer
 			EntityBuffer _entities;
 
 			GLFWwindow* _window;
+
+			double _last_frame_time;
 
 			unsigned int _window_width;
 			unsigned int _window_height;

@@ -38,7 +38,9 @@ namespace visualizer
 
 	std::vector<Movable>& EntityBuffer::get_movables()
 	{
-		return _movables;
+		return const_cast<std::vector<Movable>&>(
+				static_cast<const EntityBuffer&>(*this)
+					.get_movables());
 	}
 
 	const std::vector<Movable>& EntityBuffer::get_movables() const
