@@ -2,15 +2,20 @@
 #define __SHADER_PROGRAM_CLASS__
 
 #include <string>
+#include <optional>
 
 #include <glm/glm.hpp>
 
 namespace visualizer
 {
+	class Shader;
+
 	class ShaderProgram
 	{
 		public:
-			static ShaderProgram from_files(const std::string& vertex_shader_path, const std::string& fragment_shader_path);
+			static std::optional<ShaderProgram> from_files(const std::string& vertex_shader_path, const std::string& fragment_shader_path);
+			static std::optional<ShaderProgram> from_code(const std::string& vertex_shader_code, const std::string& fragment_shader_code);
+			static std::optional<ShaderProgram> from_shaders(const Shader& vertex_shader, const Shader& fragment_shader);
 
 			void use() const;
 			unsigned int get_id() const;

@@ -11,11 +11,36 @@ namespace visualizer
 {
 	const unsigned int LOG_BUFFER_SIZE = 512;
 
-	ShaderProgram ShaderProgram::from_files(const std::string& vertex_shader_path, const std::string& fragment_shader_path)
+	std::optional<ShaderProgram> ShaderProgram::from_files(const std::string& vertex_shader_path, const std::string& fragment_shader_path)
 	{
-		Shader vertex_shader = Shader::from_file(vertex_shader_path, GL_VERTEX_SHADER);
-		Shader fragment_shader = Shader::from_file(fragment_shader_path, GL_FRAGMENT_SHADER);
+		std::optional<Shader> opt_vertex_shader = Shader::from_file(vertex_shader_path, GL_VERTEX_SHADER);
+		std::optional<Shader> opt_fragment_shader = Shader::from_file(fragment_shader_path, GL_FRAGMENT_SHADER);
 
+		if (!opt_vertex_shader) { return {}; }
+		if (!opt_fragment_shader) { return {}; }
+
+		Shader vertex_shader = *opt_vertex_shader;
+		Shader fragment_shader = *opt_fragment_shader;
+
+		return from_shaders(vertex_shader, fragment_shader);
+	}
+
+	std::optional<ShaderProgram> ShaderProgram::from_code(const std::string& vertex_shader_code, const std::string& fragment_shader_code)
+	{
+		std::optional<Shader> opt_vertex_shader = Shader::from_code(vertex_shader_code, GL_VERTEX_SHADER);
+		std::optional<Shader> opt_fragment_shader = Shader::from_code(fragment_shader_code, GL_FRAGMENT_SHADER);
+
+		if (!opt_vertex_shader) { return {}; }
+		if (!opt_fragment_shader) { return {}; }
+
+		Shader vertex_shader = *opt_vertex_shader;
+		Shader fragment_shader = *opt_fragment_shader;
+
+		return from_shaders(vertex_shader, fragment_shader);
+	}
+
+	std::optional<ShaderProgram> ShaderProgram::from_shaders(const Shader& vertex_shader, const Shader& fragment_shader)
+	{
 		const unsigned int id = glCreateProgram();
 		glAttachShader(id, vertex_shader.get_id());
 		glAttachShader(id, fragment_shader.get_id());
@@ -29,6 +54,7 @@ namespace visualizer
 		{
 			glGetProgramInfoLog(id, LOG_BUFFER_SIZE, NULL, infoLog);
 			std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+			return {};
 		}
 		  
 		// delete the shaders as they're linked into our program now and no longer necessery

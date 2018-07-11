@@ -15,7 +15,7 @@ namespace visualizer
 	class Visualizer
 	{
 		public:
-			Visualizer(GLFWwindow* window, unsigned int window_width, unsigned int window_height);
+			Visualizer(GLFWwindow* window, ShaderProgram shader_program, unsigned int window_width, unsigned int window_height);
 			Visualizer(const Visualizer& visu);
 			~Visualizer();
 

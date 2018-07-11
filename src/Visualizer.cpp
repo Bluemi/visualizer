@@ -24,6 +24,7 @@
 #include "entity/movement/RandomAcceleration.hpp"
 #include "entity/creation/Creation.hpp"
 #include "entity/queries/Query.hpp"
+#include "shaders/Shaders.hpp"
 
 namespace visualizer
 {
@@ -31,10 +32,9 @@ namespace visualizer
 	const static std::string FRAGMENT_SHADER_PATH = "src/shaders/fragment_shader.fs";
 	const static double DEFAULT_SPEED = 59.54188473881952259316;
 
-	Visualizer::Visualizer(GLFWwindow* window, unsigned int window_width, unsigned int window_height)
+	Visualizer::Visualizer(GLFWwindow* window, ShaderProgram shader_program, unsigned int window_width, unsigned int window_height)
 		: _camera(glm::vec3(-5.f, 0.f, 0.f), 0.f, 0.f),
-		  _shader_program(ShaderProgram::from_files(VERTEX_SHADER_PATH,
-													FRAGMENT_SHADER_PATH)),
+		  _shader_program(shader_program),
 		  _window(window),
 		  _last_frame_time(0.0),
 		  _window_width(window_width),
@@ -106,7 +106,14 @@ namespace visualizer
 		glEnable(GL_DEPTH_TEST);
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-		return Visualizer(window, window_width, window_height);
+		std::optional<ShaderProgram> opt_shader_program = ShaderProgram::from_code(Shaders::vertex_shader(), Shaders::fragment_shader());
+
+		if (!opt_shader_program)
+		{
+			return {};
+		}
+
+		return Visualizer(window, *opt_shader_program, window_width, window_height);
 	}
 
 	double Visualizer::get_delta_time()

@@ -10,7 +10,7 @@ namespace visualizer
 {
 	const unsigned int LOG_BUFFER_SIZE = 512;
 
-	Shader Shader::from_file(const std::string& path, unsigned int shader_type)
+	std::optional<Shader> Shader::from_file(const std::string& path, unsigned int shader_type)
 	{
 		std::string code;
 		std::ifstream shader_file;
@@ -26,8 +26,14 @@ namespace visualizer
 			code = stream.str();
 		} catch (std::ifstream::failure e) {
 			std::cout << "Error while reading shader: \"" << path << "\"" << std::endl;
+			return {};
 		}
 
+		return from_code(code, shader_type);
+	}
+
+	std::optional<Shader> Shader::from_code(const std::string& code, unsigned int shader_type)
+	{
 		unsigned int shader_id;
 		int success;
 		char infoLog[LOG_BUFFER_SIZE];
@@ -43,7 +49,8 @@ namespace visualizer
 		if (!success)
 		{
 			glGetShaderInfoLog(shader_id, LOG_BUFFER_SIZE, NULL, infoLog);
-			std::cout << "ERROR: Compiling of shader: \"" << path << "\"" << std::endl;
+			std::cout << "ERROR: Compiling of shader: \n" << code << "\n" << std::endl;
+			return {};
 		}
 
 		return Shader(shader_id, shader_type);

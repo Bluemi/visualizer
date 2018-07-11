@@ -18,7 +18,14 @@
 
 int main() {
 	visualizer::Visualizer::init();
-	visualizer::Visualizer visualizer = *visualizer::Visualizer::create(800, 600);
+	std::optional<visualizer::Visualizer> opt_visualizer = *visualizer::Visualizer::create(800, 600);
+	if (!opt_visualizer)
+	{
+		std::cout << "Couldnt create visualizer" << std::endl;
+		return 1;
+	}
+	visualizer::Visualizer visualizer = *opt_visualizer;
+
 	visualizer.init();
 
 	visualizer::VectorGenerator pos_gen = visualizer::VectorGenerator().with_stddev(glm::vec3(5.f, 5.f, 5.f));
