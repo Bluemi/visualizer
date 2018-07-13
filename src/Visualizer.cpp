@@ -53,6 +53,7 @@ namespace visualizer
 		  _shader_program(v._shader_program),
 		  _entities(v._entities),
 		  _window(v._window),
+		  _last_frame_time(v._last_frame_time),
 		  _window_width(v._window_width),
 		  _window_height(v._window_height)
 	{
