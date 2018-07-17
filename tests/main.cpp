@@ -71,7 +71,7 @@ int main() {
 
 	visualizer::Movement sphere_circle(new visualizer::Circle(glm::vec3(0.f, 1.f, 0.f), 4.f));
 	visualizer::Movement sphere_drag(new visualizer::SimpleDrag(0.3f));
-	visualizer::Movement sphere_random(new visualizer::RandomAcceleration(0.18f));
+	visualizer::Movement sphere_random(new visualizer::RandomAcceleration(0.08f));
 
 	for (visualizer::Movable* m : spheres)
 	{
@@ -82,9 +82,10 @@ int main() {
 	}
 
 	// Color Movements
-	float b = 0.05f;
-	visualizer::Movement sphere_color_random(new visualizer::RandomColor(visualizer::VectorGenerator(glm::vec3(b*3, -b, -b)).with_stddev(glm::vec3(0.1f, 0.1f, 0.1f))));
-	visualizer::Movement cube_color_random(new visualizer::RandomColor(visualizer::VectorGenerator(glm::vec3(-b, b*3, -b)).with_stddev(glm::vec3(0.1f, 0.1f, 0.1f))));
+	float b = 0.03f;
+	float v = 0.03f;
+	visualizer::Movement sphere_color_random(new visualizer::RandomColor(visualizer::VectorGenerator(glm::vec3(b*3, -b, -b)).with_stddev(glm::vec3(v, v, v))));
+	visualizer::Movement cube_color_random(new visualizer::RandomColor(visualizer::VectorGenerator(glm::vec3(-b, b*3, -b)).with_stddev(glm::vec3(v, v, v))));
 
 	unsigned int counter = 0;
 
