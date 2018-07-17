@@ -8,9 +8,15 @@ namespace visualizer
 
 	void Movable::tick(const double speed)
 	{
-		for (Movement& movement : _movements)
+		for (unsigned int i = 0; i < _movements.size();)
 		{
-			movement.apply_force(this);
+			_movements[i].apply_force(this);
+			if (_movements[i].should_be_removed())
+			{
+				_movements.erase(_movements.begin() + i);
+			} else {
+				i++;
+			}
 		}
 
 		_velocity += _acceleration;
@@ -34,7 +40,7 @@ namespace visualizer
 		_entity.set_position(position);
 	}
 
-	glm::vec3 Movable::get_position() const
+	const glm::vec3& Movable::get_position() const
 	{
 		return _entity.get_position();
 	}
@@ -49,7 +55,7 @@ namespace visualizer
 		_velocity = velocity;
 	}
 
-	glm::vec3 Movable::get_velocity() const
+	const glm::vec3& Movable::get_velocity() const
 	{
 		return _velocity;
 	}
@@ -64,7 +70,7 @@ namespace visualizer
 		_acceleration = acceleration;
 	}
 
-	glm::vec3 Movable::get_acceleration() const
+	const glm::vec3& Movable::get_acceleration() const
 	{
 		return _acceleration;
 	}
@@ -79,7 +85,7 @@ namespace visualizer
 		_entity.update_size(size);
 	}
 
-	glm::vec3 Movable::get_size() const
+	const glm::vec3& Movable::get_size() const
 	{
 		return _entity.get_size();
 	}
@@ -87,5 +93,20 @@ namespace visualizer
 	ShapeSpecification Movable::get_shape_specification() const
 	{
 		return _entity.get_shape_specification();
+	}
+
+	void Movable::set_color(const glm::vec3& color)
+	{
+		_entity.set_color(color);
+	}
+
+	void Movable::update_color(const glm::vec3& color)
+	{
+		_entity.update_color(color);
+	}
+
+	const glm::vec3& Movable::get_color() const
+	{
+		return _entity.get_color();
 	}
 }

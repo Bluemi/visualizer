@@ -10,13 +10,13 @@ namespace visualizer
 	class RandomAcceleration : public IMovementCloneable<RandomAcceleration>
 	{
 		public:
-			RandomAcceleration(float intensity, unsigned int interval);
+			RandomAcceleration(float intensity);
 
 			virtual void apply_force(Movable* movable) override;
+			virtual bool should_be_removed() const override;
 		private:
 			float _intensity;
-			unsigned int _counter;
-			unsigned int _interval;
+			bool _should_be_removed;
 	};
 }
 

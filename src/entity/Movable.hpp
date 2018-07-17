@@ -20,19 +20,23 @@ namespace visualizer
 			void add_movement(const Movement& movement);
 
 			void set_position(const glm::vec3& position);
-			glm::vec3 get_position() const;
+			const glm::vec3& get_position() const;
 
 			void update_velocity(const glm::vec3& acceleration);
 			void set_velocity(const glm::vec3& velocity);
-			glm::vec3 get_velocity() const;
+			const glm::vec3& get_velocity() const;
 
 			void update_acceleration(const glm::vec3& acceleration);
 			void set_acceleration(const glm::vec3& acceleration);
-			glm::vec3 get_acceleration() const;
+			const glm::vec3& get_acceleration() const;
 
 			void set_size(const glm::vec3& size);
 			void update_size(const glm::vec3& size);
-			glm::vec3 get_size() const;
+			const glm::vec3& get_size() const;
+
+			void set_color(const glm::vec3& color);
+			void update_color(const glm::vec3& color);
+			const glm::vec3& get_color() const;
 
 			ShapeSpecification get_shape_specification() const;
 		private:

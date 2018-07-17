@@ -27,6 +27,8 @@ namespace visualizer
 			void close();
 			bool should_close() const;
 
+			double get_time() const;
+
 			void create_entities(const Creation& creation);
 			EntityBuffer& get_entities();
 

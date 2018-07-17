@@ -10,6 +10,7 @@ namespace visualizer
 		public:
 			virtual ~IMovement();
 			virtual void apply_force(Movable* movable) = 0;
+			virtual bool should_be_removed() const;
 
 			virtual IMovement* clone() const = 0;
 	};

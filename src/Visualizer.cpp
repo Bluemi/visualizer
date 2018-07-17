@@ -120,8 +120,10 @@ namespace visualizer
 	double Visualizer::get_delta_time()
 	{
 		double delta_time = 0.0;
-		if (_last_frame_time != 0.0)
+		if (_last_frame_time == 0.0)
 		{
+			glfwSetTime(0.0);
+		} else {
 			delta_time = glfwGetTime() - _last_frame_time;
 		}
 		_last_frame_time = glfwGetTime();
@@ -175,6 +177,11 @@ namespace visualizer
 	bool Visualizer::should_close() const
 	{
 		return glfwWindowShouldClose(_window);
+	}
+
+	double Visualizer::get_time() const
+	{
+		return glfwGetTime();
 	}
 
 	EntityBuffer& Visualizer::get_entities()

@@ -22,4 +22,9 @@ namespace visualizer
 	{
 		_imovement->apply_force(moveable);
 	}
+
+	bool Movement::should_be_removed() const
+	{
+		return _imovement->should_be_removed();
+	}
 }

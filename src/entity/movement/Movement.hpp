@@ -14,6 +14,7 @@ namespace visualizer
 			~Movement();
 
 			void apply_force(Movable* moveable);
+			bool should_be_removed() const;
 		private:
 			IMovement* _imovement;
 	};

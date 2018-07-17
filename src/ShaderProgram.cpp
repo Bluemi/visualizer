@@ -56,7 +56,7 @@ namespace visualizer
 			std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
 			return {};
 		}
-		  
+
 		// delete the shaders as they're linked into our program now and no longer necessery
 		vertex_shader.del();
 		fragment_shader.del();
@@ -91,36 +91,42 @@ namespace visualizer
 	void ShaderProgram::set_bool(const std::string& name, bool value) const
 	{
 		int loc = get_uniform_location(name);
-		glUniform1i(loc, (int)value); 
+		glUniform1i(loc, (int)value);
 	}
 
 	void ShaderProgram::set_float(const std::string& name, float value) const
 	{
 		int loc = get_uniform_location(name);
-		glUniform1f(loc, value); 
+		glUniform1f(loc, value);
 	}
 
 	void ShaderProgram::set_int(const std::string& name, int value) const
 	{
 		int loc = get_uniform_location(name);
-		glUniform1i(loc, value); 
+		glUniform1i(loc, value);
 	}
 
-	void ShaderProgram::set_2f(const std::string& name, float x, float y) const
+	void ShaderProgram::set_2f(const std::string& name, const glm::vec2& value) const
 	{
 		int loc = get_uniform_location(name);
-		glUniform2f(loc, x, y); 
+		glUniform2f(loc, value.x, value.y);
 	}
 
-	void ShaderProgram::set_4f(const std::string& name, float x, float y, float z, float w) const
+	void ShaderProgram::set_3f(const std::string& name, const glm::vec3& value) const
 	{
 		int loc = get_uniform_location(name);
-		glUniform4f(loc, x, y, z, w); 
+		glUniform3f(loc, value.x, value.y, value.z);
+	}
+
+	void ShaderProgram::set_4f(const std::string& name, const glm::vec4& value) const
+	{
+		int loc = get_uniform_location(name);
+		glUniform4f(loc, value.x, value.y, value.z, value.w);
 	}
 
 	void ShaderProgram::set_4fv(const std::string& name, const glm::mat4& mat) const
 	{
 		int loc = get_uniform_location(name);
-		glUniformMatrix4fv(loc, 1,GL_FALSE, glm::value_ptr(mat)); 
+		glUniformMatrix4fv(loc, 1,GL_FALSE, glm::value_ptr(mat));
 	}
 }

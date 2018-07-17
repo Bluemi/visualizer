@@ -22,6 +22,7 @@ namespace visualizer
 			Creation& with_position(const VectorGenerator& position);
 			Creation& with_size(const VectorGenerator& size);
 			Creation& with_velocity(const VectorGenerator& velocity);
+			Creation& with_color(const VectorGenerator& color);
 
 			EntityBuffer create() const;
 		private:
@@ -30,6 +31,7 @@ namespace visualizer
 			VectorGenerator _size;
 			VectorGenerator _velocity;
 			ShapeGenerator _shape;
+			VectorGenerator _color;
 	};
 }
 

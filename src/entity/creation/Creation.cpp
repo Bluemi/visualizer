@@ -35,6 +35,12 @@ namespace visualizer
 		return *this;
 	}
 
+	Creation& Creation::with_color(const VectorGenerator& color)
+	{
+		_color = color;
+		return *this;
+	}
+
 	EntityBuffer Creation::create() const
 	{
 		unsigned int quantity = _quantity.get();
@@ -48,6 +54,7 @@ namespace visualizer
 			m.set_position(_position.get());
 			m.set_size(_size.get());
 			m.set_velocity(_velocity.get());
+			m.set_color(_color.get());
 
 			movables.push_back(m);
 		}

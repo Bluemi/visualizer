@@ -7,8 +7,8 @@
 
 namespace visualizer
 {
-	RandomAcceleration::RandomAcceleration(float intensity, unsigned int interval)
-		: _intensity(intensity), _counter(0), _interval(interval)
+	RandomAcceleration::RandomAcceleration(float intensity)
+		: _intensity(intensity), _should_be_removed(false)
 	{}
 
 	float get_rand(float intensity)
@@ -18,12 +18,16 @@ namespace visualizer
 
 	void RandomAcceleration::apply_force(Movable* movable)
 	{
-		if (_counter >= _interval)
+		if (!_should_be_removed)
 		{
 			glm::vec3 force = glm::vec3(get_rand(_intensity), get_rand(_intensity), get_rand(_intensity));
 			movable->update_acceleration(force);
-			_counter = 0;
 		}
-		_counter++;
+		_should_be_removed = true;
+	}
+
+	bool RandomAcceleration::should_be_removed() const
+	{
+		return _should_be_removed;
 	}
 }
