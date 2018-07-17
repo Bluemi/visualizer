@@ -69,7 +69,7 @@ int main() {
 	visualizer::Query sphere_query = visualizer::Query().with_shape(visualizer::ShapeType::SPHERE);
 	visualizer::EntityGroup spheres = visualizer.get_entities().query_group(sphere_query);
 
-	visualizer::Movement sphere_circle(new visualizer::Circle(glm::vec3(0.f, 1.f, 0.f), 4.f));
+	visualizer::Movement sphere_circle(new visualizer::Circle(glm::vec3(0.f, 1.f, 0.f), 3.f));
 	visualizer::Movement sphere_drag(new visualizer::SimpleDrag(0.3f));
 	visualizer::Movement sphere_random(new visualizer::RandomAcceleration(0.08f));
 
