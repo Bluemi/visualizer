@@ -11,8 +11,10 @@ namespace visualizer
 		public:
 			Movement(IMovement* imovement);
 			Movement(const Movement& movement);
+			Movement& operator=(Movement movement);
 			~Movement();
 
+			void init(Movable* movable);
 			void apply_force(Movable* moveable);
 			bool should_be_removed() const;
 		private:

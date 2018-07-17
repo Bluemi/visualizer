@@ -9,6 +9,8 @@ namespace visualizer
 	{
 		public:
 			virtual ~IMovement();
+
+			virtual void init(Movable* movable);
 			virtual void apply_force(Movable* movable) = 0;
 			virtual bool should_be_removed() const;
 

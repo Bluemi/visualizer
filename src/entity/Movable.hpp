@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "Entity.hpp"
+#include "Accelerator.hpp"
 #include "movement/Movement.hpp"
 #include "../shape/ShapeSpecification.hpp"
 
@@ -19,10 +20,11 @@ namespace visualizer
 
 			void add_movement(const Movement& movement);
 
+			// Position
 			void set_position(const glm::vec3& position);
 			const glm::vec3& get_position() const;
 
-			void update_velocity(const glm::vec3& acceleration);
+			void update_velocity(const glm::vec3& velocity_update);
 			void set_velocity(const glm::vec3& velocity);
 			const glm::vec3& get_velocity() const;
 
@@ -30,20 +32,30 @@ namespace visualizer
 			void set_acceleration(const glm::vec3& acceleration);
 			const glm::vec3& get_acceleration() const;
 
+			// Size
 			void set_size(const glm::vec3& size);
 			void update_size(const glm::vec3& size);
 			const glm::vec3& get_size() const;
 
+			// Color
 			void set_color(const glm::vec3& color);
 			void update_color(const glm::vec3& color);
 			const glm::vec3& get_color() const;
 
+			void set_color_velocity(const glm::vec3& color_velocity);
+			void update_color_velocity(const glm::vec3& color_velocity);
+			const glm::vec3& get_color_velocity() const;
+
+			void set_color_acceleration(const glm::vec3& color_acceleration);
+			void update_color_acceleration(const glm::vec3& color_acceleration);
+			const glm::vec3& get_color_acceleration() const;
+
 			ShapeSpecification get_shape_specification() const;
 		private:
 			Entity _entity;
+			Accelerator _position_accelerator;
+			Accelerator _color_accelerator;
 			std::vector<Movement> _movements;
-			glm::vec3 _velocity;
-			glm::vec3 _acceleration;
 	};
 }
 

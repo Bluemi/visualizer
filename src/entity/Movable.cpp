@@ -1,5 +1,8 @@
 #include "Movable.hpp"
 
+#include <iostream>
+#include "../misc/Misc.hpp"
+
 namespace visualizer
 {
 	Movable::Movable(const Shape& shape)
@@ -19,10 +22,11 @@ namespace visualizer
 			}
 		}
 
-		_velocity += _acceleration;
-		_acceleration = glm::vec3();
+		_position_accelerator.tick();
+		_color_accelerator.tick();
 
-		_entity.update_position(_velocity * static_cast<float>(speed));
+		_entity.update_position(_position_accelerator.velocity * static_cast<float>(speed));
+		_entity.update_color(_color_accelerator.velocity * static_cast<float>(speed));
 	}
 
 	void Movable::render(ShaderProgram& shader_program) const
@@ -32,7 +36,9 @@ namespace visualizer
 
 	void Movable::add_movement(const Movement& movement)
 	{
-		_movements.push_back(movement);
+		Movement m = movement;
+		m.init(this);
+		_movements.push_back(m);
 	}
 
 	void Movable::set_position(const glm::vec3& position)
@@ -45,34 +51,34 @@ namespace visualizer
 		return _entity.get_position();
 	}
 
-	void Movable::update_velocity(const glm::vec3& acceleration)
+	void Movable::update_velocity(const glm::vec3& velocity_update)
 	{
-		_velocity += acceleration;
+		_position_accelerator.velocity += velocity_update;
 	}
 
 	void Movable::set_velocity(const glm::vec3& velocity)
 	{
-		_velocity = velocity;
+		_position_accelerator.velocity = velocity;
 	}
 
 	const glm::vec3& Movable::get_velocity() const
 	{
-		return _velocity;
+		return _position_accelerator.velocity;
 	}
 
 	void Movable::update_acceleration(const glm::vec3& acceleration)
 	{
-		_acceleration += acceleration;
+		_position_accelerator.acceleration += acceleration;
 	}
 
 	void Movable::set_acceleration(const glm::vec3& acceleration)
 	{
-		_acceleration = acceleration;
+		_position_accelerator.acceleration = acceleration;
 	}
 
 	const glm::vec3& Movable::get_acceleration() const
 	{
-		return _acceleration;
+		return _position_accelerator.acceleration;
 	}
 
 	void Movable::set_size(const glm::vec3& size)
@@ -108,5 +114,35 @@ namespace visualizer
 	const glm::vec3& Movable::get_color() const
 	{
 		return _entity.get_color();
+	}
+
+	void Movable::set_color_velocity(const glm::vec3& color_velocity)
+	{
+		_color_accelerator.velocity = color_velocity;
+	}
+
+	void Movable::update_color_velocity(const glm::vec3& color_velocity)
+	{
+		_color_accelerator.velocity += color_velocity;
+	}
+
+	const glm::vec3& Movable::get_color_velocity() const
+	{
+		return _color_accelerator.velocity;
+	}
+
+	void Movable::set_color_acceleration(const glm::vec3& _color_acceleration)
+	{
+		_color_accelerator.acceleration = _color_acceleration;
+	}
+
+	void Movable::update_color_acceleration(const glm::vec3& color_acceleration)
+	{
+		_color_accelerator.acceleration += color_acceleration;
+	}
+
+	const glm::vec3& Movable::get_color_acceleration() const
+	{
+		return _color_accelerator.acceleration;
 	}
 }

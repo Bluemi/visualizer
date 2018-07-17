@@ -10,6 +10,7 @@ namespace visualizer
 		public:
 			VectorGenerator();
 			VectorGenerator(const glm::vec3& mean);
+			VectorGenerator(const VectorGenerator&) = default;
 
 			VectorGenerator& with_mean(const glm::vec3& mean);
 			VectorGenerator& with_stddev(const glm::vec3& stddev);

@@ -13,6 +13,9 @@
 #include "entity/movement/Circle.hpp"
 #include "entity/movement/RandomAcceleration.hpp"
 #include "entity/movement/SimpleDrag.hpp"
+#include "entity/movement/RandomColor.hpp"
+#include "entity/movement/SimpleColorDrag.hpp"
+#include "entity/movement/StdColor.hpp"
 
 #include <glm/glm.hpp>
 
@@ -52,11 +55,15 @@ int main() {
 	visualizer::Movement cube_circle(new visualizer::Circle(glm::vec3(), 5.f));
 	visualizer::Movement cube_drag(new visualizer::SimpleDrag(0.3f));
 	visualizer::Movement cube_random(new visualizer::RandomAcceleration(0.08f));
+	visualizer::Movement color_drag(new visualizer::SimpleColorDrag(0.1f));
+	visualizer::Movement std_color(new visualizer::StdColor(0.04f));
 
 	for (visualizer::Movable* m : cubes)
 	{
 		m->add_movement(cube_circle);
 		m->add_movement(cube_drag);
+		m->add_movement(color_drag);
+		m->add_movement(std_color);
 	}
 
 	visualizer::Query sphere_query = visualizer::Query().with_shape(visualizer::ShapeType::SPHERE);
@@ -64,13 +71,20 @@ int main() {
 
 	visualizer::Movement sphere_circle(new visualizer::Circle(glm::vec3(0.f, 1.f, 0.f), 4.f));
 	visualizer::Movement sphere_drag(new visualizer::SimpleDrag(0.3f));
-	visualizer::Movement sphere_random(new visualizer::RandomAcceleration(0.08f));
+	visualizer::Movement sphere_random(new visualizer::RandomAcceleration(0.18f));
 
 	for (visualizer::Movable* m : spheres)
 	{
 		m->add_movement(sphere_circle);
 		m->add_movement(sphere_drag);
+		m->add_movement(color_drag);
+		m->add_movement(std_color);
 	}
+
+	// Color Movements
+	float b = 0.05f;
+	visualizer::Movement sphere_color_random(new visualizer::RandomColor(visualizer::VectorGenerator(glm::vec3(b*3, -b, -b)).with_stddev(glm::vec3(0.1f, 0.1f, 0.1f))));
+	visualizer::Movement cube_color_random(new visualizer::RandomColor(visualizer::VectorGenerator(glm::vec3(-b, b*3, -b)).with_stddev(glm::vec3(0.1f, 0.1f, 0.1f))));
 
 	unsigned int counter = 0;
 
@@ -81,10 +95,12 @@ int main() {
 			for (visualizer::Movable* m : cubes)
 			{
 				m->add_movement(cube_random);
+				m->add_movement(cube_color_random);
 			}
 			for (visualizer::Movable* m : spheres)
 			{
 				m->add_movement(sphere_random);
+				m->add_movement(sphere_color_random);
 			}
 		}
 		counter = (counter + 1) % 60;
