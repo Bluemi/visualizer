@@ -36,6 +36,11 @@ namespace visualizer
 		return g;
 	}
 
+	void EntityBuffer::append(const EntityBuffer& entity_buffer)
+	{
+		_movables.insert(_movables.begin(), entity_buffer.get_movables().cbegin(), entity_buffer.get_movables().cend());
+	}
+
 	std::vector<Movable>& EntityBuffer::get_movables()
 	{
 		return const_cast<std::vector<Movable>&>(

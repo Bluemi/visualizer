@@ -50,12 +50,16 @@ namespace visualizer
 			void update_color_acceleration(const glm::vec3& color_acceleration);
 			const glm::vec3& get_color_acceleration() const;
 
+			void set_tags(const std::vector<std::string>& tags);
+			const std::vector<std::string>& get_tags() const;
+
 			ShapeSpecification get_shape_specification() const;
 		private:
 			Entity _entity;
 			Accelerator _position_accelerator;
 			Accelerator _color_accelerator;
 			std::vector<Movement> _movements;
+			std::vector<std::string> _tags;
 	};
 }
 

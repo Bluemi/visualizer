@@ -21,6 +21,8 @@ namespace visualizer
 			iterator query_iterator(const Query& query);
 			EntityGroup query_group(const Query& query);
 
+			void append(const EntityBuffer& entity_buffer);
+
 			std::vector<Movable>& get_movables();
 			const std::vector<Movable>& get_movables() const;
 		private:

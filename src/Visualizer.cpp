@@ -163,7 +163,7 @@ namespace visualizer
 
 	void Visualizer::create_entities(const Creation& creation)
 	{
-		_entities = creation.create();
+		_entities.append(creation.create());
 	}
 
 	void Visualizer::close()

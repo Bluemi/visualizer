@@ -145,4 +145,14 @@ namespace visualizer
 	{
 		return _color_accelerator.acceleration;
 	}
+
+	void Movable::set_tags(const std::vector<std::string>& tags)
+	{
+		_tags = tags;
+	}
+
+	const std::vector<std::string>& Movable::get_tags() const
+	{
+		return _tags;
+	}
 }

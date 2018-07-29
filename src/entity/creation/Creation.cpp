@@ -41,6 +41,12 @@ namespace visualizer
 		return *this;
 	}
 
+	Creation& Creation::with_tag(const std::string& tag)
+	{
+		_tags.push_back(tag);
+		return *this;
+	}
+
 	EntityBuffer Creation::create() const
 	{
 		unsigned int quantity = _quantity.get();
@@ -55,6 +61,7 @@ namespace visualizer
 			m.set_size(_size.get());
 			m.set_velocity(_velocity.get());
 			m.set_color(_color.get());
+			m.set_tags(_tags);
 
 			movables.push_back(m);
 		}

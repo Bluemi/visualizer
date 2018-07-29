@@ -23,6 +23,7 @@ namespace visualizer
 			Creation& with_size(const VectorGenerator& size);
 			Creation& with_velocity(const VectorGenerator& velocity);
 			Creation& with_color(const VectorGenerator& color);
+			Creation& with_tag(const std::string& tag);
 
 			EntityBuffer create() const;
 		private:
@@ -32,6 +33,7 @@ namespace visualizer
 			VectorGenerator _velocity;
 			ShapeGenerator _shape;
 			VectorGenerator _color;
+			std::vector<std::string> _tags;
 	};
 }
 
