@@ -1,25 +1,25 @@
-#include "GroupMovementBase.hpp"
+#include "GroupMovement.hpp"
 
 #include <iostream>
 
 namespace visualizer
 {
-	GroupMovementBase::GroupMovementBase(const GroupMovement& movement)
+	GroupMovement::GroupMovement(const _GroupMovementVar& movement)
 		: _group_movement(movement)
 	{}
 
-	void GroupMovementBase::with_groups(const std::vector<std::string>& groups)
+	void GroupMovement::with_groups(const std::vector<std::string>& groups)
 	{
 		_groups.insert(_groups.end(), groups.cbegin(), groups.cend());
 	}
 
-	void GroupMovementBase::apply_to(EntityBuffer* entity_buffer)
+	void GroupMovement::apply_to(EntityBuffer* entity_buffer)
 	{
 		std::visit([this, &entity_buffer](auto& m) { this->apply_to(entity_buffer, m); }, _group_movement);
 	}
 
 	template<typename GroupMovementType>
-	void GroupMovementBase::apply_to(EntityBuffer* entity_buffer, GroupMovementType& movement)
+	void GroupMovement::apply_to(EntityBuffer* entity_buffer, GroupMovementType& movement)
 	{
 		if (_groups.empty())
 		{

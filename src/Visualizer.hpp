@@ -8,7 +8,7 @@
 #include "entity/EntityBuffer.hpp"
 #include "entity/EntityReferences.hpp"
 #include "entity/queries/Query.hpp"
-#include "entity/movement/GroupMovementBase.hpp"
+#include "entity/movement/GroupMovement.hpp"
 #include "ShaderProgram.hpp"
 
 namespace visualizer
@@ -36,7 +36,7 @@ namespace visualizer
 			EntityBuffer& get_entities();
 			EntityReferences query_entities(const Query& query);
 
-			void add_group_movement(const GroupMovementBase& movement);
+			void add_group_movement(const GroupMovement& movement);
 
 			void framebuffer_size_callback(GLFWwindow*, int width, int height);
 		private:
@@ -48,7 +48,7 @@ namespace visualizer
 			ShaderProgram _shader_program;
 
 			EntityBuffer _entities;
-			std::vector<GroupMovementBase> _group_movements;
+			std::vector<GroupMovement> _group_movements;
 
 			GLFWwindow* _window;
 

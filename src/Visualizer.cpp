@@ -136,7 +136,7 @@ namespace visualizer
 		_controller.process_user_input(_window, &_camera);
 		_camera.tick(speed);
 
-		for (GroupMovementBase& movement : _group_movements)
+		for (GroupMovement& movement : _group_movements)
 		{
 			movement.apply_to(&_entities);
 		}
@@ -220,7 +220,7 @@ namespace visualizer
 		return entity_references;
 	}
 
-	void Visualizer::add_group_movement(const GroupMovementBase& movement)
+	void Visualizer::add_group_movement(const GroupMovement& movement)
 	{
 		_group_movements.push_back(movement);
 	}
