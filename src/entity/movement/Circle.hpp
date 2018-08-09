@@ -1,18 +1,21 @@
 #ifndef __CIRCLE_CLASS__
 #define __CIRCLE_CLASS__
 
-#include <glm/glm.hpp>
+#include <vector>
 
-#include "IMovement.hpp"
+#include <glm/glm.hpp>
 
 namespace visualizer
 {
-	class Circle : public IMovementCloneable<Circle>
+	class Movable;
+
+	class Circle
 	{
 		public:
 			Circle(const glm::vec3& center, float radius);
 
-			virtual void apply_force(Movable* movable) override;
+			void apply_force(std::vector<Movable>& movables);
+			void apply_force(Movable* movable);
 		private:
 			glm::vec3 _center;
 			float _radius;

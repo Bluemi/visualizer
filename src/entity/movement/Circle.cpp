@@ -1,5 +1,7 @@
 #include "Circle.hpp"
 
+#include <iostream>
+
 #include "../Movable.hpp"
 
 namespace visualizer
@@ -9,6 +11,14 @@ namespace visualizer
 	Circle::Circle(const glm::vec3& center, float radius)
 		: _center(center), _radius(radius)
 	{}
+
+	void Circle::apply_force(std::vector<Movable>& movables)
+	{
+		for (Movable& m : movables)
+		{
+			apply_force(&m);
+		}
+	}
 
 	void Circle::apply_force(Movable* movable)
 	{

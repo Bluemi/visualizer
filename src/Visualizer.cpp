@@ -136,6 +136,11 @@ namespace visualizer
 		_controller.process_user_input(_window, &_camera);
 		_camera.tick(speed);
 
+		for (GroupMovementBase& movement : _group_movements)
+		{
+			movement.apply_to(&_entities);
+		}
+
 		for (auto iter = _entities.begin(); iter != _entities.end(); ++iter)
 		{
 			for (Movable& m : iter->second)
@@ -213,6 +218,11 @@ namespace visualizer
 		}
 
 		return entity_references;
+	}
+
+	void Visualizer::add_group_movement(const GroupMovementBase& movement)
+	{
+		_group_movements.push_back(movement);
 	}
 
 	void Visualizer::clear_window()

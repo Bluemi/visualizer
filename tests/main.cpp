@@ -52,15 +52,16 @@ int main() {
 	visualizer::Query cube_query = visualizer::Query().with_shape(visualizer::ShapeType::CUBE);
 	visualizer::EntityReferences cubes = visualizer.query_entities(cube_query);
 
-	visualizer::Movement cube_circle(new visualizer::Circle(glm::vec3(), 5.f));
+	visualizer::GroupMovement cube_circle(visualizer::Circle(glm::vec3(), 5.f));
 	visualizer::Movement cube_drag(new visualizer::SimpleDrag(0.3f));
 	visualizer::Movement cube_random(new visualizer::RandomAcceleration(0.08f));
 	visualizer::Movement color_drag(new visualizer::SimpleColorDrag(0.1f));
 	visualizer::Movement std_color(new visualizer::StdColor(0.04f));
 
+	visualizer.add_group_movement(cube_circle);
+
 	for (visualizer::Movable* m : cubes)
 	{
-		m->add_movement(cube_circle);
 		m->add_movement(cube_drag);
 		m->add_movement(color_drag);
 		m->add_movement(std_color);
@@ -69,13 +70,11 @@ int main() {
 	visualizer::Query sphere_query = visualizer::Query().with_shape(visualizer::ShapeType::SPHERE);
 	visualizer::EntityReferences spheres = visualizer.query_entities(sphere_query);
 
-	visualizer::Movement sphere_circle(new visualizer::Circle(glm::vec3(0.f, 1.f, 0.f), 3.f));
 	visualizer::Movement sphere_drag(new visualizer::SimpleDrag(0.3f));
 	visualizer::Movement sphere_random(new visualizer::RandomAcceleration(0.08f));
 
 	for (visualizer::Movable* m : spheres)
 	{
-		m->add_movement(sphere_circle);
 		m->add_movement(sphere_drag);
 		m->add_movement(color_drag);
 		m->add_movement(std_color);
