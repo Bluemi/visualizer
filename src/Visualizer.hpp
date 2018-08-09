@@ -6,6 +6,8 @@
 #include "controller/Controller.hpp"
 #include "camera/Camera.hpp"
 #include "entity/EntityBuffer.hpp"
+#include "entity/EntityReferences.hpp"
+#include "entity/queries/Query.hpp"
 #include "ShaderProgram.hpp"
 
 namespace visualizer
@@ -31,6 +33,7 @@ namespace visualizer
 
 			void create_entities(const Creation& creation);
 			EntityBuffer& get_entities();
+			EntityReferences query_entities(const Query& query);
 
 			void framebuffer_size_callback(GLFWwindow*, int width, int height);
 		private:

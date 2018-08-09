@@ -21,6 +21,12 @@ namespace visualizer
 		return *this;
 	}
 
+	Query& Query::with_groups(const std::vector<std::string>& groups)
+	{
+		_groups.insert(_groups.end(), groups.cbegin(), groups.cend());
+		return *this;
+	}
+
 	Query& Query::with_tags(const std::vector<std::string>& tags)
 	{
 		_include_tags = tags;
@@ -88,5 +94,10 @@ namespace visualizer
 		}
 
 		return included;
+	}
+
+	const std::vector<std::string>& Query::get_groups() const
+	{
+		return _groups;
 	}
 }

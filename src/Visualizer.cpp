@@ -4,7 +4,6 @@
 #include <cmath>
 #include <string>
 
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "images/stb_image.h"
@@ -137,9 +136,12 @@ namespace visualizer
 		_controller.process_user_input(_window, &_camera);
 		_camera.tick(speed);
 
-		for (Movable& m : _entities.get_movables())
+		for (auto iter = _entities.begin(); iter != _entities.end(); ++iter)
 		{
-			m.tick(speed);
+			for (Movable& m : iter->second)
+			{
+				m.tick(speed);
+			}
 		}
 	}
 
@@ -152,9 +154,12 @@ namespace visualizer
 												0.1f, 100.f);
 		_shader_program.set_4fv("projection", projection);
 
-		for (Movable& m : _entities.get_movables())
+		for (auto iter = _entities.cbegin(); iter != _entities.cend(); ++iter)
 		{
-			m.render(_shader_program);
+			for (const Movable& m : iter->second)
+			{
+				m.render(_shader_program);
+			}
 		}
 
 		glfwSwapBuffers(_window);
@@ -163,7 +168,7 @@ namespace visualizer
 
 	void Visualizer::create_entities(const Creation& creation)
 	{
-		_entities.append(creation.create());
+		_entities.insert(creation.create());
 	}
 
 	void Visualizer::close()
@@ -187,6 +192,27 @@ namespace visualizer
 	EntityBuffer& Visualizer::get_entities()
 	{
 		return _entities;
+	}
+
+	EntityReferences Visualizer::query_entities(const Query& query)
+	{
+		EntityReferences entity_references;
+		if (query.get_groups().empty())
+		{
+			for (auto iter = _entities.begin(); iter != _entities.end(); ++iter)
+				for (Movable& m : iter->second)
+					if (query.entity_included(m))
+						entity_references.push_back(&m);
+		} else {
+			for (const std::string& group : query.get_groups())
+			{
+				std::vector<Movable>& movables = _entities[group];
+				for (Movable& m : movables)
+					entity_references.push_back(&m);
+			}
+		}
+
+		return entity_references;
 	}
 
 	void Visualizer::clear_window()

@@ -40,7 +40,7 @@ int main() {
 	visualizer::VectorGenerator color_gen = visualizer::VectorGenerator(glm::vec3(color_brightness, color_brightness, color_brightness*3))
 		.with_stddev(glm::vec3(color_variance, color_variance, color_variance));;
 
-	visualizer::Creation creation = visualizer::Creation(shape_gen)
+	visualizer::Creation creation = visualizer::Creation(shape_gen, "main_group")
 		.with_quantity(2000)
 		.with_position(pos_gen)
 		.with_size(size_gen)
@@ -50,7 +50,7 @@ int main() {
 	visualizer.create_entities(creation);
 
 	visualizer::Query cube_query = visualizer::Query().with_shape(visualizer::ShapeType::CUBE);
-	visualizer::EntityGroup cubes = visualizer.get_entities().query_group(cube_query);
+	visualizer::EntityReferences cubes = visualizer.query_entities(cube_query);
 
 	visualizer::Movement cube_circle(new visualizer::Circle(glm::vec3(), 5.f));
 	visualizer::Movement cube_drag(new visualizer::SimpleDrag(0.3f));
@@ -67,7 +67,7 @@ int main() {
 	}
 
 	visualizer::Query sphere_query = visualizer::Query().with_shape(visualizer::ShapeType::SPHERE);
-	visualizer::EntityGroup spheres = visualizer.get_entities().query_group(sphere_query);
+	visualizer::EntityReferences spheres = visualizer.query_entities(sphere_query);
 
 	visualizer::Movement sphere_circle(new visualizer::Circle(glm::vec3(0.f, 1.f, 0.f), 3.f));
 	visualizer::Movement sphere_drag(new visualizer::SimpleDrag(0.3f));

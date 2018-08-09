@@ -7,8 +7,8 @@
 
 namespace visualizer
 {
-	Creation::Creation(const ShapeGenerator& shape)
-		: _quantity(0), _position(), _size(glm::vec3(1.f, 1.f, 1.f)), _shape(shape)
+	Creation::Creation(const ShapeGenerator& shape, const std::string& group)
+		: _quantity(0), _position(), _size(glm::vec3(1.f, 1.f, 1.f)), _shape(shape), _group(group)
 	{}
 
 	Creation& Creation::with_quantity(const NumberGenerator<unsigned int>& quantity)
@@ -47,7 +47,7 @@ namespace visualizer
 		return *this;
 	}
 
-	EntityBuffer Creation::create() const
+	std::pair<std::string, std::vector<Movable>> Creation::create() const
 	{
 		unsigned int quantity = _quantity.get();
 
@@ -66,6 +66,6 @@ namespace visualizer
 			movables.push_back(m);
 		}
 
-		return EntityBuffer(movables);
+		return {_group, movables};
 	}
 }
