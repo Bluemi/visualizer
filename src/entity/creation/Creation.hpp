@@ -24,6 +24,8 @@ namespace visualizer
 			Creation& with_velocity(const VectorGenerator& velocity);
 			Creation& with_color(const VectorGenerator& color);
 			Creation& with_tag(const std::string& tag);
+			Creation& with_shape(const ShapeGenerator& shape);
+			Creation& with_group(const std::string& group);
 
 			std::pair<std::string, std::vector<Movable>> create() const;
 		private:

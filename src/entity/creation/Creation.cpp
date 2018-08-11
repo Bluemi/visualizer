@@ -47,6 +47,18 @@ namespace visualizer
 		return *this;
 	}
 
+	Creation& Creation::with_shape(const ShapeGenerator& shape)
+	{
+		_shape = shape;
+		return *this;
+	}
+
+	Creation& Creation::with_group(const std::string& group)
+	{
+		_group = group;
+		return *this;
+	}
+
 	std::pair<std::string, std::vector<Movable>> Creation::create() const
 	{
 		unsigned int quantity = _quantity.get();

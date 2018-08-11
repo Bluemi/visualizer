@@ -10,6 +10,7 @@
 #include "entity/queries/Query.hpp"
 #include "entity/movement/GroupMovement.hpp"
 #include "ShaderProgram.hpp"
+#include "entity/EntityIterator.hpp"
 
 namespace visualizer
 {
@@ -34,6 +35,8 @@ namespace visualizer
 
 			void create_entities(const Creation& creation);
 			EntityBuffer& get_entities();
+			EntityIterator begin();
+			EntityIterator end();
 			EntityReferences query_entities(const Query& query);
 
 			void add_group_movement(const GroupMovement& movement);

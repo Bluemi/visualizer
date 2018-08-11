@@ -199,6 +199,17 @@ namespace visualizer
 		return _entities;
 	}
 
+	EntityIterator Visualizer::begin()
+	{
+		return EntityIterator(_entities.begin(),
+							  _entities.begin()->second.begin());
+	}
+
+	EntityIterator Visualizer::end()
+	{
+		return EntityIterator(_entities.end(), {});
+	}
+
 	EntityReferences Visualizer::query_entities(const Query& query)
 	{
 		EntityReferences entity_references;

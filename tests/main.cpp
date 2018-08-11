@@ -31,7 +31,7 @@ int main() {
 
 	visualizer.init();
 
-	visualizer::VectorGenerator pos_gen = visualizer::VectorGenerator().with_stddev(glm::vec3(5.f, 5.f, 5.f));
+	visualizer::VectorGenerator pos_gen = visualizer::VectorGenerator().with_stddev(glm::vec3(0.1f, 0.1f, 0.1f));
 	visualizer::VectorGenerator size_gen = visualizer::VectorGenerator(glm::vec3(0.05f, 0.05f, 0.05f)).with_stddev(glm::vec3(0.01f));
 	visualizer::VectorGenerator speed_gen = visualizer::VectorGenerator().with_stddev(glm::vec3(1.f, 1.f, 1.f));
 	visualizer::ShapeGenerator shape_gen = visualizer::ShapeGenerator(visualizer::SphereSpecification(2), 1.f).with_shape(visualizer::CubeSpecification(), 1.f);
@@ -41,7 +41,7 @@ int main() {
 		.with_stddev(glm::vec3(color_variance, color_variance, color_variance));;
 
 	visualizer::Creation creation = visualizer::Creation(shape_gen, "main_group")
-		.with_quantity(2000)
+		.with_quantity(2)
 		.with_position(pos_gen)
 		.with_size(size_gen)
 		.with_velocity(speed_gen)
