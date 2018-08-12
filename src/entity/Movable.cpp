@@ -11,14 +11,14 @@ namespace visualizer
 
 	void Movable::tick(const double speed)
 	{
-		for (unsigned int i = 0; i < _movements.size();)
+		for (auto iter = _movements.begin(); iter != _movements.end();)
 		{
-			_movements[i].apply_force(this);
-			if (_movements[i].should_be_removed())
+			iter->apply_force(this);
+			if (iter->should_be_removed())
 			{
-				_movements.erase(_movements.begin() + i);
+				iter = _movements.erase(iter);
 			} else {
-				i++;
+				++iter;
 			}
 		}
 

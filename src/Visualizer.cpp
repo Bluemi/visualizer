@@ -141,12 +141,9 @@ namespace visualizer
 			movement.apply_to(&_entities);
 		}
 
-		for (auto iter = _entities.begin(); iter != _entities.end(); ++iter)
+		for (Movable& m : *this)
 		{
-			for (Movable& m : iter->second)
-			{
-				m.tick(speed);
-			}
+			m.tick(speed);
 		}
 	}
 
@@ -159,12 +156,9 @@ namespace visualizer
 												0.1f, 100.f);
 		_shader_program.set_4fv("projection", projection);
 
-		for (auto iter = _entities.cbegin(); iter != _entities.cend(); ++iter)
+		for (const Movable& m : *this)
 		{
-			for (const Movable& m : iter->second)
-			{
-				m.render(_shader_program);
-			}
+			m.render(_shader_program);
 		}
 
 		glfwSwapBuffers(_window);

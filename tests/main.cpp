@@ -41,7 +41,7 @@ int main() {
 		.with_stddev(glm::vec3(color_variance, color_variance, color_variance));;
 
 	visualizer::Creation creation = visualizer::Creation(shape_gen, "main_group")
-		.with_quantity(2)
+		.with_quantity(2000)
 		.with_position(pos_gen)
 		.with_size(size_gen)
 		.with_velocity(speed_gen)
