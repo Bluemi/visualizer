@@ -14,50 +14,50 @@ namespace visualizer
 		Shape cube()
 		{
 			float vertices[] = {
-				-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-				 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-				 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-				 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-				-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-				-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+				-0.5f, -0.5f, -0.5f,
+				 0.5f, -0.5f, -0.5f,
+				 0.5f,  0.5f, -0.5f,
+				 0.5f,  0.5f, -0.5f,
+				-0.5f,  0.5f, -0.5f,
+				-0.5f, -0.5f, -0.5f,
 
-				-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-				 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-				 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-				 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-				-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-				-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+				-0.5f, -0.5f,  0.5f,
+				 0.5f, -0.5f,  0.5f,
+				 0.5f,  0.5f,  0.5f,
+				 0.5f,  0.5f,  0.5f,
+				-0.5f,  0.5f,  0.5f,
+				-0.5f, -0.5f,  0.5f,
 
-				-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-				-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-				-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-				-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-				-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-				-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+				-0.5f,  0.5f,  0.5f,
+				-0.5f,  0.5f, -0.5f,
+				-0.5f, -0.5f, -0.5f,
+				-0.5f, -0.5f, -0.5f,
+				-0.5f, -0.5f,  0.5f,
+				-0.5f,  0.5f,  0.5f,
 
-				 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-				 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-				 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-				 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-				 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-				 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+				 0.5f,  0.5f,  0.5f,
+				 0.5f,  0.5f, -0.5f,
+				 0.5f, -0.5f, -0.5f,
+				 0.5f, -0.5f, -0.5f,
+				 0.5f, -0.5f,  0.5f,
+				 0.5f,  0.5f,  0.5f,
 
-				-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-				 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-				 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-				 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-				-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-				-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+				-0.5f, -0.5f, -0.5f,
+				 0.5f, -0.5f, -0.5f,
+				 0.5f, -0.5f,  0.5f,
+				 0.5f, -0.5f,  0.5f,
+				-0.5f, -0.5f,  0.5f,
+				-0.5f, -0.5f, -0.5f,
 
-				-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-				 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-				 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-				 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-				-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-				-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+				-0.5f,  0.5f, -0.5f,
+				 0.5f,  0.5f, -0.5f,
+				 0.5f,  0.5f,  0.5f,
+				 0.5f,  0.5f,  0.5f,
+				-0.5f,  0.5f,  0.5f,
+				-0.5f,  0.5f, -0.5f,
 			};
 
-			std::vector<Attribute> attributes = {Shape::PositionAttribute, Shape::TextureCoordinateAttribute};
+			std::vector<Attribute> attributes = {Shape::PositionAttribute};
 
 			return Shape::create(vertices, 36, attributes, CubeSpecification());
 		}
@@ -96,34 +96,17 @@ namespace visualizer
 				/**
 				 * Returns the number of floats used for one triangle, if loaded.
 				 */
-				static size_t get_size(const unsigned char flags)
+				static size_t get_size()
 				{
-					unsigned int n_floats = 0;
-					if (flags & POSITION_BIT)
-						n_floats += 9;
-					if (flags & NORMALE_BIT)
-						n_floats += 9;
-					return n_floats;
+					return 9;
 				}
 
-				void load_into(float* vertices, const unsigned char flags)
+				void load_into(float* vertices)
 				{
-					if (flags & POSITION_BIT) {
-						if (flags & NORMALE_BIT) {
-							float verts[] = {p1.x, p1.y, p1.z, p1.x, p1.y, p1.z,
-											 p2.x, p2.y, p2.z, p2.x, p2.y, p2.z,
-											 p3.x, p3.y, p3.z, p3.x, p3.y, p3.z};
-							memcpy(vertices, verts, sizeof(verts));
-						} else {
-							float verts[] = {p1.x, p1.y, p1.z,
-											 p2.x, p2.y, p2.z,
-											 p3.x, p3.y, p3.z};
-							memcpy(vertices, verts, sizeof(verts));
-						}
-					} else {
-						std::cout << __FILE__ << ":" << __LINE__ << ": not supported" << std::endl;
-					}
-
+					float verts[] = {p1.x, p1.y, p1.z,
+									 p2.x, p2.y, p2.z,
+									 p3.x, p3.y, p3.z};
+					memcpy(vertices, verts, sizeof(verts));
 				}
 
 				glm::vec3 p1, p2, p3;
@@ -153,7 +136,7 @@ namespace visualizer
 			}
 		}
 
-		Shape sphere(unsigned int fineness, bool use_normales)
+		Shape sphere(unsigned int fineness)
 		{
 			glm::vec3 top(0.0f,  1.0f,  0.0f);
 			glm::vec3 bot(0.0f, -1.0f,  0.0f);
@@ -178,21 +161,15 @@ namespace visualizer
 			triangles = split_triangles(triangles, fineness);
 			normalize_triangles(&triangles);
 
-			unsigned char flags = Triangle::POSITION_BIT;
-			if (use_normales)
-				flags |= Triangle::NORMALE_BIT;
-
-			unsigned int number_floats = Triangle::get_size(flags);
+			unsigned int number_floats = Triangle::get_size();
 
 			float vertices[number_floats*triangles.size()];
 			for (unsigned int i = 0; i < triangles.size(); i++)
 			{
-				triangles[i].load_into(vertices+i*number_floats, flags);
+				triangles[i].load_into(vertices+i*number_floats);
 			}
 
 			std::vector<Attribute> attributes = {Shape::PositionAttribute};
-			if (flags & Triangle::NORMALE_BIT)
-				attributes.push_back(Shape::NormaleAttribute);
 
 			return Shape::create(vertices, triangles.size() * 3, attributes, SphereSpecification(fineness));
 		}

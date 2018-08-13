@@ -82,7 +82,7 @@ namespace visualizer
 	n_floats Shape::get_attributes_size(const std::vector<Attribute>& attributes)
 	{
 		unsigned int attributes_size = 0;
-		for (Attribute a : attributes)
+		for (const Attribute& a : attributes)
 		{
 			attributes_size += a.size;
 		}

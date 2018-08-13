@@ -28,7 +28,7 @@ namespace visualizer
 
 			Shape operator()(const SphereSpecification& spec)
 			{
-				return initialize::sphere(spec.get_fineness(), true);
+				return initialize::sphere(spec.get_fineness());
 			}
 	} shape_extractor;
 

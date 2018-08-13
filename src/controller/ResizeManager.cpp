@@ -24,11 +24,13 @@ namespace visualizer
 
 		void remove_visualizer(Visualizer* visualizer)
 		{
-			for (auto it = _visualizers.cbegin(); it != _visualizers.cend(); ++it)
+			for (auto it = _visualizers.cbegin(); it != _visualizers.cend();)
 			{
 				if (*it == visualizer)
 				{
-					_visualizers.erase(it);
+					it = _visualizers.erase(it);
+				} else {
+					++it;
 				}
 			}
 		}
