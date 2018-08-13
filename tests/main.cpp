@@ -11,6 +11,7 @@
 #include "entity/Movable.hpp"
 #include "shape/ShapeType.hpp"
 #include "entity/movement/Circle.hpp"
+#include "entity/movement/FlowField.hpp"
 #include "entity/movement/RandomAcceleration.hpp"
 #include "entity/movement/SimpleDrag.hpp"
 #include "entity/movement/RandomColor.hpp"
@@ -52,13 +53,13 @@ int main() {
 	visualizer::Query cube_query = visualizer::Query().with_shape(visualizer::ShapeType::CUBE);
 	visualizer::EntityReferences cubes = visualizer.query_entities(cube_query);
 
-	visualizer::GroupMovement cube_circle(visualizer::Circle(glm::vec3(), 5.f));
+	visualizer::GroupMovement cube_flow_field((visualizer::FlowField()));
 	visualizer::Movement cube_drag(new visualizer::SimpleDrag(0.3f));
 	visualizer::Movement cube_random(new visualizer::RandomAcceleration(0.08f));
 	visualizer::Movement color_drag(new visualizer::SimpleColorDrag(0.1f));
 	visualizer::Movement std_color(new visualizer::StdColor(0.04f));
 
-	visualizer.add_group_movement(cube_circle);
+	visualizer.add_group_movement(cube_flow_field);
 
 	for (visualizer::Movable* m : cubes)
 	{
@@ -86,10 +87,11 @@ int main() {
 	visualizer::Movement sphere_color_random(new visualizer::RandomColor(visualizer::VectorGenerator(glm::vec3(b*3, -b, -b)).with_stddev(glm::vec3(v, v, v))));
 	visualizer::Movement cube_color_random(new visualizer::RandomColor(visualizer::VectorGenerator(glm::vec3(-b, b*3, -b)).with_stddev(glm::vec3(v, v, v))));
 
-	unsigned int counter = 0;
+	// unsigned int counter = 0;
 
 	while (!visualizer.should_close())
 	{
+		/*
 		if (counter == 0)
 		{
 			for (visualizer::Movable* m : cubes)
@@ -104,6 +106,7 @@ int main() {
 			}
 		}
 		counter = (counter + 1) % 60;
+		*/
 
 		visualizer.tick();
 		visualizer.render();

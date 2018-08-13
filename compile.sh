@@ -37,7 +37,7 @@ build_directory="build"
 
 mkdir -p $build_directory
 cd $build_directory
-cmake -g "Unix Makefiles" ..
+cmake -DCMAKE_BUILD_TYPE=Release -g "Unix Makefiles" ..
 make -j4
 
 cd ..

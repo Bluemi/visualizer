@@ -4,7 +4,7 @@
 #include <vector>
 #include <random>
 
-#include "Combinations.hpp"
+// #include "Combinations.hpp"
 
 namespace visualizer
 {
@@ -46,19 +46,35 @@ namespace visualizer
 	{
 		public:
 			PerlinNoise(unsigned int octaves=4,
-							  float interval_start=1.f,
-							  float amplitude_start=1.f,
-							  float interval_step=0.5f,
-							  float amplitude_step=0.5f)
+						float interval_start=1.f,
+						float amplitude_start=1.f,
+						float interval_step=0.5f,
+						float amplitude_step=0.5f)
 				: _octaves(octaves),
 				  _interval_start(interval_start),
 				  _amplitude_start(amplitude_start),
 				  _interval_step(interval_step),
-				  _amplitude_step(amplitude_step)
+				  _amplitude_step(amplitude_step),
+				  _allocated_dimensions(0)
 			{}
+
+			void allocate(unsigned int dimensions)
+			{
+				if (dimensions != _allocated_dimensions)
+				{
+					unsigned int two_high_dim = std::pow(2, dimensions);
+					_indices.resize(dimensions, {0, 0});
+					_values.resize(two_high_dim, 0);
+					_inter_values.resize(two_high_dim, 0);
+
+					_allocated_dimensions = dimensions;
+				}
+			}
 
 			float operator()(const std::vector<float> seeds)
 			{
+				allocate(seeds.size());
+
 				float interval = _interval_start;
 				float amplitude = _amplitude_start;
 				float sum = 0.f;
@@ -74,25 +90,22 @@ namespace visualizer
 
 			float get_noise(std::vector<float> seeds, float interval)
 			{
-				std::vector<std::vector<int>> indices;
-				indices.reserve(seeds.size());
-				for (float seed : seeds)
+				for (unsigned int i = 0; i < seeds.size(); i++)
 				{
-					int bot_index = get_bot_index(seed, interval);
+					int bot_index = get_bot_index(seeds[i], interval);
 
-					indices.push_back({bot_index, bot_index+1});
+					_indices[i] = std::pair<int, int>(bot_index, bot_index+1);
 				}
 
-				std::vector<std::vector<int>> combinations = get_combinations(indices);
-				std::vector<float> values;
+				std::vector<std::vector<int>> combinations = get_combinations(_indices);
 
-				for (const std::vector<int>& point_in_space : combinations)
+				for (unsigned int i = 0; i < combinations.size(); i++)
 				{
-					float value = _random_generator(point_in_space);
-					values.push_back(value);
+					float value = _random_generator(combinations[i]);
+					_values[i] = value;
 				}
 
-				return interpolate(seeds, values);
+				return interpolate(seeds, _values);
 			}
 
 			float polynom_influence(float x)
@@ -120,16 +133,14 @@ namespace visualizer
 				for (int dim = seeds.size()-1; dim >= 0; dim--)
 				{
 					const unsigned int num_new_values = std::pow(2, dim);
-					std::vector<float> inter_values;
-					inter_values.reserve(num_new_values);
 
 					for (unsigned int i = 0; i < num_new_values; i++)
 					{
 						float inter_v = interp(seeds[dim], values[2*i], values[2*i+1]);
-						inter_values.push_back(inter_v);
+						_inter_values[i] = inter_v;
 					}
 
-					values = inter_values;
+					values = _inter_values;
 				}
 
 				return values[0];
@@ -140,6 +151,53 @@ namespace visualizer
 				return std::floor(seed/interval);
 			}
 
+			const unsigned int NUM_INDICES = 2;
+
+			bool inc_indices(std::vector<unsigned int>& indices)
+			{
+				for (int i = indices.size()-1; i >= 0; i--)
+				{
+					indices[i]++;
+					if (indices[i] >= NUM_INDICES)
+					{
+						indices[i] = 0;
+					} else {
+						return true;
+					}
+				}
+
+				return false;
+			}
+
+			std::vector<int> get_by_indices(const std::vector<std::pair<int, int>>& vecvec, const std::vector<unsigned int>& indices)
+			{
+				std::vector<int> result;
+				for (unsigned int i = 0; i < vecvec.size(); i++)
+				{
+					if (indices[i] == 0)
+						result.push_back(vecvec[i].first);
+					else
+						result.push_back(vecvec[i].second);
+				}
+
+				return result;
+			}
+
+			std::vector<std::vector<int>> get_combinations(const std::vector<std::pair<int, int>>& vecvec)
+			{
+				std::vector<std::vector<int>> result;
+				result.reserve(std::pow(2, vecvec.size()));
+
+				std::vector<unsigned int> indices(vecvec.size());
+
+				do
+				{
+					result.push_back(get_by_indices(vecvec, indices));
+				} while(inc_indices(indices));
+
+				return result;
+			}
+
 		private:
 			Random _random_generator;
 			unsigned int _octaves;
@@ -147,6 +205,11 @@ namespace visualizer
 			float _amplitude_start;
 			float _interval_step;
 			float _amplitude_step;
+
+			unsigned int _allocated_dimensions;
+			std::vector<std::pair<int, int>> _indices;
+			std::vector<float> _values;
+			std::vector<float> _inter_values;
 	};
 }
 

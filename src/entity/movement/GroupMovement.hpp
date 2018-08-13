@@ -6,10 +6,11 @@
 
 #include "../EntityBuffer.hpp"
 #include "Circle.hpp"
+#include "FlowField.hpp"
 
 namespace visualizer
 {
-	using _GroupMovementVar = std::variant<Circle>;
+	using _GroupMovementVar = std::variant<Circle, FlowField>;
 
 	class GroupMovement
 	{
