@@ -68,6 +68,8 @@ namespace visualizer
 					_values.resize(two_high_dim, 0);
 					_inter_values.resize(two_high_dim, 0);
 					_combinations.resize(two_high_dim, std::vector<int>(dimensions));
+					_combination_indices.resize(dimensions, 0);
+					_combinations_result.resize(dimensions, 0);
 
 					_allocated_dimensions = dimensions;
 				}
@@ -171,30 +173,27 @@ namespace visualizer
 				return false;
 			}
 
-			std::vector<int> get_by_indices(const std::vector<std::pair<int, int>>& vecvec, const std::vector<unsigned int>& indices)
+			const std::vector<int>& get_by_indices(const std::vector<std::pair<int, int>>& vecvec, const std::vector<unsigned int>& combination_indices)
 			{
-				std::vector<int> result;
 				for (unsigned int i = 0; i < vecvec.size(); i++)
 				{
-					if (indices[i] == 0)
-						result.push_back(vecvec[i].first);
+					if (combination_indices[i] == 0)
+						_combinations_result[i] = vecvec[i].first;
 					else
-						result.push_back(vecvec[i].second);
+						_combinations_result[i] = vecvec[i].second;
 				}
 
-				return result;
+				return _combinations_result;
 			}
 
 			void define_combinations(const std::vector<std::pair<int, int>>& vecvec)
 			{
-				std::vector<unsigned int> indices(vecvec.size());
-
 				unsigned int i = 0;
 				do
 				{
-					_combinations[i] = get_by_indices(vecvec, indices);
+					_combinations[i] = get_by_indices(vecvec, _combination_indices);
 					i++;
-				} while(inc_indices(indices));
+				} while(inc_indices(_combination_indices));
 			}
 
 		private:
@@ -210,6 +209,8 @@ namespace visualizer
 			std::vector<float> _values;
 			std::vector<float> _inter_values;
 			std::vector<std::vector<int>> _combinations;
+			std::vector<unsigned int> _combination_indices;
+			std::vector<int> _combinations_result;
 	};
 }
 
