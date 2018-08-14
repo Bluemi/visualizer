@@ -1,5 +1,5 @@
-#ifndef __FLOWFIELD_CLASS__
-#define __FLOWFIELD_CLASS__
+#ifndef __ACCELERATIONFIELD_CLASS__
+#define __ACCELERATIONFIELD_CLASS__
 
 #include <vector>
 
@@ -9,10 +9,10 @@ namespace visualizer
 {
 	class Movable;
 
-	class FlowField
+	class AccelerationField
 	{
 		public:
-			FlowField();
+			AccelerationField();
 
 			void apply_force(std::vector<Movable>& movables);
 			void apply_force(Movable* movable);

@@ -10,9 +10,8 @@
 #include "entity/queries/Query.hpp"
 #include "entity/Movable.hpp"
 #include "shape/ShapeType.hpp"
-#include "entity/movement/Circle.hpp"
-#include "entity/movement/FlowField.hpp"
 #include "entity/movement/RandomAcceleration.hpp"
+#include "entity/movement/GroupMovement.hpp"
 #include "entity/movement/SimpleDrag.hpp"
 #include "entity/movement/RandomColor.hpp"
 #include "entity/movement/SimpleColorDrag.hpp"
@@ -53,7 +52,7 @@ int main() {
 	visualizer::Query cube_query = visualizer::Query().with_shape(visualizer::ShapeType::CUBE);
 	visualizer::EntityReferences cubes = visualizer.query_entities(cube_query);
 
-	visualizer::GroupMovement cube_flow_field((visualizer::FlowField()));
+	visualizer::GroupMovement cube_flow_field((visualizer::AccelerationField()));
 	visualizer::Movement cube_drag(new visualizer::SimpleDrag(0.3f));
 	visualizer::Movement cube_random(new visualizer::RandomAcceleration(0.08f));
 	visualizer::Movement color_drag(new visualizer::SimpleColorDrag(0.1f));

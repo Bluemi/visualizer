@@ -1,14 +1,14 @@
-#include "FlowField.hpp"
+#include "AccelerationField.hpp"
 
 #include "../Movable.hpp"
 
 namespace visualizer
 {
-	FlowField::FlowField()
+	AccelerationField::AccelerationField()
 		: _perlin_noise(4), _time(0)
 	{}
 
-	void FlowField::apply_force(std::vector<Movable>& movables)
+	void AccelerationField::apply_force(std::vector<Movable>& movables)
 	{
 		for (Movable& m : movables)
 		{
@@ -20,7 +20,7 @@ namespace visualizer
 	const float NOISE_OFFSET = 200.f;
 	const float NOISE_SCALE = 0.4f;
 
-	void FlowField::apply_force(Movable* movable)
+	void AccelerationField::apply_force(Movable* movable)
 	{
 		float f1 = _perlin_noise({(movable->get_position().x+movable->get_position().y)*NOISE_SCALE + NOISE_OFFSET + _time, movable->get_position().z*NOISE_SCALE + NOISE_OFFSET + _time});
 		float f2 = _perlin_noise({(movable->get_position().x+movable->get_position().y)*NOISE_SCALE + NOISE_OFFSET*2 + _time, movable->get_position().z*NOISE_SCALE + NOISE_OFFSET*2 + _time});
