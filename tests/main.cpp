@@ -54,7 +54,7 @@ int main() {
 
 	visualizer::GroupMovement cube_flow_field((visualizer::AccelerationField()));
 	visualizer::Movement cube_drag(new visualizer::SimpleDrag(0.3f));
-	visualizer::Movement cube_random(new visualizer::RandomAcceleration(0.08f));
+	visualizer::Movement random_acceleation(new visualizer::RandomAcceleration(0.04f));
 	visualizer::Movement color_drag(new visualizer::SimpleColorDrag(0.1f));
 	visualizer::Movement std_color(new visualizer::StdColor(0.04f));
 
@@ -71,7 +71,6 @@ int main() {
 	visualizer::EntityReferences spheres = visualizer.query_entities(sphere_query);
 
 	visualizer::Movement sphere_drag(new visualizer::SimpleDrag(0.3f));
-	visualizer::Movement sphere_random(new visualizer::RandomAcceleration(0.08f));
 
 	for (visualizer::Movable* m : spheres)
 	{
@@ -95,13 +94,13 @@ int main() {
 		{
 			for (visualizer::Movable* m : cubes)
 			{
-				m->add_movement(cube_random);
-				m->add_movement(cube_color_random);
+				m->add_movement(random_acceleation);
+				//m->add_movement(cube_color_random);
 			}
 			for (visualizer::Movable* m : spheres)
 			{
-				m->add_movement(sphere_random);
-				m->add_movement(sphere_color_random);
+				m->add_movement(random_acceleation);
+				//m->add_movement(sphere_color_random);
 			}
 		}
 		counter = (counter + 1) % 160;
