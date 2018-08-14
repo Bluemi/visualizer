@@ -67,6 +67,7 @@ namespace visualizer
 					_indices.resize(dimensions, {0, 0});
 					_values.resize(two_high_dim, 0);
 					_inter_values.resize(two_high_dim, 0);
+					_combinations.resize(two_high_dim, std::vector<int>(dimensions));
 
 					_allocated_dimensions = dimensions;
 				}
@@ -99,12 +100,11 @@ namespace visualizer
 					_indices[i].second = bot_index+1;
 				}
 
-				std::vector<std::vector<int>> combinations = get_combinations(_indices);
+				define_combinations(_indices);
 
-				for (unsigned int i = 0; i < combinations.size(); i++)
+				for (unsigned int i = 0; i < _combinations.size(); i++)
 				{
-					float value = _random_generator(combinations[i]);
-					_values[i] = value;
+					_values[i] = _random_generator(_combinations[i]);
 				}
 
 				return interpolate(seeds, _values);
@@ -185,19 +185,16 @@ namespace visualizer
 				return result;
 			}
 
-			std::vector<std::vector<int>> get_combinations(const std::vector<std::pair<int, int>>& vecvec)
+			void define_combinations(const std::vector<std::pair<int, int>>& vecvec)
 			{
-				std::vector<std::vector<int>> result;
-				result.reserve(std::pow(2, vecvec.size()));
-
 				std::vector<unsigned int> indices(vecvec.size());
 
+				unsigned int i = 0;
 				do
 				{
-					result.push_back(get_by_indices(vecvec, indices));
+					_combinations[i] = get_by_indices(vecvec, indices);
+					i++;
 				} while(inc_indices(indices));
-
-				return result;
 			}
 
 		private:
@@ -212,6 +209,7 @@ namespace visualizer
 			std::vector<std::pair<int, int>> _indices;
 			std::vector<float> _values;
 			std::vector<float> _inter_values;
+			std::vector<std::vector<int>> _combinations;
 	};
 }
 
