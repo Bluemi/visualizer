@@ -18,12 +18,12 @@ namespace visualizer
 
 			int make_seed(const std::vector<int>& seeds)
 			{
-				int seed(0);
-				for (int s : seeds)
+				float seed(0.f);
+				for (unsigned int i = 0; i < seeds.size(); i++)
 				{
-					seed += s;
+					seed += seeds[i]*std::pow(10, i);
 				}
-				return seed + 1;
+				return seed * 1000.f;
 			}
 
 			float operator()(const std::vector<int>& seeds)
@@ -94,6 +94,7 @@ namespace visualizer
 
 			float get_noise(std::vector<float> seeds, float interval)
 			{
+				std::vector<int> indices;
 				for (unsigned int i = 0; i < seeds.size(); i++)
 				{
 					int bot_index = get_bot_index(seeds[i], interval);
