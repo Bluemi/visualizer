@@ -26,9 +26,7 @@ namespace visualizer
 			for (auto iter = entity_buffer->begin(); iter != entity_buffer->end(); ++iter)
 			{
 				std::vector<Movable>& movables = iter->second;
-				std::cout << "start apply force" << std::endl;
 				movement.apply_force(movables);
-				std::cout << "stop apply force" << std::endl;
 			}
 		} else {
 			for (const std::string& group : _groups)

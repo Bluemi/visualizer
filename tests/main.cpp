@@ -87,11 +87,10 @@ int main() {
 	visualizer::Movement sphere_color_random(new visualizer::RandomColor(visualizer::VectorGenerator(glm::vec3(b*3, -b, -b)).with_stddev(glm::vec3(v, v, v))));
 	visualizer::Movement cube_color_random(new visualizer::RandomColor(visualizer::VectorGenerator(glm::vec3(-b, b*3, -b)).with_stddev(glm::vec3(v, v, v))));
 
-	// unsigned int counter = 0;
+	unsigned int counter = 0;
 
 	while (!visualizer.should_close())
 	{
-		/*
 		if (counter == 0)
 		{
 			for (visualizer::Movable* m : cubes)
@@ -105,8 +104,7 @@ int main() {
 				m->add_movement(sphere_color_random);
 			}
 		}
-		counter = (counter + 1) % 60;
-		*/
+		counter = (counter + 1) % 160;
 
 		visualizer.tick();
 		visualizer.render();

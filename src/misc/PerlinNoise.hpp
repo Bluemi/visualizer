@@ -2,7 +2,8 @@
 #define __PERLINNOISE_CLASS__
 
 #include <vector>
-#include <random>
+#include <stdint.h>
+#include <cmath>
 
 // #include "Combinations.hpp"
 
@@ -12,35 +13,35 @@ namespace visualizer
 	{
 		public:
 			Random(unsigned int accuracy=1000)
-				 : _dis(-accuracy, accuracy), _accuracy(accuracy)
+				 : _accuracy(accuracy)
 			{}
+
+			int make_seed(const std::vector<int>& seeds)
+			{
+				int seed(0);
+				for (int s : seeds)
+				{
+					seed += s;
+				}
+				return seed + 1;
+			}
 
 			float operator()(const std::vector<int>& seeds)
 			{
-				int s = 0;
-				for (int seed : seeds)
-				{
-					s += random(seed);
-				}
-
-				return random(s) / static_cast<float>(_accuracy);
-			}
-
-			float random(int seed)
-			{
-				_gen.seed(seed);
-				return _dis(_gen);
+				int x = make_seed(seeds);
+				x ^= x >> 12;
+				x ^= x << 25;
+				x ^= x >> 27;
+				return (static_cast<float>(x % (_accuracy*2+1)) - static_cast<float>(_accuracy)) / static_cast<float>(_accuracy);
 			}
 
 		private:
-			std::mt19937 _gen;
-			std::uniform_int_distribution<> _dis;
 			unsigned int _version;
 			unsigned int _accuracy;
 	};
 
 	/*
-	 * This is not real PerlinNoise but an version which I can implement.
+	 * This is not real PerlinNoise but a version which I can implement.
 	 */
 	class PerlinNoise
 	{
@@ -94,7 +95,8 @@ namespace visualizer
 				{
 					int bot_index = get_bot_index(seeds[i], interval);
 
-					_indices[i] = std::pair<int, int>(bot_index, bot_index+1);
+					_indices[i].first = bot_index;
+					_indices[i].second = bot_index+1;
 				}
 
 				std::vector<std::vector<int>> combinations = get_combinations(_indices);
