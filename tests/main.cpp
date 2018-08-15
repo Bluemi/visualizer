@@ -54,6 +54,7 @@ int main() {
 
 	visualizer::GroupMovement cube_flow_field((visualizer::AccelerationField()));
 	visualizer::GroupMovement cube_circle((visualizer::Circle(glm::vec3(), 5.f)));
+	visualizer::GroupMovement cube_plain((visualizer::PlainForce(0.001f)));
 	visualizer::Movement cube_drag(new visualizer::SimpleDrag(0.3f));
 	visualizer::Movement random_acceleation(new visualizer::RandomAcceleration(0.04f));
 	visualizer::Movement color_drag(new visualizer::SimpleColorDrag(0.1f));
@@ -106,6 +107,7 @@ int main() {
 		*/
 
 		cube_flow_field.apply_to(&visualizer.get_entities());
+		cube_plain.apply_to(&visualizer.get_entities());
 
 		visualizer.tick();
 		visualizer.render();

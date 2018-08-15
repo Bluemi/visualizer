@@ -15,25 +15,7 @@ namespace visualizer
 
 	void GroupMovement::apply_to(EntityBuffer* entity_buffer)
 	{
-		std::visit([this, &entity_buffer](auto& m) { this->apply_to(entity_buffer, m); }, _group_movement);
+		std::visit([this, &entity_buffer](auto& m) { apply_group_movement_to(entity_buffer, m, this->_groups); }, _group_movement);
 	}
 
-	template<typename GroupMovementType>
-	void GroupMovement::apply_to(EntityBuffer* entity_buffer, GroupMovementType& movement)
-	{
-		if (_groups.empty())
-		{
-			for (auto iter = entity_buffer->begin(); iter != entity_buffer->end(); ++iter)
-			{
-				std::vector<Movable>& movables = iter->second;
-				movement.apply_force(movables);
-			}
-		} else {
-			for (const std::string& group : _groups)
-			{
-				std::vector<Movable>& movables = entity_buffer->at(group);
-				movement.apply_force(movables);
-			}
-		}
-	}
 }

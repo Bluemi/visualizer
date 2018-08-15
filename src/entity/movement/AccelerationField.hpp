@@ -16,9 +16,13 @@ namespace visualizer
 
 			void apply_force(std::vector<Movable>& movables);
 			void apply_force(Movable* movable);
+
+			void update_time(float time);
+			void set_force(float force);
 		private:
 			PerlinNoise _perlin_noise;
 			float _time;
+			float _force;
 	};
 }
 
