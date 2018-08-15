@@ -38,6 +38,8 @@ namespace visualizer
 			unsigned int _accuracy;
 	};
 
+	const unsigned int NUM_INDICES = 2;
+
 	/*
 	 * This is not real PerlinNoise but a version which I can implement.
 	 */
@@ -156,8 +158,6 @@ namespace visualizer
 			{
 				return std::floor(seed/interval);
 			}
-
-			const unsigned int NUM_INDICES = 2;
 
 			bool inc_indices(std::vector<unsigned int>& indices)
 			{

@@ -59,9 +59,6 @@ int main() {
 	visualizer::Movement color_drag(new visualizer::SimpleColorDrag(0.1f));
 	visualizer::Movement std_color(new visualizer::StdColor(0.04f));
 
-	visualizer.add_group_movement(cube_flow_field);
-	// visualizer.add_group_movement(cube_circle);
-
 	for (visualizer::Movable* m : cubes)
 	{
 		m->add_movement(cube_drag);
@@ -107,6 +104,8 @@ int main() {
 		}
 		counter = (counter + 1) % 160;
 		*/
+
+		cube_flow_field.apply_to(&visualizer.get_entities());
 
 		visualizer.tick();
 		visualizer.render();

@@ -12,6 +12,7 @@ namespace visualizer
 	class Circle
 	{
 		public:
+			Circle();
 			Circle(const glm::vec3& center, float radius);
 
 			void apply_force(std::vector<Movable>& movables);

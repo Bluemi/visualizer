@@ -39,8 +39,6 @@ namespace visualizer
 			EntityIterator end();
 			EntityReferences query_entities(const Query& query);
 
-			void add_group_movement(const GroupMovement& movement);
-
 			void framebuffer_size_callback(GLFWwindow*, int width, int height);
 		private:
 			double get_delta_time();
@@ -51,7 +49,6 @@ namespace visualizer
 			ShaderProgram _shader_program;
 
 			EntityBuffer _entities;
-			std::vector<GroupMovement> _group_movements;
 
 			GLFWwindow* _window;
 
