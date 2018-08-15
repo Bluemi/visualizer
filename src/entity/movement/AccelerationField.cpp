@@ -43,6 +43,11 @@ namespace visualizer
 		movable->update_acceleration(glm::vec3(fx, fy, fz)*_force);
 	}
 
+	float AccelerationField::get_force() const
+	{
+		return _force;
+	}
+
 	void AccelerationField::update_time(float time)
 	{
 		_time += time;

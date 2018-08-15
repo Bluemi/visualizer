@@ -17,6 +17,8 @@ namespace visualizer
 			void apply_force(std::vector<Movable>& movables);
 			void apply_force(Movable* movable);
 
+			float get_force() const;
+
 			void update_time(float time);
 			void set_force(float force);
 		private:
