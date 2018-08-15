@@ -53,12 +53,14 @@ int main() {
 	visualizer::EntityReferences cubes = visualizer.query_entities(cube_query);
 
 	visualizer::GroupMovement cube_flow_field((visualizer::AccelerationField()));
+	visualizer::GroupMovement cube_circle((visualizer::Circle(glm::vec3(), 5.f)));
 	visualizer::Movement cube_drag(new visualizer::SimpleDrag(0.3f));
 	visualizer::Movement random_acceleation(new visualizer::RandomAcceleration(0.04f));
 	visualizer::Movement color_drag(new visualizer::SimpleColorDrag(0.1f));
 	visualizer::Movement std_color(new visualizer::StdColor(0.04f));
 
 	visualizer.add_group_movement(cube_flow_field);
+	// visualizer.add_group_movement(cube_circle);
 
 	for (visualizer::Movable* m : cubes)
 	{

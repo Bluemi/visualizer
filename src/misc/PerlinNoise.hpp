@@ -90,7 +90,7 @@ namespace visualizer
 				return sum;
 			}
 
-			float get_noise(std::vector<float> seeds, float interval)
+			float get_noise(const std::vector<float>& seeds, float interval)
 			{
 				std::vector<int> indices;
 				for (unsigned int i = 0; i < seeds.size(); i++)
@@ -108,7 +108,7 @@ namespace visualizer
 					_values[i] = _random_generator(_combinations[i]);
 				}
 
-				return interpolate(seeds, _values);
+				return interpolate(seeds);
 			}
 
 			float polynom_influence(float x)
@@ -121,8 +121,7 @@ namespace visualizer
 			{
 				double int_part(0);
 				float influence = polynom_influence(std::modf(seed, &int_part));
-				const float res = influence*value2 + (1.f-influence)*value1;
-				return res;
+				return influence*value2 + (1.f-influence)*value1;
 			}
 
 			/*
@@ -131,7 +130,7 @@ namespace visualizer
 			 * seeds contains n indices.
 			 * values contains 2^n values
 			 */
-			float interpolate(const std::vector<float>& seeds, std::vector<float> values)
+			float interpolate(const std::vector<float>& seeds)
 			{
 				for (int dim = seeds.size()-1; dim >= 0; dim--)
 				{
@@ -139,14 +138,18 @@ namespace visualizer
 
 					for (unsigned int i = 0; i < num_new_values; i++)
 					{
-						float inter_v = interp(seeds[dim], values[2*i], values[2*i+1]);
+						float inter_v = interp(seeds[dim], _values[2*i], _values[2*i+1]);
 						_inter_values[i] = inter_v;
 					}
 
-					values = _inter_values;
+
+					for (unsigned int i = 0; i < num_new_values; i++)
+					{
+						_values[i] = _inter_values[i];
+					}
 				}
 
-				return values[0];
+				return _values[0];
 			}
 
 			int get_bot_index(float seed, float interval)

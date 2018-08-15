@@ -41,7 +41,7 @@ namespace visualizer
 			return g_shape_heap.get_shape(_shapes[0].specification);
 		}
 
-		float number = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/_sum));
+		float number = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/_sum));
 
 		float counter = 0.f;
 		for (const _ShapeShare& ss : _shapes)
