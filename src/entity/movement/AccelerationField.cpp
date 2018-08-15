@@ -18,7 +18,6 @@ namespace visualizer
 
 	const float NOISE_OFFSET = 2000.7f;
 	const float NOISE_SCALE = 0.2f;
-	const float FORCE_STRENGTH = 0.004f;
 
 	void AccelerationField::apply_force(Movable* movable)
 	{
