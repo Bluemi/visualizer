@@ -21,23 +21,14 @@ namespace visualizer
 
 	void AccelerationField::apply_force(Movable* movable)
 	{
-		float fx = _perlin_noise({
-								  // movable->get_position().x*NOISE_SCALE + NOISE_OFFSET +
-								  movable->get_position().y*NOISE_SCALE + NOISE_OFFSET + _time,
-								  movable->get_position().z*NOISE_SCALE + NOISE_OFFSET + _time
-								  });
+		float fx = _perlin_noise({movable->get_position().y*NOISE_SCALE + NOISE_OFFSET*1 + _time,
+								  movable->get_position().z*NOISE_SCALE + NOISE_OFFSET*1 + _time});
 
-		float fy = _perlin_noise({
-								  movable->get_position().x*NOISE_SCALE + NOISE_OFFSET*2 + _time,
-								  // movable->get_position().y*NOISE_SCALE + NOISE_OFFSET*2 +
-								  movable->get_position().z*NOISE_SCALE + NOISE_OFFSET*2 + _time
-								  });
+		float fy = _perlin_noise({movable->get_position().x*NOISE_SCALE + NOISE_OFFSET*2 + _time,
+								  movable->get_position().z*NOISE_SCALE + NOISE_OFFSET*2 + _time});
 
-		float fz = _perlin_noise({
-								  movable->get_position().x*NOISE_SCALE + NOISE_OFFSET*3 + _time,
-								  movable->get_position().y*NOISE_SCALE + NOISE_OFFSET*3 + _time
-								  // movable->get_position().z*NOISE_SCALE + NOISE_OFFSET*3 +
-								  });
+		float fz = _perlin_noise({movable->get_position().x*NOISE_SCALE + NOISE_OFFSET*3 + _time,
+								  movable->get_position().y*NOISE_SCALE + NOISE_OFFSET*3 + _time});
 
 		movable->update_acceleration(glm::vec3(fx, fy, fz)*_force);
 	}

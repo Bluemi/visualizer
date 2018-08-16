@@ -21,7 +21,7 @@ namespace visualizer
 				{
 					seed += seeds[i]*std::pow(10, i);
 				}
-				return seed * 1000.f;
+				return static_cast<int>(seed * 1000);
 			}
 
 			float operator()(const std::vector<int>& seeds)
@@ -75,7 +75,7 @@ namespace visualizer
 				}
 			}
 
-			float operator()(const std::vector<float> seeds)
+			float operator()(const std::vector<float>& seeds)
 			{
 				allocate(seeds.size());
 
@@ -94,7 +94,6 @@ namespace visualizer
 
 			float get_noise(const std::vector<float>& seeds, float interval)
 			{
-				std::vector<int> indices;
 				for (unsigned int i = 0; i < seeds.size(); i++)
 				{
 					int bot_index = get_bot_index(seeds[i], interval);
