@@ -24,7 +24,7 @@ namespace visualizer
 			~Visualizer();
 
 			static void init();
-			static std::optional<Visualizer> create(unsigned int window_width, unsigned int window_height);
+			static std::optional<Visualizer> create(unsigned int window_width, unsigned int window_height, const std::string& window_name);
 
 			void tick();
 			void render();

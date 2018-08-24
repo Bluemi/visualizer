@@ -81,9 +81,9 @@ namespace visualizer
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	}
 
-	std::optional<Visualizer> Visualizer::create(unsigned int window_width, unsigned int window_height)
+	std::optional<Visualizer> Visualizer::create(unsigned int window_width, unsigned int window_height, const std::string& window_name)
 	{
-		GLFWwindow* window = glfwCreateWindow(window_width, window_height, "Visualizer", NULL, NULL);
+		GLFWwindow* window = glfwCreateWindow(window_width, window_height, window_name.c_str(), NULL, NULL);
 		if (window == NULL)
 		{
 			std::cout << "failed to create window" << std::endl;
@@ -147,7 +147,7 @@ namespace visualizer
 		_shader_program.set_4fv("view", _camera.get_look_at());
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f),
 												_window_width/static_cast<float>(_window_height),
-												0.1f, 100.f);
+												0.1f, 600.f);
 		_shader_program.set_4fv("projection", projection);
 
 		for (const Movable& m : *this)

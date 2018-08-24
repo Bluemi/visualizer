@@ -10,8 +10,8 @@
 #include "entity/queries/Query.hpp"
 #include "entity/Movable.hpp"
 #include "shape/ShapeType.hpp"
-#include "entity/movement/RandomAcceleration.hpp"
 #include "entity/movement/GroupMovement.hpp"
+#include "entity/movement/RandomAcceleration.hpp"
 #include "entity/movement/SimpleDrag.hpp"
 #include "entity/movement/RandomColor.hpp"
 #include "entity/movement/SimpleColorDrag.hpp"
@@ -21,7 +21,7 @@
 
 int main() {
 	visualizer::Visualizer::init();
-	std::optional<visualizer::Visualizer> opt_visualizer = *visualizer::Visualizer::create(800, 600);
+	std::optional<visualizer::Visualizer> opt_visualizer = *visualizer::Visualizer::create(800, 600, "Visualizer");
 	if (!opt_visualizer)
 	{
 		std::cout << "Couldnt create visualizer" << std::endl;
@@ -52,7 +52,7 @@ int main() {
 	visualizer::Query cube_query = visualizer::Query().with_shape(visualizer::ShapeType::CUBE);
 	visualizer::EntityReferences cubes = visualizer.query_entities(cube_query);
 
-	visualizer::GroupMovement cube_flow_field((visualizer::AccelerationField()));
+	visualizer::GroupMovement cube_flow_field((visualizer::RandomPaths()));
 	visualizer::GroupMovement cube_circle((visualizer::Circle(glm::vec3(), 5.f)));
 	visualizer::GroupMovement cube_plain((visualizer::PlainForce(0.001f)));
 	visualizer::Movement cube_drag(new visualizer::SimpleDrag(0.3f));

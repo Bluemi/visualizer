@@ -10,6 +10,7 @@
 #include "VelocityDrag.hpp"
 #include "ColorDrag.hpp"
 #include "PlainForce.hpp"
+#include "RandomPaths.hpp"
 
 namespace visualizer
 {
@@ -17,7 +18,8 @@ namespace visualizer
 		  								   AccelerationField,
 										   VelocityDrag,
 										   ColorDrag,
-										   PlainForce>;
+										   PlainForce,
+										   RandomPaths>;
 
 	class GroupMovement
 	{

@@ -5,7 +5,7 @@
 
 namespace visualizer
 {
-	const float Camera::CAMERA_SPEED = 0.02f;
+	const float Camera::CAMERA_SPEED = 0.07f;
 	const float Camera::CAMERA_ROTATE_SPEED = 0.1f;
 	const float Camera::CAMERA_DRAG = 0.78f;
 
