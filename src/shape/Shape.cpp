@@ -1,6 +1,7 @@
 #include "Shape.hpp"
 
 #include <glad/glad.h>
+#include <iostream>
 
 #include "ShapeSpecification.hpp"
 
@@ -11,11 +12,13 @@ namespace visualizer
 	const Attribute Shape::TextureCoordinateAttribute(2, GL_FLOAT);
 	const Attribute Shape::NormaleAttribute(3, GL_FLOAT);
 
-	Shape::Shape(unsigned int vertex_array_object,
-				 unsigned int vertex_buffer_object,
-				 n_vertices number_vertices,
-				 bool use_indices,
-				 const ShapeSpecification& specification)
+	Shape::Shape(
+		unsigned int vertex_array_object,
+		unsigned int vertex_buffer_object,
+		n_vertices number_vertices,
+		bool use_indices,
+		const ShapeSpecification& specification
+	)
 		: _vertex_array_object(vertex_array_object),
 		  _vertex_buffer_object(vertex_buffer_object),
 		  _number_vertices(number_vertices),
@@ -23,16 +26,16 @@ namespace visualizer
 		  _specification(specification)
 	{}
 
-	void Shape::free_buffers()
-	{
+	void Shape::free_buffers() {
 		glDeleteVertexArrays(1, &_vertex_array_object);
 	}
 
-	Shape Shape::create(const float* vertices,
-						n_vertices number_vertices,
-						const std::vector<Attribute>& attributes,
-						const ShapeSpecification& specification)
-	{
+	Shape Shape::create(
+		const float* vertices,
+		n_vertices number_vertices,
+		const std::vector<Attribute>& attributes,
+		const ShapeSpecification& specification
+	) {
 		unsigned int vao = create_vao();
 		unsigned int attributes_size = get_attributes_size(attributes);
 		unsigned int vbo;
@@ -42,36 +45,30 @@ namespace visualizer
 		return Shape(vao, vbo, number_vertices, false, specification);
 	}
 
-	void Shape::bind() const
-	{
+	void Shape::bind() const {
 		glBindVertexArray(_vertex_array_object);
 	}
 
-	bool Shape::use_indices() const
-	{
+	bool Shape::use_indices() const {
 		return _use_indices;
 	}
 
-	n_vertices Shape::get_number_vertices() const
-	{
+	n_vertices Shape::get_number_vertices() const {
 		return _number_vertices;
 	}
 
-	void Shape::unbind()
-	{
+	void Shape::unbind() {
 		glBindVertexArray(0);
 	}
 
-	unsigned int Shape::create_vao()
-	{
+	unsigned int Shape::create_vao() {
 		unsigned int vao;
 		glGenVertexArrays(1, &vao);
 		glBindVertexArray(vao);
 		return vao;
 	}
 
-	unsigned int Shape::buffer_vertices(const float* vertices, size_t vertices_size)
-	{
+	unsigned int Shape::buffer_vertices(const float* vertices, size_t vertices_size) {
 		unsigned int vbo;
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -79,8 +76,7 @@ namespace visualizer
 		return vbo;
 	}
 
-	n_floats Shape::get_attributes_size(const std::vector<Attribute>& attributes)
-	{
+	n_floats Shape::get_attributes_size(const std::vector<Attribute>& attributes) {
 		unsigned int attributes_size = 0;
 		for (const Attribute& a : attributes)
 		{
@@ -89,13 +85,11 @@ namespace visualizer
 		return attributes_size;
 	}
 
-	void Shape::create_attribute_pointer(const std::vector<Attribute>& attributes)
-	{
+	void Shape::create_attribute_pointer(const std::vector<Attribute>& attributes) {
 		size_t attributes_stride = get_attributes_size(attributes) * sizeof(float);
 
 		size_t offset = 0;
-		for (unsigned int i = 0; i < attributes.size(); i++)
-		{
+		for (unsigned int i = 0; i < attributes.size(); i++) {
 			glVertexAttribPointer(i,
 								  attributes[i].size,
 								  attributes[i].type,
@@ -107,8 +101,7 @@ namespace visualizer
 		}
 	}
 
-	ShapeSpecification Shape::get_specification() const
-	{
+	ShapeSpecification Shape::get_specification() const {
 		return _specification;
 	}
 }

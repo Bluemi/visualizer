@@ -11,6 +11,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "shape/ShapeInitializer.hpp"
+#include "shape/ShapeHeap.hpp"
 #include "controller/MouseManager.hpp"
 #include "controller/ResizeManager.hpp"
 #include "entity/Movable.hpp"
@@ -168,6 +169,7 @@ namespace visualizer
 	{
 		visualizer::MouseManager::clear();
 		ResizeManager::clear_visualizers();
+		g_shape_heap.close();
 
 		glfwTerminate();
 	}

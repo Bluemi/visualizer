@@ -4,4 +4,4 @@ add_library(visualizer ${visualizer_sources})
 
 include_directories("/usr/include")
 
-target_link_libraries(visualizer "GLU" "glfw3" "X11" "Xxf86vm" "Xrandr" "pthread" "Xi" "dl" "Xinerama" "Xcursor")
+target_link_libraries(visualizer "GLU" "glfw" "X11" "Xrandr" "pthread" "Xi" "dl" "Xinerama" "Xcursor")

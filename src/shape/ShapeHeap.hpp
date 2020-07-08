@@ -6,16 +6,15 @@
 #include "Shape.hpp"
 #include "ShapeSpecification.hpp"
 
-namespace visualizer
-{
-	class ShapeHeap
-	{
+namespace visualizer {
+	class ShapeHeap {
 		public:
 			ShapeHeap();
 			~ShapeHeap();
 
 			Shape get_shape(const ShapeSpecification& spec);
 			void load_shape(const ShapeSpecification& spec);
+			void close();
 		private:
 			std::map<ShapeSpecification, Shape*> _shapes;
 	};

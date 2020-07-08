@@ -21,15 +21,12 @@
 
 int main() {
 	visualizer::Visualizer::init();
-	std::optional<visualizer::Visualizer> opt_visualizer = *visualizer::Visualizer::create(800, 600, "Visualizer");
-	if (!opt_visualizer)
-	{
+	std::optional<visualizer::Visualizer> opt_visualizer = visualizer::Visualizer::create(800, 600, "Visualizer");
+	if (!opt_visualizer) {
 		std::cout << "Couldnt create visualizer" << std::endl;
 		return 1;
 	}
 	visualizer::Visualizer visualizer = *opt_visualizer;
-
-	visualizer.init();
 
 	visualizer::VectorGenerator pos_gen = visualizer::VectorGenerator().with_stddev(glm::vec3(0.1f, 0.1f, 0.1f));
 	visualizer::VectorGenerator size_gen = visualizer::VectorGenerator(glm::vec3(0.05f, 0.05f, 0.05f)).with_stddev(glm::vec3(0.01f));
@@ -87,8 +84,7 @@ int main() {
 
 	// unsigned int counter = 0;
 
-	while (!visualizer.should_close())
-	{
+	while (!visualizer.should_close()) {
 		/*
 		if (counter == 0)
 		{
@@ -105,6 +101,8 @@ int main() {
 		}
 		counter = (counter + 1) % 160;
 		*/
+
+		std::cout << "yep" << std::endl;
 
 		cube_flow_field.apply_to(&visualizer.get_entities());
 		cube_plain.apply_to(&visualizer.get_entities());
