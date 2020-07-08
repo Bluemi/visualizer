@@ -1,5 +1,7 @@
 #include "Camera.hpp"
 
+#include <iostream>
+
 #include <glm/gtc/matrix_transform.hpp>
 #include <math.h>
 
@@ -9,11 +11,14 @@ namespace visualizer
 	const float Camera::CAMERA_ROTATE_SPEED = 0.1f;
 	const float Camera::CAMERA_DRAG = 0.78f;
 
-	Camera::Camera()
-	{}
+	void print_vec(const std::string& name, const glm::vec3& v) {
+		std::cout << name << ": (" << v.x << "," << v.y << "," << v.z << ")" << std::endl;
+	}
+
+	Camera::Camera() {}
 
 	Camera::Camera(const glm::vec3 &position, const float pitch, const float yaw)
-		: _position(position), _pitch(pitch), _yaw(yaw)
+		: _position(position), _pitch(pitch), _yaw(yaw), _speed(), _acceleration()
 	{}
 
 	void Camera::tick(const double speed)
@@ -70,8 +75,7 @@ namespace visualizer
 
 	void Camera::set_acceleration(const glm::vec3& acceleration)
 	{
-		glm::vec3 a;
-		a = get_direction() * acceleration.x;
+		glm::vec3 a = get_direction() * acceleration.x;
 		a += get_top() * acceleration.y;
 		a += get_right() * acceleration.z;
 		_acceleration = a;

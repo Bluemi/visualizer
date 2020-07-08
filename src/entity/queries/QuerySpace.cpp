@@ -6,7 +6,7 @@
 namespace visualizer
 {
 	QuerySpace::QuerySpace()
-		: _set(false)
+		: _set(false), _center(0.f, 0.f, 0.f), _size(0.f, 0.f, 0.f)
 	{}
 
 	QuerySpace::QuerySpace(const glm::vec3& center, const glm::vec3& size)

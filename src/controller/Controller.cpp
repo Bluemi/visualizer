@@ -57,7 +57,7 @@ namespace visualizer
 
 	void Controller::process_camera(Camera* camera)
 	{
-		glm::vec3 acceleration;
+		glm::vec3 acceleration(0.f, 0.f, 0.f);
 		if (_is_pressed[CAMERA_FORWARD_KEY])
 			acceleration.x += 1.f;
 		if (_is_pressed[CAMERA_BACKWARD_KEY])
@@ -70,6 +70,7 @@ namespace visualizer
 			acceleration.y += 1.f;
 		if (_is_pressed[CAMERA_BOTTOM_KEY])
 			acceleration.y -= 1.f;
+
 
 		if (camera != nullptr)
 			camera->set_acceleration(acceleration);

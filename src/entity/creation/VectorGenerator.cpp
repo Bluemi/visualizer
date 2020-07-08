@@ -5,11 +5,11 @@
 namespace visualizer
 {
 	VectorGenerator::VectorGenerator()
-		: _mean(), _stddev()
+		: _mean(0.f, 0.f, 0.f), _stddev(0.f, 0.f, 0.f)
 	{}
 
 	VectorGenerator::VectorGenerator(const glm::vec3& mean)
-		: _mean(mean), _stddev()
+		: _mean(mean), _stddev(0.f, 0.f, 0.f)
 	{}
 
 	VectorGenerator& VectorGenerator::with_mean(const glm::vec3& mean)

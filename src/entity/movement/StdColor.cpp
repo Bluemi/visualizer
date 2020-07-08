@@ -5,7 +5,7 @@
 namespace visualizer
 {
 	StdColor::StdColor(float strength)
-		: _strength(strength)
+		: _strength(strength), _color(0.f, 0.f, 0.f)
 	{}
 
 	void StdColor::init(Movable* movable)

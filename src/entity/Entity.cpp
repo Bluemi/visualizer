@@ -8,12 +8,11 @@
 namespace visualizer
 {
 	Entity::Entity(const Shape& shape)
-		: _shape(shape), _size(1.f, 1.f, 1.f)
+		: _shape(shape), _size(1.f, 1.f, 1.f), _position(0.f, 0.f, 0.f), _color(0.f, 0.f, 0.f)
 	{}
 
 	void Entity::render(ShaderProgram& shader_program) const
 	{
-		shader_program.use();
 		_shape.bind();
 
 		glm::mat4 model = glm::mat4(1.0f);

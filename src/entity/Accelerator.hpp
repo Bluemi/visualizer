@@ -5,9 +5,10 @@
 
 namespace visualizer
 {
-	class Accelerator
-	{
+	class Accelerator {
 		public:
+			Accelerator();
+
 			void tick();
 
 			glm::vec3 velocity;

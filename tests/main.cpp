@@ -102,7 +102,7 @@ int main() {
 		counter = (counter + 1) % 160;
 		*/
 
-		cube_flow_field.apply_to(&visualizer.get_entities());
+		cube_circle.apply_to(&visualizer.get_entities());
 		cube_plain.apply_to(&visualizer.get_entities());
 
 		visualizer.tick();

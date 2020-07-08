@@ -145,6 +145,7 @@ namespace visualizer
 	void Visualizer::render()
 	{
 		clear_window();
+		_shader_program.use();
 		_shader_program.set_4fv("view", _camera.get_look_at());
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f),
 												_window_width/static_cast<float>(_window_height),
