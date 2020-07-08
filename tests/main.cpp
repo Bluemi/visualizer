@@ -102,8 +102,6 @@ int main() {
 		counter = (counter + 1) % 160;
 		*/
 
-		std::cout << "yep" << std::endl;
-
 		cube_flow_field.apply_to(&visualizer.get_entities());
 		cube_plain.apply_to(&visualizer.get_entities());
 
