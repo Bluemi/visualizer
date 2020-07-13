@@ -4,8 +4,7 @@
 #include <string>
 #include <glm/glm.hpp>
 
-namespace visualizer
-{
+namespace visualizer {
 	std::string vec_to_string(const glm::vec3& vec);
 
 	float generate_float(float mean, float stddev);

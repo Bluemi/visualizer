@@ -5,8 +5,7 @@
 
 #include "Movable.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	using EntityBuffer = std::map<std::string, std::vector<Movable>>;
 }
 

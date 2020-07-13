@@ -3,8 +3,7 @@
 
 #include <cstddef>
 
-namespace visualizer
-{
+namespace visualizer {
 	/**
 	 * Type to define number of vertices.
 	 */

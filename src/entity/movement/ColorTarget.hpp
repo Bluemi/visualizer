@@ -5,10 +5,8 @@
 
 #include "IMovement.hpp"
 
-namespace visualizer
-{
-	class ColorTarget : public IMovementCloneable<ColorTarget>
-	{
+namespace visualizer {
+	class ColorTarget : public IMovementCloneable<ColorTarget> {
 		public:
 			ColorTarget(const glm::vec3& target, float strength);
 			virtual void apply_force(Movable* movable) override;

@@ -3,12 +3,10 @@
 
 #include <vector>
 
-namespace visualizer
-{
+namespace visualizer {
 	class Movable;
 
-	class VelocityDrag
-	{
+	class VelocityDrag {
 		public:
 			VelocityDrag(float intensity);
 

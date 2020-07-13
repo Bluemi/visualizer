@@ -3,10 +3,8 @@
 
 #include <glm/glm.hpp>
 
-namespace visualizer
-{
-	class VectorGenerator
-	{
+namespace visualizer {
+	class VectorGenerator {
 		public:
 			VectorGenerator();
 			VectorGenerator(const glm::vec3& mean);

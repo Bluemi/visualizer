@@ -1,12 +1,10 @@
 #ifndef __IMOVEMENT_CLASS__
 #define __IMOVEMENT_CLASS__
 
-namespace visualizer
-{
+namespace visualizer {
 	class Movable;
 
-	class IMovement
-	{
+	class IMovement {
 		public:
 			virtual ~IMovement();
 
@@ -23,11 +21,9 @@ namespace visualizer
 	 */
 
 	template<typename SubMovement>
-	class IMovementCloneable : public IMovement
-	{
+	class IMovementCloneable : public IMovement {
 		public:
-			virtual IMovement* clone() const override
-			{
+			virtual IMovement* clone() const override {
 				return new SubMovement(static_cast<const SubMovement&>(*this));
 			}
 	};

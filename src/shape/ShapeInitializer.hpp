@@ -6,10 +6,8 @@
 
 #include "Shape.hpp"
 
-namespace visualizer
-{
-	namespace initialize
-	{
+namespace visualizer {
+	namespace initialize {
 		/**
 		 * Returns a Shape defining a cube.
 		 */

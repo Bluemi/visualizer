@@ -3,12 +3,10 @@
 
 #include "IMovement.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	class Camera;
 
-	class GotoCamera : public IMovementCloneable<GotoCamera>
-	{
+	class GotoCamera : public IMovementCloneable<GotoCamera> {
 		public:
 			GotoCamera(Camera* camera);
 

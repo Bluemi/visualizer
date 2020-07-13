@@ -6,18 +6,15 @@
 #include "../../shape/Shape.hpp"
 #include "../../shape/ShapeSpecification.hpp"
 
-namespace visualizer
-{
-	struct _ShapeShare
-	{
+namespace visualizer {
+	struct _ShapeShare {
 		_ShapeShare(const ShapeSpecification& spec, float s) : specification(spec), share(s) {}
 
 		ShapeSpecification specification;
 		float share;
 	};
 
-	class ShapeGenerator
-	{
+	class ShapeGenerator {
 		public:
 			ShapeGenerator(const ShapeSpecification& shape);
 			ShapeGenerator(const ShapeSpecification& shape, float share);

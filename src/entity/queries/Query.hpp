@@ -7,13 +7,11 @@
 #include "../../shape/ShapeSpecification.hpp"
 #include "QuerySpace.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	class Movable;
 	enum class ShapeType;
 
-	class Query
-	{
+	class Query {
 		public:
 			Query();
 

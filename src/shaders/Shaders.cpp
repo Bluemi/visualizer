@@ -8,24 +8,20 @@
  */
 #define VISUALIZER_SHADER_STRINGIFY(x) #x
 
-namespace visualizer
-{
-	namespace Shaders
-	{
+namespace visualizer {
+	namespace Shaders {
 		// The version prefix is excluded from the shader code,
 		// because otherwise it is interpreted as precompiler directive.
 		const std::string VERSION_PREFIX = "#version 330\n";
 
-		const std::string vertex_shader()
-		{
+		const std::string vertex_shader() {
 			std::string s =
 			#include "vertex_shader.vs"
 			;
 			return VERSION_PREFIX + s;
 		}
 
-		const std::string fragment_shader()
-		{
+		const std::string fragment_shader() {
 			std::string s =
 			#include "fragment_shader.fs"
 			;

@@ -3,10 +3,8 @@
 
 #include "IMovement.hpp"
 
-namespace visualizer
-{
-	class SimpleDrag : public IMovementCloneable<SimpleDrag>
-	{
+namespace visualizer {
+	class SimpleDrag : public IMovementCloneable<SimpleDrag> {
 		public:
 			SimpleDrag(float drag);
 

@@ -5,12 +5,10 @@
 
 #include <GLFW/glfw3.h>
 
-namespace visualizer
-{
+namespace visualizer {
 	class Controller;
 
-	namespace MouseManager
-	{
+	namespace MouseManager {
 		void mouse_callback(GLFWwindow* window, double x, double y);
 		void init(GLFWwindow* window);
 		void add_controller(Controller* controller);

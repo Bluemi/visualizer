@@ -3,12 +3,10 @@
 
 #include "IMovement.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	class Movable;
 
-	class RandomAcceleration : public IMovementCloneable<RandomAcceleration>
-	{
+	class RandomAcceleration : public IMovementCloneable<RandomAcceleration> {
 		public:
 			RandomAcceleration(float intensity);
 

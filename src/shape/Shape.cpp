@@ -5,8 +5,7 @@
 
 #include "ShapeSpecification.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	const Attribute Shape::PositionAttribute(3, GL_FLOAT);
 	const Attribute Shape::ColorAttribute(3, GL_FLOAT);
 	const Attribute Shape::TextureCoordinateAttribute(2, GL_FLOAT);
@@ -78,8 +77,7 @@ namespace visualizer
 
 	n_floats Shape::get_attributes_size(const std::vector<Attribute>& attributes) {
 		unsigned int attributes_size = 0;
-		for (const Attribute& a : attributes)
-		{
+		for (const Attribute& a : attributes) {
 			attributes_size += a.size;
 		}
 		return attributes_size;

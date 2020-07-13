@@ -7,12 +7,9 @@
 #include "Shape.hpp"
 #include "../misc/Types.hpp"
 
-namespace visualizer
-{
-	namespace initialize
-	{
-		Shape cube()
-		{
+namespace visualizer {
+	namespace initialize {
+		Shape cube() {
 			float vertices[] = {
 				-0.5f, -0.5f, -0.5f,
 				 0.5f, -0.5f, -0.5f,
@@ -62,8 +59,7 @@ namespace visualizer
 			return Shape::create(vertices, 36, attributes, CubeSpecification());
 		}
 
-		class Triangle
-		{
+		class Triangle {
 			public:
 				Triangle(const glm::vec3& p1_arg, const glm::vec3& p2_arg, const glm::vec3& p3_arg)
 					: p1(p1_arg), p2(p2_arg), p3(p3_arg)
@@ -72,8 +68,7 @@ namespace visualizer
 				const static unsigned char POSITION_BIT = 0b00000001;
 				const static unsigned char NORMALE_BIT  = 0b00000010;
 
-				static std::vector<Triangle> split(const Triangle& triangle)
-				{
+				static std::vector<Triangle> split(const Triangle& triangle) {
 					glm::vec3 p12 = (triangle.p1 + triangle.p2) / 2.f;
 					glm::vec3 p13 = (triangle.p1 + triangle.p3) / 2.f;
 					glm::vec3 p23 = (triangle.p2 + triangle.p3) / 2.f;
@@ -86,8 +81,7 @@ namespace visualizer
 					};
 				}
 
-				void normalize()
-				{
+				void normalize() {
 					p1 = glm::normalize(p1);
 					p2 = glm::normalize(p2);
 					p3 = glm::normalize(p3);
@@ -96,13 +90,11 @@ namespace visualizer
 				/**
 				 * Returns the number of floats used for one triangle, if loaded.
 				 */
-				static size_t get_size()
-				{
+				static size_t get_size() {
 					return 9;
 				}
 
-				void load_into(float* vertices)
-				{
+				void load_into(float* vertices) {
 					float verts[] = {p1.x, p1.y, p1.z,
 									 p2.x, p2.y, p2.z,
 									 p3.x, p3.y, p3.z};
@@ -112,14 +104,11 @@ namespace visualizer
 				glm::vec3 p1, p2, p3;
 		};
 
-		std::vector<Triangle> split_triangles(std::vector<Triangle> triangles, unsigned int fineness)
-		{
-			for (unsigned int i = 0; i < fineness; i++)
-			{
+		std::vector<Triangle> split_triangles(std::vector<Triangle> triangles, unsigned int fineness) {
+			for (unsigned int i = 0; i < fineness; i++) {
 				std::vector<Triangle> tmp = triangles;
 				triangles.clear();
-				for (const Triangle& t : tmp)
-				{
+				for (const Triangle& t : tmp) {
 					std::vector<Triangle> temp = Triangle::split(t);
 					triangles.insert(triangles.end(), temp.begin(), temp.end());
 				}
@@ -128,16 +117,13 @@ namespace visualizer
 			return triangles;
 		}
 
-		void normalize_triangles(std::vector<Triangle>* triangles)
-		{
-			for (Triangle& t : *triangles)
-			{
+		void normalize_triangles(std::vector<Triangle>* triangles) {
+			for (Triangle& t : *triangles) {
 				t.normalize();
 			}
 		}
 
-		Shape sphere(unsigned int fineness)
-		{
+		Shape sphere(unsigned int fineness) {
 			glm::vec3 top(0.0f,  1.0f,  0.0f);
 			glm::vec3 bot(0.0f, -1.0f,  0.0f);
 
@@ -164,8 +150,7 @@ namespace visualizer
 			unsigned int number_floats = Triangle::get_size();
 
 			float vertices[number_floats*triangles.size()];
-			for (unsigned int i = 0; i < triangles.size(); i++)
-			{
+			for (unsigned int i = 0; i < triangles.size(); i++) {
 				triangles[i].load_into(vertices+i*number_floats);
 			}
 

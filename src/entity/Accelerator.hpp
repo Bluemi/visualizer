@@ -3,8 +3,7 @@
 
 #include <glm/glm.hpp>
 
-namespace visualizer
-{
+namespace visualizer {
 	class Accelerator {
 		public:
 			Accelerator();

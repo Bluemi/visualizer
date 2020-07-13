@@ -5,12 +5,10 @@
 
 #include <glm/glm.hpp>
 
-namespace visualizer
-{
+namespace visualizer {
 	class Movable;
 
-	class Circle
-	{
+	class Circle {
 		public:
 			Circle();
 			Circle(const glm::vec3& center, float radius);

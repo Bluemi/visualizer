@@ -5,10 +5,8 @@
 
 #include "IMovement.hpp"
 
-namespace visualizer
-{
-	class StdColor : public IMovementCloneable<StdColor>
-	{
+namespace visualizer {
+	class StdColor : public IMovementCloneable<StdColor> {
 		public:
 			StdColor(float strength);
 			virtual void init(Movable* movable) override;

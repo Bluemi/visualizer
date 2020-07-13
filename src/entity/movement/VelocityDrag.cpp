@@ -2,22 +2,18 @@
 
 #include "../Movable.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	VelocityDrag::VelocityDrag(float intensity)
 		: _intensity(intensity)
 	{}
 
-	void VelocityDrag::apply_force(std::vector<Movable>& movables)
-	{
-		for (Movable& m : movables)
-		{
+	void VelocityDrag::apply_force(std::vector<Movable>& movables) {
+		for (Movable& m : movables) {
 			apply_force(&m);
 		}
 	}
 
-	void VelocityDrag::apply_force(Movable* movable)
-	{
+	void VelocityDrag::apply_force(Movable* movable) {
 		movable->update_acceleration(movable->get_velocity() * -_intensity);
 	}
 }

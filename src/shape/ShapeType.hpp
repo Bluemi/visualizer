@@ -3,10 +3,8 @@
 
 #include "ShapeSpecification.hpp"
 
-namespace visualizer
-{
-	enum class ShapeType
-	{
+namespace visualizer {
+	enum class ShapeType {
 		CUBE,
 		SPHERE
 	};

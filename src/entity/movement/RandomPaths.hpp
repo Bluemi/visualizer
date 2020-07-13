@@ -6,12 +6,10 @@
 
 #include "../../misc/PerlinNoise.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	class Movable;
 
-	class RandomPaths
-	{
+	class RandomPaths {
 		public:
 			void apply_force(std::vector<Movable>& movables);
 		private:

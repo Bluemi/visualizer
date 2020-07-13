@@ -5,8 +5,7 @@
 
 #include "Movable.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	using EntityReferences = std::vector<Movable*>;
 }
 

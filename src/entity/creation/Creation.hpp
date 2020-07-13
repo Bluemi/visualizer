@@ -6,10 +6,8 @@
 #include "VectorGenerator.hpp"
 #include "ShapeGenerator.hpp"
 
-namespace visualizer
-{
-	class Creation
-	{
+namespace visualizer {
+	class Creation {
 		public:
 			Creation(const ShapeGenerator& shape, const std::string& group);
 

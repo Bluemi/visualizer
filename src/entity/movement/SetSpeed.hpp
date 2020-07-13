@@ -3,10 +3,8 @@
 
 #include "IMovement.hpp"
 
-namespace visualizer
-{
-	class SetSpeed : public IMovementCloneable<SetSpeed>
-	{
+namespace visualizer {
+	class SetSpeed : public IMovementCloneable<SetSpeed> {
 		public:
 			SetSpeed(float x, float y, float z);
 

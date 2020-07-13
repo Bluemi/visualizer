@@ -6,13 +6,11 @@
 
 struct GLFWwindow;
 
-namespace visualizer
-{
+namespace visualizer {
 	class Camera;
 	typedef unsigned int Key;
 
-	class Controller
-	{
+	class Controller {
 		public:
 			Controller();
 

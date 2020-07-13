@@ -5,10 +5,8 @@
 
 #include "IMovement.hpp"
 
-namespace visualizer
-{
-	class SeekTargets : public IMovementCloneable<SeekTargets>
-	{
+namespace visualizer {
+	class SeekTargets : public IMovementCloneable<SeekTargets> {
 		public:
 			SeekTargets(const std::vector<Movable>& targets);
 

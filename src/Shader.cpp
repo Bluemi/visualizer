@@ -6,19 +6,16 @@
 #include <fstream>
 #include <sstream>
 
-namespace visualizer
-{
+namespace visualizer {
 	const unsigned int LOG_BUFFER_SIZE = 512;
 
-	std::optional<Shader> Shader::from_file(const std::string& path, unsigned int shader_type)
-	{
+	std::optional<Shader> Shader::from_file(const std::string& path, unsigned int shader_type) {
 		std::string code;
 		std::ifstream shader_file;
 
 		shader_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
-		try
-		{
+		try {
 			shader_file.open(path);
 			std::stringstream stream;
 			stream << shader_file.rdbuf();
@@ -32,8 +29,7 @@ namespace visualizer
 		return from_code(code, shader_type);
 	}
 
-	std::optional<Shader> Shader::from_code(const std::string& code, unsigned int shader_type)
-	{
+	std::optional<Shader> Shader::from_code(const std::string& code, unsigned int shader_type) {
 		unsigned int shader_id;
 		int success;
 		char infoLog[LOG_BUFFER_SIZE];
@@ -46,8 +42,7 @@ namespace visualizer
 
 		// print compile errors
 		glGetShaderiv(shader_id, GL_COMPILE_STATUS, &success);
-		if (!success)
-		{
+		if (!success) {
 			glGetShaderInfoLog(shader_id, LOG_BUFFER_SIZE, NULL, infoLog);
 			std::cout << "ERROR: Compiling of shader: \n" << code << "\n" << std::endl;
 			return {};
@@ -60,18 +55,15 @@ namespace visualizer
 		: _id(id), _shader_type(shader_type)
 	{}
 
-	unsigned int Shader::get_shader_type() const
-	{
+	unsigned int Shader::get_shader_type() const {
 		return _shader_type;
 	}
 
-	unsigned int Shader::get_id() const
-	{
+	unsigned int Shader::get_id() const {
 		return _id;
 	}
 
-	void Shader::del() const
-	{
+	void Shader::del() const {
 		glDeleteShader(_id);
 	}
 }

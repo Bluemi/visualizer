@@ -12,12 +12,10 @@
 #include "ShaderProgram.hpp"
 #include "entity/EntityIterator.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	class Creation;
 
-	class Visualizer
-	{
+	class Visualizer {
 		public:
 			Visualizer(GLFWwindow* window, ShaderProgram shader_program, unsigned int window_width, unsigned int window_height);
 			Visualizer(const Visualizer& visu);

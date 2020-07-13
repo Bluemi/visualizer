@@ -4,14 +4,12 @@
 
 #include "../Movable.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	SimpleDrag::SimpleDrag(float drag)
 		: _drag(drag)
 	{}
 
-	void SimpleDrag::apply_force(Movable* movable)
-	{
+	void SimpleDrag::apply_force(Movable* movable) {
 		glm::vec3 velocity = movable->get_velocity();
 		movable->update_acceleration(velocity * -_drag);
 	}

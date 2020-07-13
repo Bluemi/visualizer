@@ -1,13 +1,11 @@
 #ifndef __MOVEMENT_CLASS__
 #define __MOVEMENT_CLASS__
 
-namespace visualizer
-{
+namespace visualizer {
 	class IMovement;
 	class Movable;
 
-	class Movement
-	{
+	class Movement {
 		public:
 			Movement(IMovement* imovement);
 			Movement(const Movement& movement);

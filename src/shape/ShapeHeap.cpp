@@ -2,8 +2,7 @@
 
 #include "ShapeInitializer.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	ShapeHeap g_shape_heap;
 
 	ShapeHeap::ShapeHeap()

@@ -3,10 +3,8 @@
 
 #include <glm/glm.hpp>
 
-namespace visualizer
-{
-	class Camera
-	{
+namespace visualizer {
+	class Camera {
 		public:
 			Camera();
 			Camera(const glm::vec3 &position, const float pitch, const float yaw);

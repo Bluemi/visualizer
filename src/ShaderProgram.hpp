@@ -6,12 +6,10 @@
 
 #include <glm/glm.hpp>
 
-namespace visualizer
-{
+namespace visualizer {
 	class Shader;
 
-	class ShaderProgram
-	{
+	class ShaderProgram {
 		public:
 			static std::optional<ShaderProgram> from_files(const std::string& vertex_shader_path, const std::string& fragment_shader_path);
 			static std::optional<ShaderProgram> from_code(const std::string& vertex_shader_code, const std::string& fragment_shader_code);

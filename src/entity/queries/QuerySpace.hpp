@@ -3,16 +3,14 @@
 
 #include <glm/glm.hpp>
 
-namespace visualizer
-{
+namespace visualizer {
 	class Movable;
 
 	/**
 	 * Defines a Cube Space around _center with side length = 2*size.
 	 * If not _set all movables are considered as inside the space.
 	 */
-	class QuerySpace
-	{
+	class QuerySpace {
 		public:
 			QuerySpace();
 			QuerySpace(const glm::vec3& center, const glm::vec3& size);

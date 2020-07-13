@@ -25,8 +25,7 @@
 #include "entity/queries/Query.hpp"
 #include "shaders/Shaders.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	const static std::string VERTEX_SHADER_PATH = "src/shaders/vertex_shader.vs";
 	const static std::string FRAGMENT_SHADER_PATH = "src/shaders/fragment_shader.fs";
 	const static double DEFAULT_SPEED = 59.54188473881952259316;
@@ -60,21 +59,18 @@ namespace visualizer
 		MouseManager::add_controller(&_controller);
 	}
 
-	Visualizer::~Visualizer()
-	{
+	Visualizer::~Visualizer() {
 		ResizeManager::remove_visualizer(this);
 		MouseManager::remove_controller(&_controller);
 	}
 
-	void Visualizer::framebuffer_size_callback(GLFWwindow*, int width, int height)
-	{
+	void Visualizer::framebuffer_size_callback(GLFWwindow*, int width, int height) {
 		_window_width = width;
 		_window_height = height;
 		glViewport(0, 0, width, height);
 	}
 
-	void Visualizer::init()
-	{
+	void Visualizer::init() {
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -82,11 +78,9 @@ namespace visualizer
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	}
 
-	std::optional<Visualizer> Visualizer::create(unsigned int window_width, unsigned int window_height, const std::string& window_name)
-	{
+	std::optional<Visualizer> Visualizer::create(unsigned int window_width, unsigned int window_height, const std::string& window_name) {
 		GLFWwindow* window = glfwCreateWindow(window_width, window_height, window_name.c_str(), NULL, NULL);
-		if (window == NULL)
-		{
+		if (window == NULL) {
 			std::cout << "failed to create window" << std::endl;
 			glfwTerminate();
 			return {};
@@ -94,8 +88,7 @@ namespace visualizer
 
 		glfwMakeContextCurrent(window);
 
-		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-		{
+		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 			std::cout << "Failed to initialize GLAD" << std::endl;
 			return {};
 		}
@@ -108,19 +101,16 @@ namespace visualizer
 
 		std::optional<ShaderProgram> opt_shader_program = ShaderProgram::from_code(Shaders::vertex_shader(), Shaders::fragment_shader());
 
-		if (!opt_shader_program)
-		{
+		if (!opt_shader_program) {
 			return {};
 		}
 
 		return Visualizer(window, *opt_shader_program, window_width, window_height);
 	}
 
-	double Visualizer::get_delta_time()
-	{
+	double Visualizer::get_delta_time() {
 		double delta_time = 0.0;
-		if (_last_frame_time == 0.0)
-		{
+		if (_last_frame_time == 0.0) {
 			glfwSetTime(0.0);
 		} else {
 			delta_time = glfwGetTime() - _last_frame_time;
@@ -129,21 +119,18 @@ namespace visualizer
 		return delta_time;
 	}
 
-	void Visualizer::tick()
-	{
+	void Visualizer::tick() {
 		const double speed = get_delta_time() * DEFAULT_SPEED;
 
 		_controller.process_user_input(_window, &_camera);
 		_camera.tick(speed);
 
-		for (Movable& m : *this)
-		{
+		for (Movable& m : *this) {
 			m.tick(speed);
 		}
 	}
 
-	void Visualizer::render()
-	{
+	void Visualizer::render() {
 		clear_window();
 		_shader_program.use();
 		_shader_program.set_4fv("view", _camera.get_look_at());
@@ -152,8 +139,7 @@ namespace visualizer
 												0.1f, 600.f);
 		_shader_program.set_4fv("projection", projection);
 
-		for (const Movable& m : *this)
-		{
+		for (const Movable& m : *this) {
 			m.render(_shader_program);
 		}
 
@@ -161,13 +147,11 @@ namespace visualizer
 		glfwPollEvents();
 	}
 
-	void Visualizer::create_entities(const Creation& creation)
-	{
+	void Visualizer::create_entities(const Creation& creation) {
 		_entities.insert(creation.create());
 	}
 
-	void Visualizer::close()
-	{
+	void Visualizer::close() {
 		visualizer::MouseManager::clear();
 		ResizeManager::clear_visualizers();
 		g_shape_heap.close();
@@ -175,44 +159,36 @@ namespace visualizer
 		glfwTerminate();
 	}
 
-	bool Visualizer::should_close() const
-	{
+	bool Visualizer::should_close() const {
 		return glfwWindowShouldClose(_window);
 	}
 
-	double Visualizer::get_time() const
-	{
+	double Visualizer::get_time() const {
 		return glfwGetTime();
 	}
 
-	EntityBuffer& Visualizer::get_entities()
-	{
+	EntityBuffer& Visualizer::get_entities() {
 		return _entities;
 	}
 
-	EntityIterator Visualizer::begin()
-	{
+	EntityIterator Visualizer::begin() {
 		return EntityIterator(_entities.begin(),
 							  _entities.begin()->second.begin());
 	}
 
-	EntityIterator Visualizer::end()
-	{
+	EntityIterator Visualizer::end() {
 		return EntityIterator(_entities.end(), {});
 	}
 
-	EntityReferences Visualizer::query_entities(const Query& query)
-	{
+	EntityReferences Visualizer::query_entities(const Query& query) {
 		EntityReferences entity_references;
-		if (query.get_groups().empty())
-		{
+		if (query.get_groups().empty()) {
 			for (auto iter = _entities.begin(); iter != _entities.end(); ++iter)
 				for (Movable& m : iter->second)
 					if (query.entity_included(m))
 						entity_references.push_back(&m);
 		} else {
-			for (const std::string& group : query.get_groups())
-			{
+			for (const std::string& group : query.get_groups()) {
 				std::vector<Movable>& movables = _entities[group];
 				for (Movable& m : movables)
 					entity_references.push_back(&m);
@@ -222,8 +198,7 @@ namespace visualizer
 		return entity_references;
 	}
 
-	void Visualizer::clear_window()
-	{
+	void Visualizer::clear_window() {
 			glClearColor(0.05f, 0.07f, 0.08f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}

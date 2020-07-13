@@ -3,8 +3,7 @@
 #include "../../misc/Math.hpp"
 #include "../Movable.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	QuerySpace::QuerySpace()
 		: _set(false), _center(0.f, 0.f, 0.f), _size(0.f, 0.f, 0.f)
 	{}
@@ -13,8 +12,7 @@ namespace visualizer
 		: _center(center), _size(size), _set(true)
 	{}
 
-	bool QuerySpace::is_position_included(const glm::vec3& position) const
-	{
+	bool QuerySpace::is_position_included(const glm::vec3& position) const {
 		if (!_set) { return true; }
 		return math::is_included(position, _center, _size);
 	}

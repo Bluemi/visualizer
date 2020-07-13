@@ -3,12 +3,10 @@
 
 #include <vector>
 
-namespace visualizer
-{
+namespace visualizer {
 	class Movable;
 
-	class PlainForce
-	{
+	class PlainForce {
 		public:
 			PlainForce(float strength);
 

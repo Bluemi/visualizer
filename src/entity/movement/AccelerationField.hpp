@@ -5,12 +5,10 @@
 
 #include "../../misc/PerlinNoise.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	class Movable;
 
-	class AccelerationField
-	{
+	class AccelerationField {
 		public:
 			AccelerationField();
 

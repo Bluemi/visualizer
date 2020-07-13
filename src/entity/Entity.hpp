@@ -7,10 +7,8 @@
 #include "../shape/ShapeSpecification.hpp"
 #include "../ShaderProgram.hpp"
 
-namespace visualizer
-{
-	class Entity
-	{
+namespace visualizer {
+	class Entity {
 		public:
 			Entity(const Shape& shape);
 

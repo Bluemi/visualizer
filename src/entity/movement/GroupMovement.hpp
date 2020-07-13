@@ -12,8 +12,7 @@
 #include "PlainForce.hpp"
 #include "RandomPaths.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	using _GroupMovementVar = std::variant<Circle,
 		  								   AccelerationField,
 										   VelocityDrag,
@@ -21,8 +20,7 @@ namespace visualizer
 										   PlainForce,
 										   RandomPaths>;
 
-	class GroupMovement
-	{
+	class GroupMovement {
 		public:
 			GroupMovement(const _GroupMovementVar& movement);
 			void with_groups(const std::vector<std::string>& groups);
@@ -30,18 +28,14 @@ namespace visualizer
 			void apply_to(EntityBuffer* entity_buffer);
 
 			template<typename GroupMovementType>
-			static void apply_group_movement_to(EntityBuffer* entity_buffer, GroupMovementType& movement, const std::vector<std::string>& groups)
-			{
-				if (groups.empty())
-				{
-					for (auto iter = entity_buffer->begin(); iter != entity_buffer->end(); ++iter)
-					{
+			static void apply_group_movement_to(EntityBuffer* entity_buffer, GroupMovementType& movement, const std::vector<std::string>& groups) {
+				if (groups.empty()) {
+					for (auto iter = entity_buffer->begin(); iter != entity_buffer->end(); ++iter) {
 						std::vector<Movable>& movables = iter->second;
 						movement.apply_force(movables);
 					}
 				} else {
-					for (const std::string& group : groups)
-					{
+					for (const std::string& group : groups) {
 						std::vector<Movable>& movables = entity_buffer->at(group);
 						movement.apply_force(movables);
 					}

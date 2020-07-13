@@ -4,10 +4,8 @@
 class GLFWwindow;
 class Visualizer;
 
-namespace visualizer
-{
-	namespace ResizeManager
-	{
+namespace visualizer {
+	namespace ResizeManager {
 		void init(GLFWwindow* window);
 		void add_visualizer(Visualizer* visualizer);
 		void remove_visualizer(Visualizer* visualizer);

@@ -3,10 +3,8 @@
 
 #include "EntityBuffer.hpp"
 
-namespace visualizer
-{
-	class EntityIterator
-	{
+namespace visualizer {
+	class EntityIterator {
 		public:
 			EntityIterator(const EntityBuffer::iterator& map_iterator, const std::vector<Movable>::iterator& vektor_iterator);
 			void operator++();

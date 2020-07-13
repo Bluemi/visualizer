@@ -3,8 +3,7 @@
 
 #include <variant>
 
-namespace visualizer
-{
+namespace visualizer {
 	class Shape;
 
 	/**
@@ -12,8 +11,7 @@ namespace visualizer
 	 * No polymorphism intended.
 	 */
 	template<typename Specification>
-	class SpecificationOperators
-	{
+	class SpecificationOperators {
 		public:
 			bool operator==(const Specification&) const { return true; }
 			bool operator<(const Specification&) const { return false; }
@@ -24,8 +22,7 @@ namespace visualizer
 
 	class CubeSpecification : public SpecificationOperators<CubeSpecification> {};
 
-	class SphereSpecification : public SpecificationOperators<SphereSpecification>
-	{
+	class SphereSpecification : public SpecificationOperators<SphereSpecification> {
 		public:
 			SphereSpecification(unsigned int fineness);
 			bool operator==(const SphereSpecification& spec) const;
@@ -37,8 +34,7 @@ namespace visualizer
 
 	using ShapeSpecification = std::variant<CubeSpecification, SphereSpecification>;
 
-	namespace initialize
-	{
+	namespace initialize {
 		Shape create_shape(const ShapeSpecification& spec);
 	}
 }

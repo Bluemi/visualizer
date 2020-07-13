@@ -8,10 +8,8 @@
 #include "movement/Movement.hpp"
 #include "../shape/ShapeSpecification.hpp"
 
-namespace visualizer
-{
-	class Movable
-	{
+namespace visualizer {
+	class Movable {
 		public:
 			Movable(const Shape& shape);
 

@@ -7,13 +7,11 @@
 #include "../misc/Types.hpp"
 #include "ShapeSpecification.hpp"
 
-namespace visualizer
-{
+namespace visualizer {
 	/**
 	 * An Attribute defining the size in number of floats and the type of vertices.
 	 */
-	struct Attribute
-	{
+	struct Attribute {
 		Attribute(n_floats s, unsigned int t)
 			: size(s), type(t)
 		{}
@@ -35,8 +33,7 @@ namespace visualizer
 	 *   - Attributepointers
 	 *   - An ShapeSpecification
 	 */
-	class Shape
-	{
+	class Shape {
 		public:
 			/**
 			 * Deletes all used buffers of this Shape.

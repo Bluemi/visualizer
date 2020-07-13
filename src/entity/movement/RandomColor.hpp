@@ -4,10 +4,8 @@
 #include "../creation/VectorGenerator.hpp"
 #include "IMovement.hpp"
 
-namespace visualizer
-{
-	class RandomColor : public IMovementCloneable<RandomColor>
-	{
+namespace visualizer {
+	class RandomColor : public IMovementCloneable<RandomColor> {
 		public:
 			RandomColor(const VectorGenerator& color_gen);
 
