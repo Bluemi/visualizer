@@ -29,8 +29,7 @@ namespace visualizer {
 		  _window_width(window_width),
 		  _window_height(window_height)
 	{
-		ResizeManager::init(_window);
-		ResizeManager::add_visualizer(this);
+		resizing::init(_window);
 
 		visualizer::MouseManager::init(_window);
 		visualizer::MouseManager::add_controller(&_controller);
@@ -45,15 +44,14 @@ namespace visualizer {
 		  _window_width(v._window_width),
 		  _window_height(v._window_height)
 	{
-		ResizeManager::add_visualizer(this);
 		MouseManager::add_controller(&_controller);
 	}
 
 	Visualizer::~Visualizer() {
-		ResizeManager::remove_visualizer(this);
 		MouseManager::remove_controller(&_controller);
 	}
 
+	// todo
 	void Visualizer::framebuffer_size_callback(GLFWwindow*, int width, int height) {
 		_window_width = width;
 		_window_height = height;
@@ -131,7 +129,6 @@ namespace visualizer {
 
 	void Visualizer::close() {
 		visualizer::MouseManager::clear();
-		ResizeManager::clear_visualizers();
 		g_shape_heap.close();
 
 		glfwTerminate();
@@ -146,7 +143,19 @@ namespace visualizer {
 	}
 
 	void Visualizer::clear_window() {
-			glClearColor(0.05f, 0.07f, 0.08f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.05f, 0.07f, 0.08f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void init() {
+		glfwInit();
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	}
+
+	void close() {
+		glfwTerminate();
 	}
 }

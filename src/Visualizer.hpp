@@ -42,6 +42,10 @@ namespace visualizer {
 			unsigned int _window_width;
 			unsigned int _window_height;
 	};
+
+	void init();
+	void clear_window();
+	void close();
 }
 
 #endif

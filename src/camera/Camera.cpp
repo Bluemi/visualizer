@@ -10,14 +10,10 @@ namespace visualizer {
 	const float Camera::CAMERA_ROTATE_SPEED = 0.1f;
 	const float Camera::CAMERA_DRAG = 0.78f;
 
-	void print_vec(const std::string& name, const glm::vec3& v) {
-		std::cout << name << ": (" << v.x << "," << v.y << "," << v.z << ")" << std::endl;
-	}
-
-	Camera::Camera() {}
+	Camera::Camera() : _position(0.f), _pitch(0.f), _yaw(0.f), _speed(0.f), _acceleration(0.f) {}
 
 	Camera::Camera(const glm::vec3 &position, const float pitch, const float yaw)
-		: _position(position), _pitch(pitch), _yaw(yaw), _speed(), _acceleration()
+		: _position(position), _pitch(pitch), _yaw(yaw), _speed(0.f), _acceleration(0.f)
 	{}
 
 	void Camera::tick(const double speed) {
