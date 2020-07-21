@@ -5,12 +5,7 @@
 
 #include "controller/Controller.hpp"
 #include "camera/Camera.hpp"
-#include "entity/EntityBuffer.hpp"
-#include "entity/EntityReferences.hpp"
-#include "entity/queries/Query.hpp"
-#include "entity/movement/GroupMovement.hpp"
 #include "ShaderProgram.hpp"
-#include "entity/EntityIterator.hpp"
 
 namespace visualizer {
 	class Creation;
@@ -31,12 +26,6 @@ namespace visualizer {
 
 			double get_time() const;
 
-			void create_entities(const Creation& creation);
-			EntityBuffer& get_entities();
-			EntityIterator begin();
-			EntityIterator end();
-			EntityReferences query_entities(const Query& query);
-
 			void framebuffer_size_callback(GLFWwindow*, int width, int height);
 		private:
 			double get_delta_time();
@@ -45,8 +34,6 @@ namespace visualizer {
 			Controller _controller;
 			Camera _camera;
 			ShaderProgram _shader_program;
-
-			EntityBuffer _entities;
 
 			GLFWwindow* _window;
 

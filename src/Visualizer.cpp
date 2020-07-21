@@ -14,15 +14,6 @@
 #include "shape/ShapeHeap.hpp"
 #include "controller/MouseManager.hpp"
 #include "controller/ResizeManager.hpp"
-#include "entity/Movable.hpp"
-#include "entity/movement/SetSpeed.hpp"
-#include "entity/movement/GotoCamera.hpp"
-#include "entity/movement/SeekTargets.hpp"
-#include "entity/movement/SimpleDrag.hpp"
-#include "entity/movement/Circle.hpp"
-#include "entity/movement/RandomAcceleration.hpp"
-#include "entity/creation/Creation.hpp"
-#include "entity/queries/Query.hpp"
 #include "shaders/Shaders.hpp"
 
 namespace visualizer {
@@ -49,7 +40,6 @@ namespace visualizer {
 		: _controller(v._controller),
 		  _camera(v._camera),
 		  _shader_program(v._shader_program),
-		  _entities(v._entities),
 		  _window(v._window),
 		  _last_frame_time(v._last_frame_time),
 		  _window_width(v._window_width),
@@ -124,10 +114,6 @@ namespace visualizer {
 
 		_controller.process_user_input(_window, &_camera);
 		_camera.tick(speed);
-
-		for (Movable& m : *this) {
-			m.tick(speed);
-		}
 	}
 
 	void Visualizer::render() {
@@ -139,16 +125,8 @@ namespace visualizer {
 												0.1f, 600.f);
 		_shader_program.set_4fv("projection", projection);
 
-		for (const Movable& m : *this) {
-			m.render(_shader_program);
-		}
-
 		glfwSwapBuffers(_window);
 		glfwPollEvents();
-	}
-
-	void Visualizer::create_entities(const Creation& creation) {
-		_entities.insert(creation.create());
 	}
 
 	void Visualizer::close() {
@@ -165,37 +143,6 @@ namespace visualizer {
 
 	double Visualizer::get_time() const {
 		return glfwGetTime();
-	}
-
-	EntityBuffer& Visualizer::get_entities() {
-		return _entities;
-	}
-
-	EntityIterator Visualizer::begin() {
-		return EntityIterator(_entities.begin(),
-							  _entities.begin()->second.begin());
-	}
-
-	EntityIterator Visualizer::end() {
-		return EntityIterator(_entities.end(), {});
-	}
-
-	EntityReferences Visualizer::query_entities(const Query& query) {
-		EntityReferences entity_references;
-		if (query.get_groups().empty()) {
-			for (auto iter = _entities.begin(); iter != _entities.end(); ++iter)
-				for (Movable& m : iter->second)
-					if (query.entity_included(m))
-						entity_references.push_back(&m);
-		} else {
-			for (const std::string& group : query.get_groups()) {
-				std::vector<Movable>& movables = _entities[group];
-				for (Movable& m : movables)
-					entity_references.push_back(&m);
-			}
-		}
-
-		return entity_references;
 	}
 
 	void Visualizer::clear_window() {
