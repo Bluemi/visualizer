@@ -63,12 +63,12 @@ namespace visualizer {
 		if (_is_pressed[CAMERA_BOTTOM_KEY])
 			acceleration.y -= 1.f;
 
-
-		if (camera != nullptr)
+		if (camera != nullptr) {
 			camera->set_acceleration(acceleration);
 			camera->change_direction(glm::vec2(x_change, y_change));
 			x_change = 0.0;
 			y_change = 0.0;
+		}
 	}
 
 	void Controller::key_pressed(GLFWwindow* window, Key key) {

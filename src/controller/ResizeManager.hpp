@@ -10,7 +10,7 @@ namespace visualizer {
 	namespace resizing {
 		using ResizeCallbackFunction = std::function<void(int, int, GLFWwindow*)>;
 		void init(GLFWwindow* window);
-		void register_resize_callback(ResizeCallbackFunction& resize_callback_function);
+		void register_resize_callback(const ResizeCallbackFunction& resize_callback_function);
 		bool has_resizing();
 		std::pair<int, int> pop_resizings();
 	}

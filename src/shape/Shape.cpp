@@ -1,7 +1,6 @@
 #include "Shape.hpp"
 
 #include <glad/glad.h>
-#include <iostream>
 
 #include "ShapeSpecification.hpp"
 

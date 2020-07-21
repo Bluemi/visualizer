@@ -16,7 +16,7 @@ namespace visualizer {
 			glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 		}
 
-		void register_resize_callback(ResizeCallbackFunction& resize_callback_function) {
+		void register_resize_callback(const ResizeCallbackFunction& resize_callback_function) {
 			_callbacks.push_back(resize_callback_function);
 		}
 

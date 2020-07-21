@@ -9,6 +9,7 @@
 #include "shape/ShapeSpecification.hpp"
 #include "shape/ShapeHeap.hpp"
 #include "shape/ShapeType.hpp"
+#include "shape/ShapeInitializer.hpp"
 #include "ShaderProgram.hpp"
 #include "shaders/Shaders.hpp"
 #include "controller/Controller.hpp"
@@ -25,6 +26,7 @@ int main() {
 
 	visualizer::Camera camera;
 	visualizer::Controller controller;
+
 
 	GLFWwindow* window = glfwCreateWindow(window_width, window_height, "Visualizer", NULL, NULL);
 	if (window == NULL) {
@@ -50,19 +52,23 @@ int main() {
 		return 1;
 	}
 
+	visualizer::Shape shape = visualizer::initialize::cube();
+
 	visualizer::ShaderProgram shader_program = *opt_shader_program;
 
 	visualizer::resizing::init(window);
+	visualizer::resizing::register_resize_callback([&window_width, &window_height](int ww, int wh, GLFWwindow* w){ window_width=ww; window_height = wh; glViewport(0, 0, window_width, window_height); });
 
 	// TODO
 	// visualizer::MouseManager::init(window);
 	// visualizer::MouseManager::add_controller(&_controller);
 
+	glClearColor(0.05f, 0.07f, 0.08f, 1.0f);
 	while (!glfwWindowShouldClose(window)) {
-		glClearColor(0.05f, 0.07f, 0.08f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		controller.process_user_input(window, &camera);
+		camera.tick(0.1f);
 
 		shader_program.use();
 		shader_program.set_4fv("view", camera.get_look_at());
@@ -72,8 +78,12 @@ int main() {
 			0.1f, 600.f
 		);
 		shader_program.set_4fv("projection", projection);
+		shader_program.set_4fv("model", glm::mat4(1.f));
+		shader_program.set_3f("color", glm::vec3(1.0, 0.0, 0.0));
 
-		// render object here
+		shape.bind();
+
+		glDrawArrays(GL_TRIANGLES, 0, shape.get_number_vertices());
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
