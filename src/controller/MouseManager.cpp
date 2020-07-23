@@ -1,6 +1,6 @@
 #include "MouseManager.hpp"
 
-#include "Controller.hpp"
+#include "controller.hpp"
 
 namespace visualizer {
 	namespace MouseManager {

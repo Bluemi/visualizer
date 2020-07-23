@@ -1,7 +1,7 @@
 #ifndef __SHAPETYPE_CLASS__
 #define __SHAPETYPE_CLASS__
 
-#include "ShapeSpecification.hpp"
+#include "shape_specification.hpp"
 
 namespace visualizer {
 	enum class ShapeType {

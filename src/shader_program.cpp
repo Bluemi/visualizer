@@ -1,11 +1,11 @@
-#include "ShaderProgram.hpp"
+#include "shader_program.hpp"
 
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
 
 #include <iostream>
 
-#include "Shader.hpp"
+#include "shader.hpp"
 
 namespace visualizer {
 	const unsigned int LOG_BUFFER_SIZE = 512;

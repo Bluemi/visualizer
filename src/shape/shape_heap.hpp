@@ -3,8 +3,8 @@
 
 #include <map>
 
-#include "Shape.hpp"
-#include "ShapeSpecification.hpp"
+#include "shape.hpp"
+#include "shape_specification.hpp"
 
 namespace visualizer {
 	class ShapeHeap {

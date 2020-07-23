@@ -1,10 +1,10 @@
-#include "ResizeManager.hpp"
+#include "events.hpp"
 
 #include <deque>
 
 #include <GLFW/glfw3.h>
 
-#include "../Visualizer.hpp"
+#include "../visualizer.hpp"
 
 namespace visualizer {
 	namespace resizing {

@@ -1,4 +1,4 @@
-#include "Shaders.hpp"
+#include "shaders.hpp"
 
 /*
  * This define is used to embed the shader code into the executable

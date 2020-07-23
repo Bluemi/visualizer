@@ -4,8 +4,8 @@
 #include <vector>
 #include <variant>
 
-#include "../misc/Types.hpp"
-#include "ShapeSpecification.hpp"
+#include "../misc/types.hpp"
+#include "shape_specification.hpp"
 
 namespace visualizer {
 	/**

@@ -1,10 +1,10 @@
-#include "Controller.hpp"
+#include "controller.hpp"
 
 #include <iostream>
 
 #include <GLFW/glfw3.h>
 
-#include "../camera/Camera.hpp"
+#include "../camera/camera.hpp"
 
 namespace visualizer {
 	const Key Controller::CAMERA_FORWARD_KEY = GLFW_KEY_W;

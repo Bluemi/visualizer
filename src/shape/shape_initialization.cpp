@@ -1,11 +1,11 @@
-#include "ShapeInitializer.hpp"
+#include "shape_initialization.hpp"
 
 #include <iostream>
 #include <cstring>
 #include <glm/glm.hpp>
 
-#include "Shape.hpp"
-#include "../misc/Types.hpp"
+#include "shape.hpp"
+#include "../misc/types.hpp"
 
 namespace visualizer {
 	namespace initialize {

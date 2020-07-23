@@ -1,6 +1,6 @@
-#include "ShapeSpecification.hpp"
+#include "shape_specification.hpp"
 
-#include "ShapeInitializer.hpp"
+#include "shape_initialization.hpp"
 
 namespace visualizer {
 	SphereSpecification::SphereSpecification(unsigned int fineness)

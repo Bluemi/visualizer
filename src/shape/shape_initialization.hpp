@@ -4,7 +4,7 @@
 #include <map>
 #include <variant>
 
-#include "Shape.hpp"
+#include "shape.hpp"
 
 namespace visualizer {
 	namespace initialize {

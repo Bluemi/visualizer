@@ -1,4 +1,4 @@
-#include "Visualizer.hpp"
+#include "visualizer.hpp"
 
 #include <iostream>
 #include <cmath>
@@ -10,11 +10,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "shape/ShapeInitializer.hpp"
-#include "shape/ShapeHeap.hpp"
+#include "shape/shape_initialization.hpp"
+#include "shape/shape_heap.hpp"
 #include "controller/MouseManager.hpp"
-#include "controller/ResizeManager.hpp"
-#include "shaders/Shaders.hpp"
+#include "controller/events.hpp"
+#include "shaders/shaders.hpp"
 
 namespace visualizer {
 	const static std::string VERTEX_SHADER_PATH = "src/shaders/vertex_shader.vs";

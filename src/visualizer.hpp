@@ -3,9 +3,9 @@
 
 #include <optional>
 
-#include "controller/Controller.hpp"
-#include "camera/Camera.hpp"
-#include "ShaderProgram.hpp"
+#include "controller/controller.hpp"
+#include "camera/camera.hpp"
+#include "shader_program.hpp"
 
 namespace visualizer {
 	class Creation;

@@ -1,8 +1,8 @@
-#include "Shape.hpp"
+#include "shape.hpp"
 
 #include <glad/glad.h>
 
-#include "ShapeSpecification.hpp"
+#include "shape_specification.hpp"
 
 namespace visualizer {
 	const Attribute Shape::PositionAttribute(3, GL_FLOAT);

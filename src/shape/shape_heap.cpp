@@ -1,6 +1,6 @@
-#include "ShapeHeap.hpp"
+#include "shape_heap.hpp"
 
-#include "ShapeInitializer.hpp"
+#include "shape_initialization.hpp"
 
 namespace visualizer {
 	ShapeHeap g_shape_heap;

@@ -5,17 +5,17 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "Visualizer.hpp"
-#include "shape/ShapeSpecification.hpp"
-#include "shape/ShapeHeap.hpp"
-#include "shape/ShapeType.hpp"
-#include "shape/ShapeInitializer.hpp"
-#include "ShaderProgram.hpp"
-#include "shaders/Shaders.hpp"
-#include "controller/Controller.hpp"
-#include "controller/ResizeManager.hpp"
+#include "visualizer.hpp"
+#include "shape/shape_specification.hpp"
+#include "shape/shape_heap.hpp"
+#include "shape/shape_type.hpp"
+#include "shape/shape_initialization.hpp"
+#include "shader_program.hpp"
+#include "shaders/shaders.hpp"
+#include "controller/controller.hpp"
+#include "controller/events.hpp"
 #include "controller/MouseManager.hpp"
-#include "camera/Camera.hpp"
+#include "camera/camera.hpp"
 
 
 int main() {
