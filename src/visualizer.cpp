@@ -12,7 +12,6 @@
 
 #include "shape/shape_initialization.hpp"
 #include "shape/shape_heap.hpp"
-#include "controller/MouseManager.hpp"
 #include "controller/events.hpp"
 #include "shaders/shaders.hpp"
 
@@ -29,10 +28,7 @@ namespace visualizer {
 		  _window_width(window_width),
 		  _window_height(window_height)
 	{
-		resizing::init(_window);
-
-		visualizer::MouseManager::init(_window);
-		visualizer::MouseManager::add_controller(&_controller);
+		events::init(_window);
 	}
 
 	Visualizer::Visualizer(const Visualizer& v)
@@ -43,13 +39,9 @@ namespace visualizer {
 		  _last_frame_time(v._last_frame_time),
 		  _window_width(v._window_width),
 		  _window_height(v._window_height)
-	{
-		MouseManager::add_controller(&_controller);
-	}
+	{}
 
-	Visualizer::~Visualizer() {
-		MouseManager::remove_controller(&_controller);
-	}
+	Visualizer::~Visualizer() {}
 
 	// todo
 	void Visualizer::framebuffer_size_callback(GLFWwindow*, int width, int height) {
@@ -128,7 +120,6 @@ namespace visualizer {
 	}
 
 	void Visualizer::close() {
-		visualizer::MouseManager::clear();
 		g_shape_heap.close();
 
 		glfwTerminate();

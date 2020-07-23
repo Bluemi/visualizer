@@ -14,7 +14,6 @@
 #include "shaders/shaders.hpp"
 #include "controller/controller.hpp"
 #include "controller/events.hpp"
-#include "controller/MouseManager.hpp"
 #include "camera/camera.hpp"
 
 
@@ -56,12 +55,10 @@ int main() {
 
 	visualizer::ShaderProgram shader_program = *opt_shader_program;
 
-	visualizer::resizing::init(window);
-	visualizer::resizing::register_resize_callback([&window_width, &window_height](int ww, int wh, GLFWwindow* w){ window_width=ww; window_height = wh; glViewport(0, 0, window_width, window_height); });
+	visualizer::events::init(window);
+	visualizer::events::register_resize_callback([&window_width, &window_height](int ww, int wh){ window_width=ww; window_height = wh; glViewport(0, 0, window_width, window_height); });
 
-	// TODO
-	// visualizer::MouseManager::init(window);
-	// visualizer::MouseManager::add_controller(&_controller);
+	visualizer::events::register_mouse_callback([&controller](double x, double y) { controller.mouse_callback(x, y); });
 
 	glClearColor(0.05f, 0.07f, 0.08f, 1.0f);
 	while (!glfwWindowShouldClose(window)) {
