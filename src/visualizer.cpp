@@ -33,6 +33,10 @@ namespace visualizer {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
+	bool should_close(GLFWwindow* window) {
+		return glfwWindowShouldClose(window);
+	}
+
 	void init() {
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);

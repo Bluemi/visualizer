@@ -10,6 +10,7 @@
 namespace visualizer {
 	void init();
 	GLFWwindow* create_window(int width, int height);
+	bool should_close(GLFWwindow* window);
 	void clear_window();
 	void close();
 }
