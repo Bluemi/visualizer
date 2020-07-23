@@ -18,8 +18,6 @@ namespace visualizer {
 		private:
 			std::map<ShapeSpecification, Shape*> _shapes;
 	};
-
-	extern ShapeHeap g_shape_heap;
 }
 
 #endif

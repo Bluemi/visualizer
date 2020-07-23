@@ -3,10 +3,7 @@
 #include "shape_initialization.hpp"
 
 namespace visualizer {
-	ShapeHeap g_shape_heap;
-
-	ShapeHeap::ShapeHeap()
-	{}
+	ShapeHeap::ShapeHeap() {}
 
 	ShapeHeap::~ShapeHeap() {
 		close();

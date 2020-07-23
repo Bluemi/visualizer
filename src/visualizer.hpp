@@ -9,6 +9,7 @@
 
 namespace visualizer {
 	void init();
+	GLFWwindow* create_window(int width, int height);
 	void clear_window();
 	void close();
 }

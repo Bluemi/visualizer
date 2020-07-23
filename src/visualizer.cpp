@@ -1,6 +1,5 @@
 #include "visualizer.hpp"
 
-#include <iostream>
 #include <cmath>
 #include <string>
 
@@ -8,6 +7,27 @@
 #include <GLFW/glfw3.h>
 
 namespace visualizer {
+	GLFWwindow* create_window(int width, int height) {
+		GLFWwindow* window = glfwCreateWindow(width, height, "Visualizer", NULL, NULL);
+		if (window == NULL) {
+			glfwTerminate();
+			return NULL;
+		}
+
+		glfwMakeContextCurrent(window);
+
+		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+			return NULL;
+		}
+
+		glViewport(0, 0, width, height);
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+		glEnable(GL_DEPTH_TEST);
+
+		return window;
+	}
+
 	void clear_window() {
 		glClearColor(0.05f, 0.07f, 0.08f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
