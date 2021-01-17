@@ -8,7 +8,7 @@
 
 namespace visualizer {
 	GLFWwindow* create_window(int width, int height) {
-		GLFWwindow* window = glfwCreateWindow(width, height, "Visualizer", NULL, NULL);
+		GLFWwindow* window = glfwCreateWindow(width, height, "Visualizer", glfwGetPrimaryMonitor(), NULL);
 		if (window == NULL) {
 			glfwTerminate();
 			return NULL;
